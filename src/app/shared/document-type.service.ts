@@ -52,8 +52,8 @@ getBaseUrl()
     getAll(){
       return this.http.get(this.BaseURI+'/GetDocumentTypes');
     }
-    getAllCardAppDoc(appId){
-      return this.http.get(this.BaseURI+'/GetAllCardAppDoc?appId='+appId);
+    getAllCardAppDoc(appId,historyId){
+      return this.http.get(this.BaseURI+'/GetAllCardAppDoc?appId='+appId+'&historyId='+historyId);
     }
 
     delete(id){

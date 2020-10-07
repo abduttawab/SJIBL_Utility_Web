@@ -62,6 +62,7 @@ export class CardAppDocComponent implements OnInit {
       Details : "",
       CardAppDocId : obj.cardAppDocId,
       DocumentTypeId : obj.documentTypeId,
+      ApplicationStageId : obj.applicationStageId,
       CardApplicationDataId :this.CardApplicationId,
       DocumentPath : event.dbPath
     };
@@ -86,14 +87,14 @@ export class CardAppDocComponent implements OnInit {
   this._location.back();
 }
   getData(){
-    this.service.getAllCardAppDoc(this.CardApplicationId).subscribe(
+    this.service.getAllCardAppDoc(this.CardApplicationId,this.historyId).subscribe(
       (res:any) =>{
  
   
       this.DocTypes=res.data;
       },
       err =>{
-        this.router.navigate(["/home/newapplications"]);
+        this.goBack();
         console.log(err);
       }
     );
