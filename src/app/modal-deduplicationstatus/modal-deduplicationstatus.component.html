@@ -1,0 +1,103 @@
+<form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+<div class="modal-header">
+    <h4 class="modal-title">{{my_modal_title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input formControlName="HistoryId" value="{{historyId}}" type="hidden">
+
+ 
+
+<!-- IRMD- Desk Officer -->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==2">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Recommended">Recommended</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
+<!-- IRMD- Unit In-charge -->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==3">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Recommended">Recommended</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
+
+<!-- IRMD- Divisional Head -->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==4">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Recommended">Recommended</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
+
+<!-- DMD -->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==5">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Recommended">Recommended</option>
+    <option value="Approved">Approved</option>
+    <option value="Declined">Declined</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
+<!-- AMD -->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==6">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Recommended">Recommended</option>
+    <option value="Approved">Approved</option>
+    <option value="Declined">Declined</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
+<!-- MD -->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==7">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Approved">Approved</option>
+    <option value="Declined">Declined</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
+      <div class="form-group">
+        <label for="Remarks">Remarks</label>
+
+        <input type="text" class="form-control" formControlName="Remarks" placeholder="Enter Remarks">
+        <label class="text-danger" *ngIf="service.formModel.get('Remarks').touched
+           && service.formModel.get('Remarks').errors?.required">This field is mandatory.</label>
+        <label class="text-danger" *ngIf="service.formModel.get('Remarks').touched
+           && service.formModel.get('Remarks').errors?.maxlength">Maximum 50 characters required.</label>
+
+      </div>
+  
+  </div>
+  <div class="modal-footer">
+     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+        <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+        [disabled]="!service.formModel.valid">Submit</button>
+  </div>
+</form>

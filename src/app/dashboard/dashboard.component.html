@@ -1,0 +1,102 @@
+<div class="page-title-box">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <h4 class="page-title">Dashboard</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Welcome to Investment Document Process Automation System</li>
+            </ol>
+        </div>
+        <div class="col-sm-6">
+            <!-- <div class="float-right d-none d-md-block">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle arrow-none waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-settings mr-2"></i> Settings</button>
+                    <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Separated link</a></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+  <!-- end row -->
+  <div class="row">
+      <div class="col-xl-3 col-md-6">
+          <div class="card mini-stat bg-primary text-white">
+              <div class="card-body">
+                  <div class="mb-4">
+                      <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/01.png" alt=""></div>
+                      <h5 class="font-16 text-uppercase mt-0 text-white-50">New Applications</h5>
+                      <h4 class="font-500">{{dashboardVM.totalNewApp}}<i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                   
+                  </div>
+                  <div class="pt-2">
+                      <div class="float-right"><a routerLink="/home/newapplications" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a></div>
+                      <p class="text-white-50 mb-0">Since last month</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+          <div class="card mini-stat bg-primary text-white">
+              <div class="card-body">
+                  <div class="mb-4">
+                      <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/02.png" alt=""></div>
+                      <h5 class="font-16 text-uppercase mt-0 text-white-50">IRMD</h5>
+                      <h4 class="font-500">{{dashboardVM.totalIRMD}} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                      <!-- <div class="mini-stat-label bg-danger">
+                          <p class="mb-0">- 28%</p>
+                      </div> -->
+                  </div>
+                  <div class="pt-2">
+                      <div class="float-right">
+                          <!-- <a routerLink="/home/" class="text-white-50">
+                            <i class="mdi mdi-arrow-right h5"></i>
+                        </a> -->
+                    
+                    </div>
+                      <p class="text-white-50 mb-0">Since last month</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+          <div class="card mini-stat bg-primary text-white">
+              <div class="card-body">
+                  <div class="mb-4">
+                      <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/03.png" alt=""></div>
+                      <h5 class="font-16 text-uppercase mt-0 text-white-50">Management</h5>
+                      <h4 class="font-500">{{dashboardVM.totalMang}} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                    
+                  </div>
+                  <div class="pt-2">
+                      <div class="float-right">
+                          <!-- <a routerLink="/home/creditAnalysisStage" class="text-white-50">
+                            <i class="mdi mdi-arrow-right h5"></i></a> -->
+                        </div>
+                      <p class="text-white-50 mb-0">Since last month</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+          <div class="card mini-stat bg-primary text-white">
+              <div class="card-body">
+                  <div class="mb-4">
+                      <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/04.png" alt=""></div>
+                      <h5 class="font-16 text-uppercase mt-0 text-white-50">Board</h5>
+                      <h4 class="font-500">{{dashboardVM.totalBoard}} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                      <!-- <div class="mini-stat-label bg-warning">
+                          <p class="mb-0">+ 84%</p>
+                      </div> -->
+                  </div>
+                  <div class="pt-2">
+                      <div class="float-right">
+                          <!-- <a routerLink="/home/cardOperationStage" class="text-white-50">
+                            <i class="mdi mdi-arrow-right h5"></i></a> -->
+                        </div>
+                      <p class="text-white-50 mb-0">Since last month</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- end row -->

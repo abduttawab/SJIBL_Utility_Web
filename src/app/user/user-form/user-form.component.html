@@ -1,0 +1,74 @@
+<form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+  <div class="modal-header">
+      <h4 class="modal-title">{{my_modal_title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+   
+ 
+        <div class="form-group">
+          <label>Employee Id</label>
+  
+          <input type="text" class="form-control" (blur)="getEmployeeId()" formControlName="UserName"
+          placeholder="Enter Employee Id">
+           <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
+           && service.formModel.get('UserName').errors?.required">This field is mandatory.</label>
+          <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
+                  && service.formModel.get('UserName').errors?.maxlength">Maximum 30 characters
+            required.</label>
+   
+
+    <span *ngIf="EmployeeInfo">
+      <label class="text-info">{{EmployeeInfo.name}} ({{EmployeeInfo.designation}})</label>
+      
+    </span>
+        </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input formControlName="FullName" class="form-control" type="text">
+          <label class="text-danger" *ngIf="service.formModel.get('FullName').touched &&
+           service.formModel.get('FullName').errors?.required">This field is mandatory.</label>
+        </div>
+     
+        <div class="form-group">
+          <label>Email</label>
+          <input formControlName="Email" class="form-control" type="text">
+          <label class="text-danger" *ngIf="service.formModel.get('Email').touched &&
+           service.formModel.get('Email').errors?.required">This field is mandatory.</label>
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <select class="form-control" formControlName="Role">
+          
+            <option *ngFor="let role of RoleList; let i = index" [value]="RoleList[i].normalizedName">
+              {{RoleList[i].name}} 
+            </option>
+          </select>
+          <label class="text-danger" *ngIf="service.formModel.get('Role').touched &&
+           service.formModel.get('Role').errors?.required">This field is mandatory.</label>
+        </div>
+        <div formGroupName="Passwords">
+          <div class="form-group required">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="Password">
+            <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">This field is mandatory.</label>
+            <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum 4 characters required.</label>
+          </div>
+          <div class="form-group required">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" formControlName="ConfirmPassword">
+            <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
+            <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
+          </div>
+        </div>
+    
+    
+    </div>
+    <div class="modal-footer">
+       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+          [disabled]="!service.formModel.valid">Submit</button>
+    </div>
+  </form>

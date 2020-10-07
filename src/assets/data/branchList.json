@@ -1,0 +1,667 @@
+[
+   {
+      "BRANCH_CODE":"1101",
+      "BRANCH_NAME":"Khulna Branch",
+      "BRANCH_OPENING_DATE":"2007-12-06 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1102",
+      "BRANCH_NAME":"Jashore Branch",
+      "BRANCH_OPENING_DATE":"2008-10-08 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1103",
+      "BRANCH_NAME":"Kaligonj Branch",
+      "BRANCH_OPENING_DATE":"2009-12-27 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1104",
+      "BRANCH_NAME":"Kushtia Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1105",
+      "BRANCH_NAME":"Chuadanga Branch",
+      "BRANCH_OPENING_DATE":"2012-09-24 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1106",
+      "BRANCH_NAME":"Chuknagar Branch",
+      "BRANCH_OPENING_DATE":"2016-10-05 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1107",
+      "BRANCH_NAME":"Hatgopalpur Branch",
+      "BRANCH_OPENING_DATE":"2016-12-08 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1108",
+      "BRANCH_NAME":"Moheshpur Branch",
+      "BRANCH_OPENING_DATE":"2019-09-16 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1801",
+      "BRANCH_NAME":"Saidpur Branch",
+      "BRANCH_OPENING_DATE":"2008-08-11 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1802",
+      "BRANCH_NAME":"Rajshahi Branch",
+      "BRANCH_OPENING_DATE":"2008-11-05 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1803",
+      "BRANCH_NAME":"Bogura Branch",
+      "BRANCH_OPENING_DATE":"2009-10-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1804",
+      "BRANCH_NAME":"Naogaon Branch",
+      "BRANCH_OPENING_DATE":"2009-10-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1805",
+      "BRANCH_NAME":"Dinajpur Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1806",
+      "BRANCH_NAME":"Rangpur Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1807",
+      "BRANCH_NAME":"Sirajgonj Branch",
+      "BRANCH_OPENING_DATE":"1900-01-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1808",
+      "BRANCH_NAME":"Chapainawabgonj Branch",
+      "BRANCH_OPENING_DATE":"2013-11-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1809",
+      "BRANCH_NAME":"Thakurgaon Branch",
+      "BRANCH_OPENING_DATE":"2016-10-18 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1810",
+      "BRANCH_NAME":"Pabna Branch",
+      "BRANCH_OPENING_DATE":"2016-10-18 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1811",
+      "BRANCH_NAME":"Joypurhat Branch",
+      "BRANCH_OPENING_DATE":"2017-11-13 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1812",
+      "BRANCH_NAME":"Arani Bazar Branch",
+      "BRANCH_OPENING_DATE":"2019-08-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1901",
+      "BRANCH_NAME":"Beanibazar Branch",
+      "BRANCH_OPENING_DATE":"2002-03-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1902",
+      "BRANCH_NAME":"Sylhet Branch",
+      "BRANCH_OPENING_DATE":"2002-05-12 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1903",
+      "BRANCH_NAME":"Dargah Gate Branch",
+      "BRANCH_OPENING_DATE":"2004-12-19 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1904",
+      "BRANCH_NAME":"Moulvibazar Branch",
+      "BRANCH_OPENING_DATE":"2006-11-29 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1905",
+      "BRANCH_NAME":"Goalabazar Branch",
+      "BRANCH_OPENING_DATE":"2009-10-11 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1906",
+      "BRANCH_NAME":"Subidbazar Branch",
+      "BRANCH_OPENING_DATE":"2016-09-10 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"1907",
+      "BRANCH_NAME":"Hobigonj Branch",
+      "BRANCH_OPENING_DATE":"2017-12-26 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"2001",
+      "BRANCH_NAME":"Khepupara Branch",
+      "BRANCH_OPENING_DATE":"2009-11-08 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"2002",
+      "BRANCH_NAME":"Barishal Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"2003",
+      "BRANCH_NAME":"Amtoli Branch",
+      "BRANCH_OPENING_DATE":"2016-12-08 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"2004",
+      "BRANCH_NAME":"Banglabazar Branch",
+      "BRANCH_OPENING_DATE":"2018-12-19 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3001",
+      "BRANCH_NAME":"Agrabad Branch",
+      "BRANCH_OPENING_DATE":"2002-03-30 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3002",
+      "BRANCH_NAME":"Khatungonj Branch",
+      "BRANCH_OPENING_DATE":"2002-09-09 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3003",
+      "BRANCH_NAME":"Jubilee Road Branch",
+      "BRANCH_OPENING_DATE":"2006-12-24 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3004",
+      "BRANCH_NAME":"Muradpur Branch",
+      "BRANCH_OPENING_DATE":"2007-12-18 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3005",
+      "BRANCH_NAME":"Cumilla Branch",
+      "BRANCH_OPENING_DATE":"2009-11-03 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3006",
+      "BRANCH_NAME":"Ashugonj Branch",
+      "BRANCH_OPENING_DATE":"2009-11-16 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3007",
+      "BRANCH_NAME":"Nazirhat Branch",
+      "BRANCH_OPENING_DATE":"2009-12-22 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3008",
+      "BRANCH_NAME":"Chawkbazar Branch",
+      "BRANCH_OPENING_DATE":"2009-12-21 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3009",
+      "BRANCH_NAME":"Ramgonj Branch",
+      "BRANCH_OPENING_DATE":"2009-12-24 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3010",
+      "BRANCH_NAME":"Coxsbazar Branch",
+      "BRANCH_OPENING_DATE":"2009-12-29 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3011",
+      "BRANCH_NAME":"Brahmanbaria Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3012",
+      "BRANCH_NAME":"Bandartila Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3013",
+      "BRANCH_NAME":"Chowmuhani Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3014",
+      "BRANCH_NAME":"Hajigonj Branch",
+      "BRANCH_OPENING_DATE":"2011-10-23 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3015",
+      "BRANCH_NAME":"Laxmipur Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3016",
+      "BRANCH_NAME":"Feni Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3017",
+      "BRANCH_NAME":"Madunaghat Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3018",
+      "BRANCH_NAME":"WASA Moor Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3019",
+      "BRANCH_NAME":"Anderkilla Branch",
+      "BRANCH_OPENING_DATE":"2012-11-11 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3020",
+      "BRANCH_NAME":"Dattapara Branch",
+      "BRANCH_OPENING_DATE":"2013-12-09 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3021",
+      "BRANCH_NAME":"Gunabati Branch",
+      "BRANCH_OPENING_DATE":"2013-12-04 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3022",
+      "BRANCH_NAME":"Pahartoli Branch",
+      "BRANCH_OPENING_DATE":"2013-12-26 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3023",
+      "BRANCH_NAME":"Dosghoria Branch",
+      "BRANCH_OPENING_DATE":"2017-12-12 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3024",
+      "BRANCH_NAME":"Mainamati Branch",
+      "BRANCH_OPENING_DATE":"2017-12-18 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3025",
+      "BRANCH_NAME":"Halishohor Branch",
+      "BRANCH_OPENING_DATE":"2017-12-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3026",
+      "BRANCH_NAME":"Rajapur Branch",
+      "BRANCH_OPENING_DATE":"2018-10-18 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3027",
+      "BRANCH_NAME":"Samitir Bazar Branch",
+      "BRANCH_OPENING_DATE":"2018-11-18 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3028",
+      "BRANCH_NAME":"Brahmanpara Branch",
+      "BRANCH_OPENING_DATE":"2019-07-29 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"3029",
+      "BRANCH_NAME":"Mirsharai Branch",
+      "BRANCH_OPENING_DATE":"2019-12-12 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4001",
+      "BRANCH_NAME":"Dhaka Main Branch",
+      "BRANCH_OPENING_DATE":"2001-03-10 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4002",
+      "BRANCH_NAME":"Moulvi Bazar Branch, Dhaka",
+      "BRANCH_OPENING_DATE":"2001-09-09 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4003",
+      "BRANCH_NAME":"Dhanmondi Branch",
+      "BRANCH_OPENING_DATE":"2002-01-21 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4004",
+      "BRANCH_NAME":"Gulshan Branch",
+      "BRANCH_OPENING_DATE":"2002-08-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4005",
+      "BRANCH_NAME":"Foreign Exchange Branch",
+      "BRANCH_OPENING_DATE":"2003-03-11 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4006",
+      "BRANCH_NAME":"Joydevpur Chowrasta Branch",
+      "BRANCH_OPENING_DATE":"2003-04-06 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4007",
+      "BRANCH_NAME":"Kawran Bazar Branch",
+      "BRANCH_OPENING_DATE":"2004-09-26 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4008",
+      "BRANCH_NAME":"Uttara Branch",
+      "BRANCH_OPENING_DATE":"2005-10-03 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4009",
+      "BRANCH_NAME":"Bangshal Branch",
+      "BRANCH_OPENING_DATE":"2005-12-07 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4010",
+      "BRANCH_NAME":"Baipail (Depz) Branch",
+      "BRANCH_OPENING_DATE":"2005-12-26 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4011",
+      "BRANCH_NAME":"Narayangonj Branch",
+      "BRANCH_OPENING_DATE":"2005-12-28 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4012",
+      "BRANCH_NAME":"Shatmasjid Road Branch",
+      "BRANCH_OPENING_DATE":"2006-09-07 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4013",
+      "BRANCH_NAME":"Banani Branch",
+      "BRANCH_OPENING_DATE":"2006-10-08 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4014",
+      "BRANCH_NAME":"Joypara Branch",
+      "BRANCH_OPENING_DATE":"2006-12-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4015",
+      "BRANCH_NAME":"Motijheel Branch",
+      "BRANCH_OPENING_DATE":"2007-08-22 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4016",
+      "BRANCH_NAME":"Mirpur Branch",
+      "BRANCH_OPENING_DATE":"2007-10-06 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4017",
+      "BRANCH_NAME":"Savar Branch",
+      "BRANCH_OPENING_DATE":"2007-12-13 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4018",
+      "BRANCH_NAME":"Bijoynagar Branch",
+      "BRANCH_OPENING_DATE":"2008-07-16 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4019",
+      "BRANCH_NAME":"Progati Sarani Branch",
+      "BRANCH_OPENING_DATE":"2008-08-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4020",
+      "BRANCH_NAME":"Keranigonj Branch",
+      "BRANCH_OPENING_DATE":"2008-09-17 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4021",
+      "BRANCH_NAME":"Mymensingh Branch",
+      "BRANCH_OPENING_DATE":"2008-11-27 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4022",
+      "BRANCH_NAME":"Offshore Banking Unit",
+      "BRANCH_OPENING_DATE":"2008-11-27 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4023",
+      "BRANCH_NAME":"Panthapath Branch",
+      "BRANCH_OPENING_DATE":"2009-05-13 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4024",
+      "BRANCH_NAME":"College Gate Branch",
+      "BRANCH_OPENING_DATE":"2009-05-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4025",
+      "BRANCH_NAME":"Baruakhali Branch",
+      "BRANCH_OPENING_DATE":"2009-07-19 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4026",
+      "BRANCH_NAME":"Madhobdi Branch",
+      "BRANCH_OPENING_DATE":"2009-07-30 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4027",
+      "BRANCH_NAME":"Ashkona Branch",
+      "BRANCH_OPENING_DATE":"2009-09-16 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4028",
+      "BRANCH_NAME":"Barachowna Bazar Branch",
+      "BRANCH_OPENING_DATE":"2009-11-22 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4029",
+      "BRANCH_NAME":"Shafipur Branch",
+      "BRANCH_OPENING_DATE":"2009-12-30 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4030",
+      "BRANCH_NAME":"Gulshan South Avenue Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4031",
+      "BRANCH_NAME":"Tongi Sme/Agri Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4032",
+      "BRANCH_NAME":"Bhaluka Sme/Agri Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4033",
+      "BRANCH_NAME":"Eskaton Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4034",
+      "BRANCH_NAME":"Mawna Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4035",
+      "BRANCH_NAME":"Faridpur Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4036",
+      "BRANCH_NAME":"Tangail Branch",
+      "BRANCH_OPENING_DATE":"2010-06-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4037",
+      "BRANCH_NAME":"Shikarpur Nimtola Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4038",
+      "BRANCH_NAME":"Mohakhali Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4039",
+      "BRANCH_NAME":"Nawabpur Road Branch",
+      "BRANCH_OPENING_DATE":"2011-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4040",
+      "BRANCH_NAME":"Uttara Ladies Branch",
+      "BRANCH_OPENING_DATE":"2012-04-04 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4041",
+      "BRANCH_NAME":"Malibagh Chowdhurypara Branch",
+      "BRANCH_OPENING_DATE":"2012-10-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4042",
+      "BRANCH_NAME":"Haluaghat Branch",
+      "BRANCH_OPENING_DATE":"2012-10-22 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4043",
+      "BRANCH_NAME":"Karatia Branch",
+      "BRANCH_OPENING_DATE":"2012-10-22 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4044",
+      "BRANCH_NAME":"Nawabgonj Branch",
+      "BRANCH_OPENING_DATE":"2012-11-01 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4045",
+      "BRANCH_NAME":"Sarulia Branch",
+      "BRANCH_OPENING_DATE":"2012-12-04 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4046",
+      "BRANCH_NAME":"Dania Branch",
+      "BRANCH_OPENING_DATE":"2012-12-04 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4047",
+      "BRANCH_NAME":"Jamalpur Branch",
+      "BRANCH_OPENING_DATE":"2012-12-04 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4048",
+      "BRANCH_NAME":"Nagarpur Branch",
+      "BRANCH_OPENING_DATE":"2013-11-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4049",
+      "BRANCH_NAME":"Bandura Branch",
+      "BRANCH_OPENING_DATE":"2013-11-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4050",
+      "BRANCH_NAME":"Elephant Road Branch",
+      "BRANCH_OPENING_DATE":"2013-12-17 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4051",
+      "BRANCH_NAME":"Manikgonj Branch",
+      "BRANCH_OPENING_DATE":"2013-12-28 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4052",
+      "BRANCH_NAME":"Dighirpar Branch",
+      "BRANCH_OPENING_DATE":"2014-11-09 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4053",
+      "BRANCH_NAME":"Charbhadrasan Branch",
+      "BRANCH_OPENING_DATE":"2016-10-05 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4054",
+      "BRANCH_NAME":"Jurain Branch",
+      "BRANCH_OPENING_DATE":"2016-12-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4055",
+      "BRANCH_NAME":"Chalakchar Branch",
+      "BRANCH_OPENING_DATE":"2016-12-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4056",
+      "BRANCH_NAME":"Chinishpur Branch",
+      "BRANCH_OPENING_DATE":"2016-12-14 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4057",
+      "BRANCH_NAME":"Shahjalal Islami Bank Tower Branch",
+      "BRANCH_OPENING_DATE":"2017-09-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4058",
+      "BRANCH_NAME":"Ati Bazar Branch",
+      "BRANCH_OPENING_DATE":"2017-10-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4059",
+      "BRANCH_NAME":"Panchabati Branch",
+      "BRANCH_OPENING_DATE":"2017-11-06 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4060",
+      "BRANCH_NAME":"Kalihati Branch",
+      "BRANCH_OPENING_DATE":"2017-11-20 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4061",
+      "BRANCH_NAME":"Sherpur Branch",
+      "BRANCH_OPENING_DATE":"2017-11-26 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4062",
+      "BRANCH_NAME":"Baraikhali Branch",
+      "BRANCH_OPENING_DATE":"2018-10-23 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4063",
+      "BRANCH_NAME":"Bhararia Bazar Branch",
+      "BRANCH_OPENING_DATE":"2018-11-05 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4064",
+      "BRANCH_NAME":"Sheikhpur Bazar Branch",
+      "BRANCH_OPENING_DATE":"2018-11-08 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4065",
+      "BRANCH_NAME":"Taktarchala Bazar Branch",
+      "BRANCH_OPENING_DATE":"2018-11-29 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4066",
+      "BRANCH_NAME":"Sadarpur Branch",
+      "BRANCH_OPENING_DATE":"2018-12-09 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4067",
+      "BRANCH_NAME":"Basail Branch",
+      "BRANCH_OPENING_DATE":"2018-12-23 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4068",
+      "BRANCH_NAME":"Uttarkhan Branch",
+      "BRANCH_OPENING_DATE":"2019-03-24 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4069",
+      "BRANCH_NAME":"Gharishar Branch",
+      "BRANCH_OPENING_DATE":"2019-09-15 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4070",
+      "BRANCH_NAME":"Gafargaon Branch",
+      "BRANCH_OPENING_DATE":"2019-09-22 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4071",
+      "BRANCH_NAME":"Karimgonj Branch",
+      "BRANCH_OPENING_DATE":"2019-10-27 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"4072",
+      "BRANCH_NAME":"Pallabi Branch",
+      "BRANCH_OPENING_DATE":"2019-11-28 00:00:00.000"
+   },
+   {
+      "BRANCH_CODE":"7777",
+      "BRANCH_NAME":"Head Office",
+      "BRANCH_OPENING_DATE":"2001-05-09 00:00:00.000"
+   }
+]

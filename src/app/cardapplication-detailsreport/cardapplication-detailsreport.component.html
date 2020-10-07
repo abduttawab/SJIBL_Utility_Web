@@ -1,0 +1,669 @@
+      <style type="text/css">
+      .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+        .table-borders {
+          border: 1px solid !important;
+        }
+
+        .print-wrap {
+          width: 500px;
+          margin: auto;
+          /*margin-bottom: 30px;*/
+          font-family: Arial;
+          padding: 15px;
+        }
+      </style>
+
+      <section id="content">
+        <div class="container">
+
+          <div class="card">
+            <div class="row" style="margin-top: 25px;
+
+                  margin-left: 33px;">
+              <div class="col-sm-9">
+                <a class="btn btn-outline-danger" (click)="goBack()"><b>Back</b></a>
+                &nbsp;
+                <a class="btn btn-outline-warning" id="downloadbtn" (click)="generarPDF_2()"><b>Pdf</b></a>
+
+                &nbsp;
+                <a class="btn btn-outline-info" id="downloadbtn" (click)="print()"><b>Print</b></a>
+                &nbsp;
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-lg btn-primary" *ngIf="historyId"
+                 (click)="givededuplicationStatus()">Give Decision</button>
+
+              </div>
+            </div>
+            <div class="card-body card-padding row">
+
+
+
+              <div style="width: 100%;padding:10px;" id="printArea" class="print-wrap page1">
+
+
+                <div class="row" style="width: 100%;margin:0px auto 20px;border: 1px solid;padding:0px;color: #333;">
+                  <div class="col-md-2 col-sm-2">
+                  </div>
+                  <div class="col-md-7 col-sm-7 text-center">
+
+                    <h4 style="text-transform: uppercase;color: #333;margin-bottom: 0px;"><img
+                        style="width: 150px;border: none;" src="assets/images/bismillah.png" alt=""> <br />
+
+                      <img class="img-responsive" style="padding-right: 66px;width: 20%;border: none;margin-right: -51px;"
+                        src="assets/images/sjibl.jpg" alt="">Shahjalal Islami
+                      Bank Ltd.</h4>
+                    <span style="text-transform: uppercase;color: #333;">Investment Risk Management Division
+                    </span>
+                    <br />
+                    <span style="font-size: 14px;">Retail Investment</span><br />
+                    <span style="font-size: 14px;">Head Office, Dhaka</span>
+                  </div>
+                  <div class="col-md-3 col-sm-3">
+                    <span class="pull-right"></span>
+                  </div>
+                  <div class="col-md-2 col-sm-2">
+                    <span style="font-size: 14px; font-weight: bold;">Office Note:</span>
+                  </div>
+                  <div class="col-md-10 col-sm-10"></div>
+
+                  <div class="col-md-2 col-sm-2">
+                    <span style="font-size: 14px;"> Date: {{currentDate}}</span>
+
+                  </div>
+                  <div class="col-md-8 col-sm-8"></div>
+                  <div class="col-md-2 col-sm-2">
+                    <span style="font-size: 14px;"> File No. # {{cardDataObject.fileNo}}</span>
+
+                  </div><br /><br />
+
+                  <div class="col-md-12 col-sm-12"><br />
+                    <span style="font-size: 14px; font-weight: bold;"> Subject: &nbsp; Proposal for approval of a Shahjalal
+                      Islamic Bank Credit Card with limit
+                      for Tk. {{cardDataObject.proposedLimit}}
+                      (Tk. {{cardDataObject.proposedLimit | numberToWords}}
+                      or Equivalent USD)favoring A/C. {{cardDataObject.fullName}},
+                      a Client of our {{cardDataObject.branchName}}.
+                    </span><br /><br />
+
+                  </div>
+                  <div class="col-md-12">
+                    <span style="font-size: 14px; font-weight: bold;"> Tracking History:
+                    </span><br />
+                    <table class="table table-sm table-bordered
+                    dt-responsive nowrap" style="border-collapse: collapse;
+                    border-spacing: 0; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Stage</th>
+                          <th>Send By</th>
+                          <th>Send Datetime</th>
+                          <th>Received By</th>
+                          <th>Received Datetime</th>
+                          <th>Given Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+    
+                        <tr  *ngFor="let value of histories; let i = index;let last = last;">
+   
+                          <td>{{value.stageName}}</td>
+                          <td>{{value.sendBy}}</td>
+                          <td>{{value.sendDatetime | date: 'dd/MM/yyyy HH:mm'}}</td>
+                          <td>{{value.receivedBy}}</td>
+                          <td>{{value.receivedDatetime | date: 'dd/MM/yyyy HH:mm'}}</td>
+                          <td>{{value.givenStatus}}</td>
+                     
+                        </tr>
+                        <tr>
+                          <td>WorkOrder : {{cardDataObject.isWorkOrderDone ? 'Done' : 'Not Done'}} <br />
+                            Date : {{cardDataObject.workOrderDoneDateTime}}</td>
+                          <td>Chalan : {{cardDataObject.isChalanDone ? 'Done' : 'Not Done'}} <br />
+                            Date : {{cardDataObject.chalanDoneDateTime}}</td>
+                          <td>Card : {{cardDataObject.isCardReceived ? 'Received' : 'Not Received'}} <br />
+                            Date : {{cardDataObject.cardReceivedDateTime}}</td>
+                          <td>Pin : {{cardDataObject.isPinReceived ? 'Received' : 'Not Received'}} <br />
+                            Date : {{cardDataObject.pinReceivedDateTime}}</td>
+                          <td>Pin Delivery: {{cardDataObject.isPinDelivered ? 'Done' : 'Not Done'}} <br />
+                            Date : {{cardDataObject.pinDeliveredDateTime}} <br />
+                            Channel : {{cardDataObject.pinDeliveredSourceChannel}} <br />
+                            To : {{cardDataObject.pinDeliveredSourcedBy}}
+                          </td>
+                          <td>Card Delivery: {{cardDataObject.isCardDelivered ? 'Done' : 'Not Done'}} <br />
+                            Date : {{cardDataObject.cardDeliveredDateTime}}<br />
+                            Channel : {{cardDataObject.cardDeliveredSourceChannel}} <br />
+                            To : {{cardDataObject.cardDeliveredSourcedBy}}
+                          </td>
+                        </tr>
+                      </tbody>
+    
+    
+                    </table>
+                  </div>
+                  <div class="col-md-12 col-sm-12"><br />
+                    <table class="table table-sm table-bordered" style="font-size: 14px;">
+                      <tbody>
+
+                        <tr>
+                          <td style="width: 20%;">Source Channel</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td>{{cardDataObject.sourceChannel}}</td>
+
+                        </tr>
+
+                        <tr>
+                          <td>Source By</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td>{{cardDataObject.branchName}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-12 col-sm-12">
+                    <span style="font-size: 14px; font-weight: bold;"> A. </span><span
+                      style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Particulars of the Customer:
+                    </span>
+                  </div>
+                  <div class="col-md-12 col-sm-12">
+                    <table class="table table-sm table-bordered" style="font-size: 14px;">
+                      <tbody>
+
+                        <tr>
+                          <td style="width: 20%;">Name</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.fullName}}</td>
+
+                        </tr>
+
+                        <tr>
+                          <td>Father's Name</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.fatherName}}</td>
+
+                        </tr>
+                        <tr>
+                          <td>Mother's Name</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.motherName}}</td>
+
+                        </tr>
+                        <tr>
+                          <td>Date of Birth</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.dob | date: 'dd/MM/yyyy'}}
+                          </td>
+
+                        </tr>
+                        <tr>
+                          <td>Profession /Designation</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.professionName}}</td>
+
+                        </tr>
+                        <tr>
+                          <td>Organigation Name</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.organizationName}}</td>
+
+                        </tr>
+                        <tr>
+                          <td>Type of Organigation</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.organizationType}}</td>
+                        </tr>
+                        <tr>
+                          <td>Length of Service (Years)</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td style="width: 10%;text-align: center;">Present</td>
+                          <td style="width: 10%;text-align: center;">{{cardDataObject.presentServiceYears}}</td>
+                          <td style="width: 10%;text-align: center;">Previous</td>
+                          <td style="width: 10%;text-align: center;">{{cardDataObject.previousServiceYears}}</td>
+                          <td style="width: 10%;text-align: center;">Total</td>
+                          <td style="width: 10%;text-align: center;">{{cardDataObject.totalServiceYears}}</td>
+                        </tr>
+                        <tr>
+                          <td>Contact Number</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.contactNumber}}</td>
+                        </tr>
+                        <tr>
+                          <td>Marital Status</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.maritalStatus}}</td>
+                        </tr>
+                        <tr>
+                          <td>Name of Spouse</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.nameOfSpouse}}</td>
+                        </tr>
+                        <tr>
+                          <td>E-Tin</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.etin}}</td>
+                        </tr>
+                        <tr>
+                          <td>National ID</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.nationalID}}</td>
+                        </tr>
+                        <tr>
+                          <td>Passport No.</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.passportNo}}</td>
+                        </tr>
+                        <tr>
+                          <td>Residential Address</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.residentialAddressLine1}},
+                            {{cardDataObject.residentialAddressLine2}}</td>
+                        </tr>
+                        <tr>
+                          <td>Permanent Address</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.permanentAddress1}},
+                            {{cardDataObject.permanentAddress2}}</td>
+                        </tr>
+                        <tr>
+                          <td>Office Address</td>
+                          <td style="width: 2%;text-align: center;">:</td>
+                          <td colspan="6" style="width: 78%;text-align: left;">{{cardDataObject.officeAddress1}},
+                            {{cardDataObject.officeAddress2}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+           
+                  <div class="col-md-12" *ngIf="cardDataObject.incomeDetails_NetIncome" id="Print_area_2">
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> B. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Income Details (Monthly
+                        Basis):
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <tbody>
+                          <tr>
+                            <td style="width: 20%;">Business Income</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">Tk.
+                              {{cardDataObject.incomeDetails_BusinessIncome}}/-
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Net Business Income</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">Tk.
+                              {{cardDataObject.incomeDetails_NetBusinessIncome}}/-</td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Other Income</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">Tk.
+                              {{cardDataObject.incomeDetails_OtherIncome}}/-</td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Net Income</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">Tk.
+                              {{cardDataObject.incomeDetails_NetIncome}}/-</td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Family Expense</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">Tk.
+                              {{cardDataObject.incomeDetails_FamilyExpense}}/-</td>
+
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Surplus Income</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">Tk.
+                              {{cardDataObject.incomeDetails_SurplusIncome}}/-</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> C. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Investment Details with SJIBL
+                        &
+                        Others:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <thead>
+                          <tr class="text-center">
+                            <th style="width: 20%;text-align: center;">Bank Name</th>
+                            <th style="width: 2%;text-align: center;">:</th>
+                            <th>Facility Type</th>
+                            <th>Outstading Amount</th>
+                            <th>EMI</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center">
+
+                          <tr *ngFor="let model of InvestmentDetails; let i = index">
+                            <td>{{model.bankName}}</td>
+                            <td>:</td>
+                            <td>{{model.facilityType}}</td>
+                            <td>{{model.outstandingAmount}}</td>
+                            <td>{{model.emi}}</td>
+                            <td>{{model.status}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> D. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> CIB Status:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <tbody>
+                          <tr>
+                            <td style="width: 20%;text-align: center;">Dated</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 30%;text-align: center;">{{cardDataObject.ciB_Dated}}
+                            </td>
+                            <td style="width: 20%;text-align: center;">Status</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align: center;">{{cardDataObject.ciB_Status}}
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> E. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> DBR Calculation:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <tbody>
+                          <tr>
+                            <td style="width: 20%;">Existing EMI</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align: right;">Tk. {{cardDataObject.dbR_ExistingEMI}}/-
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Proposed EMI</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align: right;">Tk. {{cardDataObject.dbR_ProposedEMI}}/-
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Total EMI</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align: right;">Tk. {{cardDataObject.dbR_TotalEMI}}/-
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">DB Ratio</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align: right;">{{cardDataObject.dbR_DBRatio}}%
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12"><br/><br/>
+                      <span style="font-size: 14px; font-weight: bold;"> F. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Contact Point Verification:
+                      </span> <span>Branch has sent the file and also confirmed the correctness of information of the
+                        applicant.</span>
+                    </div>
+                    <span *ngIf="ContactPoints?.length == 0"><br></span>
+                    <div class="col-md-12 col-sm-12" *ngIf="ContactPoints?.length > 0">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <thead>
+                          <tr class="text-center">
+                            <th>Particulars</th>
+                            <th>:</th>
+                            <th>Conducted</th>
+                            <th>Satisfactory/Unsatisfactory</th>
+                            <th>CPV Done By</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center">
+
+                          <tr *ngFor="let model of ContactPoints; let i = index">
+                            <td>{{model.particulars}}</td>
+                            <td>:</td>
+                            <td>{{model.conducted}}</td>
+                            <td>{{model.isSatisfactory}}</td>
+                            <td>{{model.cpV_Done_BY}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> G. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Eligibility Score:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <tbody>
+                          <tr>
+                            <td style="width: 20%;">Monthly Income</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">
+                              {{cardDataObject.eligibilityScore_MonthlyScore}}/-
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Points Obtained</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">
+                              {{cardDataObject.eligibilityScore_PointsObtained}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 20%;">Multiplier</td>
+                            <td style="width: 2%;text-align: center;">:</td>
+                            <td colspan="6" style="width: 78%;text-align:right;">
+                              {{cardDataObject.eligibilityScore_Multiplier}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> H. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Limit Setting Information:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+
+                        <thead>
+                          <td style="text-align: center;">Applied Amount</td>
+                          <td style="text-align: center;">Sales/ Branch request</td>
+                          <td style="text-align: center;">Max. Limit as per Multiplier</td>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="text-align: center;">
+                              Tk. {{cardDataObject.limitInfo_AppliedAmount}}/-
+                            </td>
+                            <td style="text-align: center;">
+                              Tk. {{cardDataObject.limitInfo_SalesBranchRequest}}/-
+                            </td>
+                            <td style="text-align: center;">
+                              Tk. {{cardDataObject.limitInfo_MaxLimitAsPerMultiplier}}/-
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> I. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Proposed Limit:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+
+                        <thead>
+                          <td style="text-align: center; width: 20%;">Card Type</td>
+                          <td style="text-align: center;">{{cardDataObject.cardType}}</td>
+                          <td style="text-align: left;">Limit</td>
+                          <td style="text-align: center;">Tk. {{cardDataObject.limit}}/-</td>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="text-align: center;">
+                              Supplementary Card within proposed Limit
+                            </td>
+                            <td style="text-align: center;">
+                              {{cardDataObject.haveSupplementaryCard}}
+                            </td>
+                            <td colspan="2">
+
+                              <table class="table table-sm table-bordered">
+                                <tbody>
+                                  <tr style="text-align: left;">
+                                    <td style="width: 35%;"> Name:</td>
+                                    <td> {{cardDataObject.supplementaryCard_Name}}</td>
+                                  </tr>
+                                  <tr style="text-align: left;">
+                                    <td> Relationship:</td>
+                                    <td> {{cardDataObject.supplementaryCard_Relationship}}</td>
+
+                                  </tr>
+                                  <tr style="text-align: left;">
+                                    <td>Portion:</td>
+                                    <td> {{cardDataObject.supplementaryCard_Portion}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> J. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Observation /Justification:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <textarea style="font-size: 14px;color: #333;" class="form-control"
+                        value="{{cardDataObject.observation}}">
+
+                          </textarea>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> K. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Special Condition(s):
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <textarea style="font-size: 14px;color: #333;" class="form-control"
+                        value="{{cardDataObject.specialCondition}}">
+                          </textarea>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> L. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Security:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <textarea style="font-size: 14px;color: #333;" class="form-control" value="{{cardDataObject.security}}">
+                          </textarea>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> M. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Exception (if any):
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <textarea style="font-size: 14px;color: #333;" class="form-control"
+                        value="{{cardDataObject.exception}}">
+                          </textarea>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <span style="font-size: 14px; font-weight: bold;"> N. </span><span
+                        style="font-size: 14px; font-weight: bold; text-decoration: underline;"> Approval Authority:
+                      </span>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                      <textarea style="font-size: 14px;color: #333;" class="form-control"
+                        value="{{cardDataObject.approvalAuthority}}">
+                          </textarea>
+                    </div><br /><br />
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <span style="width: 100%;border-bottom: 1px solid;float: left;margin-top: 50px;"
+                        class="text-center">&nbsp;</span>
+                      <p class="text-center"> {{ userName}} <br /><br /></p>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                      <!-- <span style="width: 100%;border-bottom: 1px solid;float: left;margin-top: 50px;"
+                        class="text-center">&nbsp;</span>
+                      <p class="text-center">(User)<br />(User Id)</p> -->
+                    </div>
+                  </div>
+                    <div class="col-md-12">
+                      <p class="text-left">Placed for kind decision.</p>
+                    </div>
+
+                    <div class="col-md-12">
+                      <p class="text-left" style="text-decoration: underline;">VP Please:</p>
+                      <table class="table table-sm table-bordered" style="font-size: 14px;">
+                        <tbody>
+                          <tr>
+                            <td rowspan="3">Recommendation:</td>
+                            <td>Card Type</td>
+                            <td>:</td>
+                            <td>{{cardDataObject.cardType}}</td>
+                          </tr>
+                          <tr>
+                            <td>Limit</td>
+                            <td>:</td>
+                            <td>Tk. {{cardDataObject.limit}}</td>
+                          </tr>
+                          <tr>
+                            <td>Security</td>
+                            <td>:</td>
+                            <td>{{cardDataObject.security}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+
+                    <div class="col-md-12">
+                      <p style="font-size: 14px; font-weight: bold; text-decoration: underline;" class="text-left">DMD Sir
+                        Please:</p>
+                    </div><br /><br /><br /><br />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

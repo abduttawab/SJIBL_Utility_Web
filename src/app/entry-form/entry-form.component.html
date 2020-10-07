@@ -1,0 +1,127 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Entry Form</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">New Credit Card Application</li>
+      </ol>
+    </div>
+    <div class="col-sm-6">
+
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="mt-0 header-title">Source</h4>
+          <p class="text-muted m-b-30">Please fillup source information.
+            <span style="float: right;"><button class="btn btn-primary" (click)="resetWithDefault()">Reload</button></span></p>
+
+       
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="SourceChannel">Source Channel</label>
+                <input formControlName="Id" type="hidden">
+                <select class="form-control" formControlName="SourceChannel" (change)="sourceChannelOnChange()">
+                  <option value="">Select</option>
+                  <option value="Branch">Branch</option>
+                  <option value="SalesForce">Sales Force</option>
+                </select>
+                <label class="text-danger" *ngIf="service.formModel.get('SourceChannel').touched
+                          && service.formModel.get('SourceChannel').errors?.required">This field is mandatory.</label>
+                <label class="text-danger" *ngIf="service.formModel.get('SourceChannel').touched
+                          && service.formModel.get('SourceChannel').errors?.maxlength">Maximum 30 characters
+                  required.</label>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="SourcedBy">Sourced By</label>
+                <span *ngIf="service.formModel.controls['SourceChannel'].value=='Branch'"> 
+                  <select class="form-control" formControlName="SourcedBy">
+                    <option value="">Select</option>
+                    <option *ngFor="let district of SourceByList; let i = index" [value]="SourceByList[i].brancH_CODE">
+                      {{SourceByList[i].brancH_NAME}} ( {{SourceByList[i].brancH_CODE}} )
+                    </option>
+                  </select>
+
+                </span>
+                <span *ngIf="service.formModel.controls['SourceChannel'].value=='SalesForce'">
+                  <input type="text" class="form-control" (blur)="getEmployeeId()" formControlName="SourcedBy"
+                  placeholder="Enter Employee Id">
+                </span>
+               
+                <label class="text-danger" *ngIf="service.formModel.get('SourcedBy').touched
+                         && service.formModel.get('SourcedBy').errors?.required">This field is mandatory.</label>
+                <label class="text-danger" *ngIf="service.formModel.get('SourcedBy').touched
+                         && service.formModel.get('SourcedBy').errors?.maxlength">Maximum 30 characters
+                  required.</label>
+                  <label class="text-danger" *ngIf="errorText && service.formModel.controls['SourceChannel'].value=='SalesForce'">{{errorText}}</label>
+
+                  <span *ngIf="EmployeeInfo">
+                    <label class="text-info">{{EmployeeInfo.name}} ({{EmployeeInfo.designation}})</label>
+                    
+                  </span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="ReferenceName">Reference Name</label>
+
+                <input type="text" (blur)="getEmployeeIdForRef()" class="form-control" formControlName="ReferenceName"
+                  placeholder="Enter Reference Name" (keyup)="toUpper($event)">
+                <label class="text-danger" *ngIf="service.formModel.get('ReferenceName').touched
+                            && service.formModel.get('ReferenceName').errors?.required">This field is
+                  mandatory.</label>
+                <label class="text-danger" *ngIf="service.formModel.get('ReferenceName').touched
+                            && service.formModel.get('ReferenceName').errors?.maxlength">Maximum 30 characters
+                  required.</label>
+
+                  <span *ngIf="EmployeeInfo_ref">
+                    <label class="text-info">{{EmployeeInfo_ref.name}} ({{EmployeeInfo_ref.designation}})</label>
+                    
+                  </span>
+
+              </div>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+        
+    
+       
+
+          <div class="row">
+            <div class="col-md-2">
+           </div>
+          </div>
+          <div class="form-group mb-0 text-right">
+            <div>
+              <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
+                <span>Submit</span>
+              </button>
+              <button type="reset" class="btn btn-secondary waves-effect">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

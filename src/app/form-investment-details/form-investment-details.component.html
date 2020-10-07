@@ -1,0 +1,71 @@
+<form [formGroup]="service.formModelInvestmentDetails" autocomplete="off" (submit)="onSubmit()">
+  <div class="modal-header">
+      <h4 class="modal-title">{{my_modal_title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input formControlName="CardApplicationDataId" type="hidden">
+
+      <div class="form-group">
+        <label for="BankName">Bank Name</label>
+
+        <input type="text" class="form-control" formControlName="BankName" placeholder="Enter Bank Name">
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('BankName').touched
+           && service.formModelInvestmentDetails.get('BankName').errors?.required">This field is mandatory.</label>
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('BankName').touched
+           && service.formModelInvestmentDetails.get('BankName').errors?.maxlength">Maximum 30 characters required.</label>
+      </div>
+
+      <div class="form-group">
+        <label for="FacilityType">Facility Type</label>
+
+        <input type="text" class="form-control" formControlName="FacilityType" placeholder="Enter Facility Type">
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('FacilityType').touched
+           && service.formModelInvestmentDetails.get('FacilityType').errors?.required">This field is mandatory.</label>
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('FacilityType').touched
+           && service.formModelInvestmentDetails.get('FacilityType').errors?.maxlength">Maximum 30 characters required.</label>
+      </div>
+
+      <div class="form-group">
+        <label for="OutstandingAmount">Outstanding Amount</label>
+
+        <input type="text" class="form-control" formControlName="OutstandingAmount" placeholder="Enter Outstanding Amount">
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('OutstandingAmount').touched
+           && service.formModelInvestmentDetails.get('OutstandingAmount').errors?.required">This field is mandatory.</label>
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('OutstandingAmount').touched
+           && service.formModelInvestmentDetails.get('OutstandingAmount').errors?.maxlength">Maximum 30 characters required.</label>
+      </div>
+      <div class="form-group">
+        <label for="EMI">EMI</label>
+
+        <input type="text" class="form-control" formControlName="EMI" placeholder="Enter EMI">
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('EMI').touched
+           && service.formModelInvestmentDetails.get('EMI').errors?.required">This field is mandatory.</label>
+        <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('EMI').touched
+           && service.formModelInvestmentDetails.get('EMI').errors?.maxlength">Maximum 30 characters required.</label>
+      </div>
+
+     <!-- CIB -->
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" formControlName="Status">
+            <option value="">Select</option>
+            <option value="UC">UC</option>
+            <option value="SMA">SMA</option>
+            <option value="SS">SS</option>
+            <option value="DF">DF</option>
+            <option value="BL">BL</option>
+            <option value="ERROR">ERROR</option>
+          </select>
+          <label class="text-danger" *ngIf="service.formModelInvestmentDetails.get('Status').touched &&
+           service.formModelInvestmentDetails.get('Status').errors?.required">This field is mandatory.</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+          [disabled]="!service.formModelInvestmentDetails.valid">Submit</button>
+    </div>
+  </form>
