@@ -29,7 +29,7 @@ import { AppConfigModule } from './app-config.module';
 import { CardapplicationDetailsreportComponent } from './cardapplication-detailsreport/cardapplication-detailsreport.component';
 import { NumberToWordsPipe } from './shared/number-to-words.pipe';
 import { StageIRMDHeadComponent } from './stage-irmd-head/stage-irmd-head.component';
-import { ModalDeduplicationstatusComponent } from './modal-deduplicationstatus/modal-deduplicationstatus.component';
+import { ModalDeduplicationstatusComponent } from './modal-decision-model/modal-decision-model.component';
 import { StageIrmdDoComponent } from './stage-irmd-do/stage-irmd-do.component';
 import { StageIrmdInchargeComponent } from './stage-irmd-incharge/stage-irmd-incharge.component';
 import { StageIADComponent } from './stage-iad/stage-iad.component';
@@ -60,6 +60,9 @@ import { StageAmdComponent } from './stage-amd/stage-amd.component';
 import { StageMdComponent } from './stage-md/stage-md.component';
 import { StageRetailHeadComponent } from './stage-retail-head/stage-retail-head.component';
 import { ToggleFullscreenDirectiveDirective } from './shared/toggle-fullscreen-directive.directive';
+import { AppHistoryModelComponent } from './app-history-model/app-history-model.component';
+import { StageDmd2Component } from './stage-dmd2/stage-dmd2.component';
+import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
 // 
 
 @NgModule({
@@ -80,6 +83,7 @@ import { ToggleFullscreenDirectiveDirective } from './shared/toggle-fullscreen-d
     NumberToWordsPipe,
     StageIRMDHeadComponent,
     ModalDeduplicationstatusComponent,
+    AppHistoryModelComponent,
     StageIrmdDoComponent,
     StageIrmdInchargeComponent,
     StageIADComponent,
@@ -106,6 +110,9 @@ import { ToggleFullscreenDirectiveDirective } from './shared/toggle-fullscreen-d
     StageMdComponent,
     StageRetailHeadComponent,
     ToggleFullscreenDirectiveDirective,
+    AppHistoryModelComponent,
+    StageDmd2Component,
+    UnAuthUserComponent,
 
 
   ],
@@ -136,7 +143,8 @@ import { ToggleFullscreenDirectiveDirective } from './shared/toggle-fullscreen-d
     RoleFormComponent,
     UserRoleFormComponent,
     CardReceiveModalComponent,
-    DeliveredToModalComponent
+    DeliveredToModalComponent,
+    AppHistoryModelComponent
   ],
   providers: [UserService,
     CardapplicationService, {

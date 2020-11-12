@@ -24,23 +24,34 @@ export class AllApplicationsStatusComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.service.formModel.reset();
+
+    this.service.formModel.controls['SourceChannel'].setValue("");
+    this.service.formModel.controls['SourcedBy'].setValue("");
+    this.BranchList = await this.getBranchList();
     this.getData();
-    // Get Branch list
-    this.commonService.getbranchList().subscribe(
-      (res: any) => {
-        this.BranchList = [];
-        for (var key in res) {
-          this.BranchList.push(res[key]);
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    
+         // Get Branch list
+       
+        
 
   }
+  async  getBranchList() : Promise<any>{
 
+    return new Promise((resolve, reject) => {
+      this.commonService.getbranchList().subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        err => {
+          console.log(err);
+          reject(err);
+        }
+      );
+    })
+   
+  }
 
   onSearch() {
     this.AllApplications =  [];
@@ -50,14 +61,15 @@ export class AllApplicationsStatusComponent implements OnInit {
         this.NewApplications = res.data;
         
         
-        var groups = new Set(res.data.map(item => item.fileNo + " - " + item.fullName
-        +""));
+        var groups = new Set(res.data.map(item => item.fileNo + " - " + item.companyName+ " (" + item.companyId+")"));
+ 
         groups.forEach(g =>
           this.AllApplications.push({
+            
             name: g,
-            id: res.data.filter(i => i.fileNo + " - " + i.fullName === g)[0].id,
-            applicationTrackingHistoryId: res.data.filter(i => i.fileNo + " - " + i.fullName === g)[0].applicationTrackingHistoryId,
-            values: res.data.filter(i => i.fileNo + " - " + i.fullName === g)
+            id: res.data.filter(i => i.fileNo + " - " + i.companyName+ " (" + i.companyId+")" === g)[0].id,
+            applicationTrackingHistoryId: res.data.filter(i => i.fileNo + " - " + i.companyName+ " (" + i.companyId+")" === g)[0].applicationTrackingHistoryId,
+            values: res.data.filter(i => i.fileNo + " - " + i.companyName+ " (" + i.companyId+")" === g)
           }
           ))
 
@@ -77,15 +89,15 @@ export class AllApplicationsStatusComponent implements OnInit {
 
         this.NewApplications = null;
         this.NewApplications = res.data;
-        var groups = new Set(res.data.map(item => item.fileNo + " - " + item.fullName));
+        var groups = new Set(res.data.map(item => item.fileNo + " - " + item.companyName+ " (" + item.companyId+")"));
  
         groups.forEach(g =>
           this.AllApplications.push({
             
             name: g,
-            id: res.data.filter(i => i.fileNo + " - " + i.fullName === g)[0].id,
-            applicationTrackingHistoryId: res.data.filter(i => i.fileNo + " - " + i.fullName === g)[0].applicationTrackingHistoryId,
-            values: res.data.filter(i => i.fileNo + " - " + i.fullName === g)
+            id: res.data.filter(i => i.fileNo + " - " + i.companyName+ " (" + i.companyId+")" === g)[0].id,
+            applicationTrackingHistoryId: res.data.filter(i => i.fileNo + " - " + i.companyName+ " (" + i.companyId+")" === g)[0].applicationTrackingHistoryId,
+            values: res.data.filter(i => i.fileNo + " - " + i.companyName+ " (" + i.companyId+")" === g)
           }
           ))
 

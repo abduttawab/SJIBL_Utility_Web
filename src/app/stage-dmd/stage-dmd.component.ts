@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CardapplicationService } from '../shared/cardapplication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../shared/common.service';
+import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-stage-dmd',
@@ -20,7 +22,8 @@ export class StageDmdComponent implements OnInit {
   constructor(
     public service : CardapplicationService,
      private commonService : CommonService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit() {
@@ -39,7 +42,12 @@ export class StageDmdComponent implements OnInit {
         );
    
   }
+  getHistory(id){
 
+    const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
+    modalRef.componentInstance.my_modal_title = 'History';
+    modalRef.componentInstance.appId = id;
+  }
  
 
   

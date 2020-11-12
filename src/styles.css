@@ -101,4 +101,6 @@ div.form-group label:first-child{
 body{
   background-color: #e5e4e2;;
 }
-
+.myCustomModalClass .modal-dialog {
+  max-width: 86%;
+}

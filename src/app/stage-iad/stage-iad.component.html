@@ -107,10 +107,8 @@
             
               <td>
                 <span *ngIf="!application.receivedBy" class="badge badge-warning">Not Received Yet</span>
-                <span *ngIf="!application.givenStatus" class="badge badge-warning">Pending..</span>
-                <span *ngIf="application.givenStatus=='Declined' || application.givenStatus=='Discuss'" class="badge badge-danger">{{application.givenStatus}}</span>
-                <span *ngIf="application.givenStatus=='Recommended' || application.givenStatus=='Approved'" class="badge badge-success">{{application.givenStatus}}</span>
-              </td>
+                <span *ngIf="application.receivedBy" class="badge badge-success">Received</span>
+            </td>
               <td>
                 
                 <div class="btn-group btn-group-sm m-t-10" role="group" aria-label="Basic example">
@@ -118,13 +116,10 @@
                   <button *ngIf="application.receivedBy" type="button" class="btn btn-success" placement="top" [routerLink]="['/home/appDoc']"
                   ngbTooltip="Documents" [queryParams]="{Id:application.id,HistoryId:application.applicationTrackingHistoryId}"><i class="ti-agenda"></i></button>
      
-                    
+                  <button (click)="getHistory(application.id)" *ngIf="application.receivedBy" type="button" class="btn btn-primary" placement="top"  
+                  ngbTooltip="History" ><i class="ti-loop"></i></button> 
                     <button *ngIf="!application.receivedBy" type="button" class="btn btn-secondary" placement="top" (click)="receiveDocument(application.applicationTrackingHistoryId)"  
                     ngbTooltip="Receive Document" ><i class="ti-hand-point-up"></i></button> 
-                    
-                   
-                     
-                 
                   </div>
               </td>
             </tr>

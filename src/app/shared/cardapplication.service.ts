@@ -12,7 +12,10 @@ import { DatePipe } from '@angular/common';
     })
     export class CardapplicationService {
 
-      constructor(private fb: FormBuilder, private http: HttpClient,@Inject(APP_CONFIG) private config: AppConfig) { }
+      constructor(private fb: FormBuilder,
+         private http: HttpClient,
+         @Inject(APP_CONFIG) private config: AppConfig,
+         ) { }
 
       readonly BaseURI =this.config.apiEndpoint +'CardApplicationData';
 
@@ -20,6 +23,8 @@ import { DatePipe } from '@angular/common';
         Id: [''],
         SourceChannel: ['', [Validators.required, Validators.maxLength(30)]],
         SourcedBy: ['', [Validators.required, Validators.maxLength(30)]],
+        CompanyId: ['', [Validators.required, Validators.maxLength(200)]],
+        CompanyName: ['', [Validators.required, Validators.maxLength(300)]],
         ReferenceName: ['', [Validators.required, Validators.maxLength(30)]],
         FileNo: [''],
         FromDate: ['', [CommonService.dateVaidator]],
@@ -91,30 +96,42 @@ import { DatePipe } from '@angular/common';
           FileNo: this.formModel.value.FileNo,
           SourceChannel: this.formModel.value.SourceChannel,
           SourcedBy: this.formModel.value.SourcedBy,
+          CompanyId: this.formModel.value.CompanyId,
+          CompanyName: this.formModel.value.CompanyName,
           ReferenceName: this.formModel.value.ReferenceName
         };
 if(this.formModel.value.Id!=null){
   return this.http.put(this.BaseURI, body);
 }else{
   return this.http.post(this.BaseURI, body);
-}
+}  
        
       }
       search(stageId) {
         
+if(this.formModel.value.FromDate){
+
+  this.formModel.value.FromDate= this.formModel.value.FromDate.year+'-'
+  +this.formModel.value.FromDate.month+'-'
+   + this.formModel.value.FromDate.day
+}
+
+if(this.formModel.value.ToDate){
+
+  this.formModel.value.ToDate= this.formModel.value.ToDate.year+'-'
+  +this.formModel.value.ToDate.month+'-'
+   + this.formModel.value.ToDate.day
+}
+
         var body = {
           FileNo: this.formModel.value.FileNo,
-         // FullName: this.formModel.value.FullName, 
-          ContactNumber: this.formModel.value.ContactNumber,
-          NationalID: this.formModel.value.NationalID,
+     
+          CompanyId: this.formModel.value.CompanyId,
+          CompanyName: this.formModel.value.CompanyName,
           SourceChannel: this.formModel.value.SourceChannel,
           SourcedBy: this.formModel.value.SourcedBy,
-          FromDate: this.formModel.value.FromDate.year+'-'
-          +this.formModel.value.FromDate.month+'-'
-           + this.formModel.value.FromDate.day,
-           ToDate: this.formModel.value.ToDate.year+'-'
-           +this.formModel.value.ToDate.month+'-'
-            + this.formModel.value.ToDate.day,
+          FromDate: this.formModel.value.FromDate,
+           ToDate: this.formModel.value.ToDate,
           ApplicationStageId: stageId
         };
 

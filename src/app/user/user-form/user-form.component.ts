@@ -54,7 +54,7 @@ export class UserFormComponent implements OnInit {
     );
   }
   onSubmit() {
-    this.service.register().subscribe(
+    this.service.saveUser().subscribe(
       (res: any) => {
         
         if (res.isSuccessfull) {
@@ -65,6 +65,8 @@ export class UserFormComponent implements OnInit {
       },
       err => {
         console.log(err);
+
+        this.toastr.error('Ops! Something went worng!', err.error.message);
       }
     );
   }

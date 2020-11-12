@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CardReceiveModalComponent } from '../card-receive-modal/card-receive-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeliveredToModalComponent } from '../delivered-to-modal/delivered-to-modal.component';
+import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
 @Component({
   selector: 'app-stage-board-secretary',
   templateUrl: './stage-board-secretary.component.html',
@@ -17,6 +18,7 @@ export class StageBoardSecretaryComponent implements OnInit {
   BranchList= [];
   SourceByList= [];
   SalesAgentList= [];
+  filterargs = {receivedBy: false};
     // Our future instance of DataTable
     dataTable: any;
   constructor(
@@ -42,7 +44,12 @@ export class StageBoardSecretaryComponent implements OnInit {
         );
    
   }
+  getHistory(id){
 
+    const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
+    modalRef.componentInstance.my_modal_title = 'History';
+    modalRef.componentInstance.appId = id;
+  }
   getXML(id){
     this.service.getXML(id).subscribe(
       (res: any) => {
@@ -75,7 +82,7 @@ export class StageBoardSecretaryComponent implements OnInit {
     }
 }
   onSearch() {
-    this.service.search("e6e3feb3-f676-4b05-bb53-ea3667110590").subscribe(
+    this.service.search("58166bdf-2250-4795-9a77-13e906bcd566").subscribe(
       (res: any) => {
         this.NewApplications=res.data;
        
@@ -87,10 +94,10 @@ export class StageBoardSecretaryComponent implements OnInit {
     );
   }
 getData(){
-  this.service.getApplicationsWithStatusId("e6e3feb3-f676-4b05-bb53-ea3667110590").subscribe(
+  this.service.getApplicationsWithStatusId("58166bdf-2250-4795-9a77-13e906bcd566").subscribe(
     (res:any) =>{
       console.log(res);
-      this.NewApplications=res.data;
+      this.NewApplications=res.data.filter(i => !i.receivedBy);
     },
     err =>{
       console.log(err);
@@ -201,40 +208,40 @@ else{
     
   }
 
-  // receiveDocument(id: string) {
-  //   if(confirm("Are you sure to receive this file?")) {
-  //     this.service.receiveDocument(id).subscribe(
-  //       (res: any) => {
-  //         console.log(res);
+  receiveDocument(id: string) {
+    if(confirm("Are you sure to receive this file?")) {
+      this.service.receiveDocument(id).subscribe(
+        (res: any) => {
+          console.log(res);
 
-  //         if (res.isSuccessfull) {
-  //           this.getData();
-  //           this.toastr.warning('Data Received!', 'Successfully Received the file.');
-  //         } else {
-  //           this.toastr.error('Ops! Something went worng!', res.message);
-  //         }
-  //       },
-  //       err => {
-  //         console.log(err);
+          if (res.isSuccessfull) {
+            this.getData();
+            this.toastr.success('Data Received!', 'Successfully Received the file.');
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          console.log(err);
      
-  //       }
-  //     );
-  //   }
-  // }
-
-  receiveDocument(id: string){
-
-    const modalRef = this.modalService.open(CardReceiveModalComponent);
-    modalRef.componentInstance.my_modal_title = 'Receive Document:';
-    modalRef.componentInstance.historyId = id;
-
-    modalRef.result.then((result) => {
-      if ( result === 'Close click' ) {
-        this.getData(); // Refresh Data in table grid
-      }
-    }, (reason) => {
-    });
+        }
+      );
+    }
   }
+
+  // receiveDocument(id: string){
+
+  //   const modalRef = this.modalService.open(CardReceiveModalComponent);
+  //   modalRef.componentInstance.my_modal_title = 'Receive Document:';
+  //   modalRef.componentInstance.historyId = id;
+
+  //   modalRef.result.then((result) => {
+  //     if ( result === 'Close click' ) {
+  //       this.getData(); // Refresh Data in table grid
+  //     }
+  //   }, (reason) => {
+  //   });
+  // }
 
   sourceChannelOnChange(){
 

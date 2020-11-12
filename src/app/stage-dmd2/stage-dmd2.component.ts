@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CardapplicationService } from '../shared/cardapplication.service';
-import { CommonService } from '../shared/common.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CardapplicationService } from '../shared/cardapplication.service';
+import { CommonService } from '../shared/common.service';
 
 @Component({
-  selector: 'app-stage-irmd-do',
-  templateUrl: './stage-irmd-do.component.html',
-  styles: []
+  selector: 'app-stage-dmd2',
+  templateUrl: './stage-dmd2.component.html',
+  styleUrls: ['./stage-dmd2.component.css']
 })
-export class StageIrmdDoComponent implements OnInit {
+export class StageDmd2Component implements OnInit {
 
   NewApplications: any[];
-  ApprovedApplications: any[];
   Districts= [];
   BranchList= [];
   SourceByList= [];
@@ -29,7 +28,6 @@ export class StageIrmdDoComponent implements OnInit {
 
   ngOnInit() {
  this.getData();
- this.getApprovedData();
          // Get Branch list
          this.commonService.getbranchList().subscribe(
           (res:any) =>{
@@ -44,26 +42,17 @@ export class StageIrmdDoComponent implements OnInit {
         );
    
   }
-  getApprovedData(){
-    this.service.getApplicationsWithStatusId("dddf3cfd-903b-40d2-9747-95499eda1f6b").subscribe(
-      (res:any) =>{
-        console.log(res);
-       this.ApprovedApplications=res.data;
-      },
-      err =>{
-        console.log(err);
-      }
-    );
-  }
   getHistory(id){
 
     const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
     modalRef.componentInstance.my_modal_title = 'History';
     modalRef.componentInstance.appId = id;
   }
+ 
 
+  
   onSearch() {
-    this.service.search("1579fe13-3883-49da-ac6d-6eac07087e26").subscribe(
+    this.service.search("e6e3feb3-f676-4b05-bb53-ea3667110590").subscribe(
       (res: any) => {
         this.NewApplications=res.data;
        
@@ -75,10 +64,9 @@ export class StageIrmdDoComponent implements OnInit {
     );
   }
 getData(){
-  this.service.getApplicationsWithStatusId("1579fe13-3883-49da-ac6d-6eac07087e26").subscribe(
+  this.service.getApplicationsWithStatusId("e6e3feb3-f676-4b05-bb53-ea3667110590").subscribe(
     (res:any) =>{
       console.log(res);
-      this.NewApplications = null;
       this.NewApplications=res.data;
     },
     err =>{
@@ -107,15 +95,25 @@ getData(){
     }
   }
 
-  changeStage(id: string) {
-    if(confirm("Are you sure to sent this file to Unit In-charge?")) {
-      this.service.changeStage(id,3).subscribe(
+  changeStage(id: string,limit) {
+    this.changeStageDinamic(id,"AMD Sir",6);
+
+    // if(limit>1000000){
+    //   this.changeStageDinamic(id,"AMD Sir",8);
+    // }else{
+    //   this.changeStageDinamic(id,"Card Division",10);
+    // }
+  }
+  backStage(id: string) {
+    if(confirm("Are you sure to sent this file to IRMD- Divisional Head?")) {
+      this.service.changeStage(id,4).subscribe(
         (res: any) => {
+          
           console.log(res);
 
           if (res.isSuccessfull) {
             this.getData();
-            this.toastr.warning('Data Send!', 'Record successfully Send.');
+            this.toastr.success('Data Send!', 'Record successfully Send.');
           } else {
             this.toastr.error('Ops! Something went worng!', res.message);
           }
@@ -127,9 +125,9 @@ getData(){
       );
     }
   }
-  backStage(id: string) {
-    if(confirm("Are you sure to sent this file for Branch?")) {
-      this.service.changeStage(id,1).subscribe(
+  changeStageDinamic(id: string,toStage: string, toStageSerial){
+    if(confirm("Are you sure to sent this file to "+toStage +"?")) {
+      this.service.changeStage(id,toStageSerial).subscribe(
         (res: any) => {
           
           console.log(res);
@@ -169,7 +167,10 @@ getData(){
     }
   }
 
+
+
   sourceChannelOnChange(){
+
     if(this.service.formModel.controls['SourceChannel'].value=="Branch"){
       this.SourceByList = this.BranchList; 
     }else{
@@ -178,3 +179,4 @@ getData(){
   }
 
 }
+

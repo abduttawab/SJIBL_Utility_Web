@@ -25,21 +25,25 @@
                         </ng-template>
                         
                         <div class="row">
-                          <div class="col-md-2"></div>
-                          <div class="col-md-4">
+                          <div class="col-md-1"></div>
+                          <div class="col-md-5">
+                           
                             <app-file-upload (onUploadFinished)="uploadFinished($event,obj)" *ngIf="(userRole=='Branch User' || userRole=='IRM-Desk Officer' || userRole=='IRM- Unit In-charge' || userRole=='Admin' || userRole=='IRM- Division Head')"></app-file-upload>
+                        
                           </div>
-                          <div class="col-md-4">
+                         
+                          <div class="col-md-6 text-right">
+                           
                             <button class="btn btn-primary" *ngIf="(userRole!='Branch User' || userRole=='Admin') && historyId"
                             (click)="givededuplicationStatus()"><i class="fa fa-hand-point-up" aria-hidden="true"></i> Give Decision</button>
-                          </div>
-                          <div class="col-md-2">
-                            <a class="btn btn-outline-danger" (click)="goBack()"><b>Back</b></a>
+                            &nbsp;
+                            <button class="btn btn-danger" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back</button>
                           </div>
                         </div>
                      <span *ngIf="obj.documentPath.split('.').pop()=='doc' || obj.documentPath.split('.').pop()=='docx'">
 
                       <label   style="text-decoration: underline;">Word Document (Download the file to view.)</label><br/>
+                    
                       <button  class="btn btn-warning" type="button" (click)="download(obj)" ><i class="fa fa-download" aria-hidden="true"></i>
                        Download Doc</button>
                      </span>

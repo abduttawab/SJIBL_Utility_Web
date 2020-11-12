@@ -52,8 +52,14 @@ getBaseUrl()
     getAll(){
       return this.http.get(this.BaseURI+'/GetDocumentTypes');
     }
-    getAllCardAppDoc(appId,historyId){
-      return this.http.get(this.BaseURI+'/GetAllCardAppDoc?appId='+appId+'&historyId='+historyId);
+    getAllCardAppDoc(appId,historyId,stageWise){
+      if(stageWise){
+        return this.http.get(this.BaseURI+'/GetAllCardAppDocWithStage?appId='+appId+'&historyId='+historyId);
+
+      }else{
+        return this.http.get(this.BaseURI+'/GetAllCardAppDoc?appId='+appId+'&historyId='+historyId);
+
+      }
     }
 
     delete(id){

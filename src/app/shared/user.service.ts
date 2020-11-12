@@ -63,6 +63,25 @@ export class UserService {
     return this.http.post(this.BaseURI+'ApplicationUser/Register',body);
   }
 
+  saveUser()
+  
+  {
+    var body = {
+      UserName : this.formModel.value.UserName,
+      Email : this.formModel.value.Email,
+      Password : this.formModel.value.Passwords.Password,
+      FullName : this.formModel.value.FullName,
+      RoleName : this.formModel.value.Role
+    } ;
+    
+    return this.http.post(this.BaseURI+'UnAuthApplicationUser',body);
+  }
+  delete(id){
+    return this.http.delete(this.BaseURI+'UnAuthApplicationUser'+'/'+id);
+  }
+  authorizeUser(id){
+    return this.http.get(this.BaseURI+'UnAuthApplicationUser'+'/AuthorizeUser?id='+id);
+  }
   changePassword()
   
   {
@@ -87,6 +106,10 @@ getUserProfile(){
 
 getAllUsers(){
   return this.http.get(this.BaseURI+'ApplicationUser/GetUsers');
+}
+
+getAllUnAuthUsers(){
+  return this.http.get(this.BaseURI+'UnAuthApplicationUser');
 }
 
 getRoles(){

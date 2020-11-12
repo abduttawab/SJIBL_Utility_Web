@@ -58,6 +58,20 @@
   <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
    service.formModel.get('Status').errors?.required">This field is mandatory.</label>
 </div>
+
+<!-- DMD 2-->
+<div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==10">
+  <label>Status</label>
+  <select class="form-control" formControlName="Status">
+    <option value="">Select</option>
+    <option value="Recommended">Recommended</option>
+    <option value="Approved">Approved</option>
+    <option value="Declined">Declined</option>
+    <option value="Discuss">Discuss</option>
+  </select>
+  <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
+   service.formModel.get('Status').errors?.required">This field is mandatory.</label>
+</div>
 <!-- AMD -->
 <div class="form-group" *ngIf="service.formModel.controls['StageSerial'].value==6">
   <label>Status</label>
@@ -79,6 +93,7 @@
     <option value="Approved">Approved</option>
     <option value="Declined">Declined</option>
     <option value="Discuss">Discuss</option>
+    <option value="Recommended for EC/Board">Recommended for EC/Board</option>
   </select>
   <label class="text-danger" *ngIf="service.formModel.get('Status').touched &&
    service.formModel.get('Status').errors?.required">This field is mandatory.</label>
@@ -86,7 +101,8 @@
       <div class="form-group">
         <label for="Remarks">Remarks</label>
 
-        <input type="text" class="form-control" formControlName="Remarks" placeholder="Enter Remarks">
+
+        <textarea formControlName="Remarks" class="form-control"  rows="4"></textarea>
         <label class="text-danger" *ngIf="service.formModel.get('Remarks').touched
            && service.formModel.get('Remarks').errors?.required">This field is mandatory.</label>
         <label class="text-danger" *ngIf="service.formModel.get('Remarks').touched

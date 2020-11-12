@@ -2,8 +2,9 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="mt-0 header-title">Un-Authorized User</h4>
-     
+       
+        <button (click)="newEntry()" type='button' class="btn btn-lg btn-primary">Add User</button><br><br>
+
         <table class="table table-striped table-sm table-bordered
                  dt-responsive nowrap" style="border-collapse: collapse;
                   border-spacing: 0; width: 100%;">
@@ -14,13 +15,13 @@
               <th>Email</th>
               <th>Role</th>
               <th>Status</th>
-              <th>Action</th>
+              <th></th>
           
             </tr>
           </thead>
           <tbody class="text-center">
 
-            <tr *ngFor="let model of UnAuthUserList; let i = index">
+            <tr *ngFor="let model of UserList; let i = index">
               <td>{{model.userName}}</td>
               <td>{{model.fullName}}</td>
               <td>{{model.email}}</td>
@@ -39,47 +40,16 @@
                 <span *ngIf="model.roleName=='AMD'">AMD</span>
                 <span *ngIf="model.roleName=='USERMAKER'">Maker User</span>
                 <span *ngIf="model.roleName=='USERCHECKER'">Checker User</span>
-                
               </td>
               <td>
                 <span *ngIf="!model.isAuthorized" class="badge badge-danger">Un-Authorized</span>
                 <span *ngIf="model.isAuthorized" class="badge badge-success">Authorized</span>
               </td>
-              <td><button type="button" class="btn btn-sm btn-success" (click)="authorize(model.id)" placement="top" ngbTooltip="Authorize" >
-                <i class="ti-check"></i></button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="mt-0 header-title"> Authorized User</h4>
-     
-        <table class="table table-striped table-sm table-bordered
-                 dt-responsive nowrap" style="border-collapse: collapse;
-                  border-spacing: 0; width: 100%;">
-          <thead>
-            <tr class="text-center">
-              <th>User Name</th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Role</th>
-          
-            </tr>
-          </thead>
-          <tbody class="text-center">
-
-            <tr *ngFor="let model of UserList; let i = index">
-              <td>{{model.userName}}</td>
-              <td>{{model.fullName}}</td>
-              <td>{{model.email}}</td>
-              <td>{{model.role}}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-danger" (click)="delete(model.id)" placement="top" ngbTooltip="Delete" >
+                  <i class="ti-close"></i></button>
+              </td>
             </tr>
           </tbody>
         </table>

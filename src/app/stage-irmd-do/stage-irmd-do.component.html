@@ -125,6 +125,10 @@
                     <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-danger" placement="top" (click)="backStage(application.id)"  
                     ngbTooltip="Reverse" ><i class="ti-back-left"></i></button> 
                     
+
+                    <button (click)="getHistory(application.id)" *ngIf="application.receivedBy" type="button" class="btn btn-primary" placement="top"  
+                    ngbTooltip="History" ><i class="ti-loop"></i></button> 
+
                     <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-secondary" placement="top" (click)="changeStage(application.id)"  
                        ngbTooltip="Send" ><i class="ti-share"></i></button> 
                        <button type="button" *ngIf="application.receivedBy" class="btn btn-warning" placement="top" [routerLink]="['/home/entryform']"
@@ -133,7 +137,21 @@
                   </div>
               </td>
             </tr>
+            <tr *ngFor="let application of ApprovedApplications; let i = index">
+              <td>{{application.sourceChannel}}</td>
+              <td>{{application.sourcedBy}}</td>
+              <td>{{application.fileNo}}</td>
+              <td> <span class="badge badge-success">Approved</span></td>
+            
+              <td>
 
+                <div class="btn-group btn-group-sm m-t-10" role="group" aria-label="Basic example">
+                  
+                  <button (click)="getHistory(application.id)" type="button" class="btn btn-primary" placement="top"  
+                  ngbTooltip="History" ><i class="ti-loop"></i></button> 
+                  </div>
+              </td>
+            </tr>
 
           </tbody>
         </table>

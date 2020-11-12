@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CardapplicationService } from '../shared/cardapplication.service';
 import { CommonService } from '../shared/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
 
 @Component({
   selector: 'app-stage-iad',
@@ -20,7 +22,8 @@ export class StageIADComponent implements OnInit {
   constructor(
     public service : CardapplicationService,
      private commonService : CommonService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit() {
@@ -42,7 +45,12 @@ export class StageIADComponent implements OnInit {
 
  
 
-  
+  getHistory(id){
+
+    const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
+    modalRef.componentInstance.my_modal_title = 'History';
+    modalRef.componentInstance.appId = id;
+  }
   onSearch() {
     this.service.search("dddf3cfd-903b-40d2-9747-95499eda1f6b").subscribe(
       (res: any) => {
@@ -59,7 +67,7 @@ getData(){
   this.service.getApplicationsWithStatusId("dddf3cfd-903b-40d2-9747-95499eda1f6b").subscribe(
     (res:any) =>{
       console.log(res);
-      this.NewApplications=res.data;
+      this.NewApplications=res.data.filter(i => !i.receivedBy);
     },
     err =>{
       console.log(err);

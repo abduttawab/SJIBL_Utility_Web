@@ -4,6 +4,8 @@ import * as $ from 'jquery';
 import 'datatables.net';
 import { CommonService } from '../shared/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
 
 
 @Component({
@@ -15,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewApplicationsComponent implements OnInit {
   NewApplications: any[];
+  ApprovedApplications: any[];
   Districts= [];
   BranchList= [];
   SourceByList= [];
@@ -24,11 +27,13 @@ export class NewApplicationsComponent implements OnInit {
   constructor(
     public service : CardapplicationService,
      private commonService : CommonService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit() {
  this.getData();
+ //this.getApprovedData();
          // Get Branch list
          this.commonService.getbranchList().subscribe(
           (res:any) =>{
@@ -64,6 +69,23 @@ getData(){
     (res:any) =>{
       console.log(res);
       this.NewApplications=res.data;
+    },
+    err =>{
+      console.log(err);
+    }
+  );
+}
+getHistory(id){
+
+  const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
+  modalRef.componentInstance.my_modal_title = 'History';
+  modalRef.componentInstance.appId = id;
+}
+getApprovedData(){
+  this.service.getApplicationsWithStatusId("dddf3cfd-903b-40d2-9747-95499eda1f6b").subscribe(
+    (res:any) =>{
+      console.log(res);
+     // this.ApprovedApplications=res.data;
     },
     err =>{
       console.log(err);

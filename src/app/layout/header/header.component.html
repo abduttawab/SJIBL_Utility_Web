@@ -79,14 +79,17 @@
                                             routerLink="/home/irmdDo"><i class="ti-agenda"></i>IRMD- Desk Officer</a>
                             <li *ngIf="userRole=='IRM- Unit In-charge' || userRole=='Admin'"><a
                                                 routerLink="/home/irmdIncharge"><i class="ti-agenda"></i>IRM- Unit In-charge</a>
-                            <li *ngIf="userRole=='IRM- Division Head' || userRole=='Admin'"><a
+                            <li *ngIf="userRole=='IRM- Unit In-charge' || userRole=='IRM- Division Head' || userRole=='Admin'"><a
                                                     routerLink="/home/irmdHead"><i class="ti-agenda"></i>IRM- Division Head</a>
                                     
                                  
                           
                             
-                            <li *ngIf="userRole=='DMD' || userRole=='Admin'"><a
-                                routerLink="/home/dmd"><i class="ti-agenda"></i>DMD</a>
+                            <li *ngIf="userRole=='DMD Corporate 1' || userRole=='Admin'"><a
+                                routerLink="/home/dmd"><i class="ti-agenda"></i>DMD Corporate 1</a>
+                            </li>
+                            <li *ngIf="userRole=='DMD Corporate 2' || userRole=='Admin'"><a
+                                routerLink="/home/dmd2"><i class="ti-agenda"></i>DMD Corporate 2</a>
                             </li>
                             <li *ngIf="userRole=='AMD' || userRole=='Admin'"><a
                                 routerLink="/home/amd"><i class="ti-agenda"></i>AMD</a>
@@ -105,7 +108,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li *ngIf="userRole=='Admin'" class="has-submenu"><a routerLink="/home/appusers"><i
+                    <li *ngIf="userRole=='UserMaker' || userRole=='Admin'" class="has-submenu"><a routerLink="/home/unAuthUsers"><i
+                        class="ti-user"></i>Create Application User</a></li>
+
+                    <li *ngIf="userRole=='UserChecker' || userRole=='Admin'" class="has-submenu"><a routerLink="/home/appusers"><i
                                 class="ti-user"></i>Application Users</a></li>
                     <li *ngIf="userRole=='Admin'" class="has-submenu"><a routerLink="documentType"><i
                                     class="ti-layers-alt"></i>Document Type</a></li>

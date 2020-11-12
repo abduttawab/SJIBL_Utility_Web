@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalDeduplicationstatusComponent } from './modal-deduplicationstatus.component';
+import { ModalDeduplicationstatusComponent } from './modal-decision-model.component';
 
 describe('ModalDeduplicationstatusComponent', () => {
   let component: ModalDeduplicationstatusComponent;

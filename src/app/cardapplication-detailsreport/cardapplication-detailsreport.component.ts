@@ -10,7 +10,7 @@ import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-b
 import {Location} from '@angular/common';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { ModalDeduplicationstatusComponent } from '../modal-deduplicationstatus/modal-deduplicationstatus.component';
+import { ModalDeduplicationstatusComponent } from '../modal-decision-model/modal-decision-model.component';
 @Component({
   selector: 'app-cardapplication-detailsreport',
   templateUrl: './cardapplication-detailsreport.component.html',

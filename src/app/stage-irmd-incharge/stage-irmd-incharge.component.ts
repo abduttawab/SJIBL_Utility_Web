@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CardapplicationService } from '../shared/cardapplication.service';
 import { CommonService } from '../shared/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
 
 @Component({
   selector: 'app-stage-irmd-incharge',
@@ -20,7 +22,8 @@ export class StageIrmdInchargeComponent implements OnInit {
   constructor(
     public service : CardapplicationService,
      private commonService : CommonService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit() {
@@ -39,7 +42,12 @@ export class StageIrmdInchargeComponent implements OnInit {
         );
    
   }
+  getHistory(id){
 
+    const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
+    modalRef.componentInstance.my_modal_title = 'History';
+    modalRef.componentInstance.appId = id;
+  }
 
   onSearch() {
     this.service.search("fc8382ae-76ad-4ebc-be32-7d172471ca95").subscribe(

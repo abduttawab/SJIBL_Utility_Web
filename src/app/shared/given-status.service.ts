@@ -18,7 +18,7 @@ export class GivenStatusService {
     StageSerial:[0],
     HistoryId:['',Validators.required],
     Status:['',Validators.required],
-    Remarks:['',Validators.maxLength(50)]
+    Remarks:['',Validators.maxLength(200)]
   });
   cardRecModel = this.fb.group({
    
@@ -26,7 +26,7 @@ export class GivenStatusService {
     FileNoCardDiv:['',Validators.required]
   });
 
-  saveDeduplicationStatus()
+  saveDecision()
     {
       var body = {
         HistoryId : this.formModel.value.HistoryId,

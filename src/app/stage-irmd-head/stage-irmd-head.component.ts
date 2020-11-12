@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CardapplicationService } from '../shared/cardapplication.service';
 import { CommonService } from '../shared/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { AppHistoryModelComponent } from '../app-history-model/app-history-model.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-stage-irmd-head',
@@ -20,7 +22,8 @@ export class StageIRMDHeadComponent implements OnInit {
   constructor(
     public service : CardapplicationService,
      private commonService : CommonService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit() {
@@ -40,7 +43,12 @@ export class StageIRMDHeadComponent implements OnInit {
    
   }
 
+  getHistory(id){
 
+    const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
+    modalRef.componentInstance.my_modal_title = 'History';
+    modalRef.componentInstance.appId = id;
+  }
   onSearch() {
     this.service.search("88d88b87-6fdd-49d7-b7b9-077ded560470").subscribe(
       (res: any) => {
@@ -95,6 +103,28 @@ getData(){
           if (res.isSuccessfull) {
             this.getData();
             this.toastr.warning('Data Send!', 'Record successfully Send.');
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          console.log(err);
+     
+        }
+      );
+    }
+  }
+
+  changeStageDinamic(id: string,toStage: string, toStageSerial){
+    if(confirm("Are you sure to sent this file to "+toStage +"?")) {
+      this.service.changeStage(id,toStageSerial).subscribe(
+        (res: any) => {
+          
+          console.log(res);
+
+          if (res.isSuccessfull) {
+            this.getData();
+            this.toastr.success('Data Send!', 'Record successfully Send.');
           } else {
             this.toastr.error('Ops! Something went worng!', res.message);
           }

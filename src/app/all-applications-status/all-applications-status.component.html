@@ -42,9 +42,8 @@
 
                               <select class="form-control" formControlName="SourcedBy">
                                 <option value="">Select</option>
-                                <option *ngFor="let district of SourceByList; let i = index"
-                                  [value]="SourceByList[i].BRANCH_CODE">
-                                  {{SourceByList[i].BRANCH_NAME}} ( {{SourceByList[i].BRANCH_CODE}} )
+                                <option *ngFor="let district of SourceByList; let i = index" [value]="SourceByList[i].brancH_NAME +' ('+ SourceByList[i].brancH_CODE+ ')'">
+                                  {{SourceByList[i].brancH_NAME}} ({{SourceByList[i].brancH_CODE}})
                                 </option>
                               </select>
 
@@ -52,10 +51,20 @@
                           </div>
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label for="FileNo">File No</label>
+                              <label for="CompanyId">Company Id</label>
 
                               <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                                <input type="text" class="form-control" formControlName="FileNo" placeholder="Enter File No">
+                                <input type="text" class="form-control" formControlName="CompanyId" placeholder="Enter Company Id">
+                              </div>
+
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <label for="CompanyName">Company Name</label>
+
+                              <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                                <input type="text" class="form-control" formControlName="CompanyName" placeholder="Enter Company Name">
                               </div>
 
                             </div>
@@ -147,6 +156,8 @@
                       <th>Received By</th>
                       <th>Received Datetime</th>
                       <th>Given Status</th>
+                      <th style="width: 40%;">Remarks</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -159,6 +170,9 @@
                       <td>{{value.receivedBy}}</td>
                       <td>{{value.receivedDatetime | date: 'dd/MM/yyyy HH:mm'}}</td>
                       <td>{{value.givenStatus}}</td>
+                      <td>{{value.givenRemarks}}</td>
+                      <td><button type="button" class="btn btn-success" placement="top" [routerLink]="['/home/appDoc']"
+                        ngbTooltip="Documents" [queryParams]="{Id:value.id,HistoryId:value.applicationTrackingHistoryId,StageWise:true}"><i class="ti-agenda"></i></button></td>
                     </tr>
                    
                   </tbody>

@@ -3,7 +3,7 @@
     <div class="col-sm-6">
       <h4 class="page-title">Entry Form</h4>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">New Credit Card Application</li>
+        <li class="breadcrumb-item active">New Investment Application</li>
       </ol>
     </div>
     <div class="col-sm-6">
@@ -46,8 +46,8 @@
                 <span *ngIf="service.formModel.controls['SourceChannel'].value=='Branch'"> 
                   <select class="form-control" formControlName="SourcedBy">
                     <option value="">Select</option>
-                    <option *ngFor="let district of SourceByList; let i = index" [value]="SourceByList[i].brancH_CODE">
-                      {{SourceByList[i].brancH_NAME}} ( {{SourceByList[i].brancH_CODE}} )
+                    <option *ngFor="let district of SourceByList; let i = index" [value]="SourceByList[i].brancH_NAME +' ('+ SourceByList[i].brancH_CODE+ ')'">
+                      {{SourceByList[i].brancH_NAME}} ({{SourceByList[i].brancH_CODE}})
                     </option>
                   </select>
 
@@ -91,6 +91,33 @@
               </div>
             </div>
           
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="CompanyId">Company Id</label>
+                <input formControlName="CompanyId" type="text" class="form-control" >
+     
+                <label class="text-danger" *ngIf="service.formModel.get('CompanyId').touched
+                          && service.formModel.get('CompanyId').errors?.required">This field is mandatory.</label>
+                <label class="text-danger" *ngIf="service.formModel.get('CompanyId').touched
+                          && service.formModel.get('CompanyId').errors?.maxlength">Maximum 200 characters
+                  required.</label>
+
+              </div>
+            </div>
+
+            <div class="col-md-8">
+              <label for="CompanyName">Company Name</label>
+              <input formControlName="CompanyName" type="text" class="form-control" >
+   
+              <label class="text-danger" *ngIf="service.formModel.get('CompanyName').touched
+                        && service.formModel.get('CompanyName').errors?.required">This field is mandatory.</label>
+              <label class="text-danger" *ngIf="service.formModel.get('CompanyName').touched
+                        && service.formModel.get('CompanyName').errors?.maxlength">Maximum 300 characters
+                required.</label>
+            </div>
           </div>
         </div>
       </div>

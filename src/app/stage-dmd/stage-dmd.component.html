@@ -124,7 +124,8 @@
                     
                     <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-danger" placement="top" (click)="backStage(application.id)"  
                     ngbTooltip="Reverse" ><i class="ti-back-left"></i></button> 
-                    
+                    <button (click)="getHistory(application.id)" *ngIf="application.receivedBy" type="button" class="btn btn-primary" placement="top"  
+                    ngbTooltip="History" ><i class="ti-loop"></i></button> 
                     <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-secondary" placement="top" (click)="changeStage(application.id)"  
                        ngbTooltip="Send" ><i class="ti-share"></i></button> 
                      

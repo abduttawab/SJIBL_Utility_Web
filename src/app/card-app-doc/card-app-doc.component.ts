@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { DocumentTypeService } from '../shared/document-type.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { ModalDeduplicationstatusComponent } from '../modal-deduplicationstatus/modal-deduplicationstatus.component';
+import { ModalDeduplicationstatusComponent } from '../modal-decision-model/modal-decision-model.component';
 import {Location} from '@angular/common';
 
 @Component({
@@ -14,6 +14,7 @@ export class CardAppDocComponent implements OnInit {
   @ViewChild('pdfLoaderArea') pdfLoaderArea: ElementRef;
   DocTypes:any[];
   historyId;
+  stageWise=false;
   userRole;
   modalOptions:NgbModalOptions;
   docUrl:"http://africau.edu/images/default/sample.pdf";
@@ -38,6 +39,10 @@ export class CardAppDocComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.CardApplicationId = params['Id'];
       this.historyId = params['HistoryId'];
+      if(params['StageWise']){
+        this.stageWise = params['StageWise'];
+      }
+     
       if(params['Id']==null){
         this.router.navigate(["/home/newapplications"]);
       }
@@ -57,6 +62,10 @@ export class CardAppDocComponent implements OnInit {
   public uploadFinished = (event,obj) => {
 
     this.response = event;
+
+    if(!obj.applicationStageId){
+      obj.applicationStageId = this.historyId;
+    }
 
     var body = {
       Details : "",
@@ -87,10 +96,8 @@ export class CardAppDocComponent implements OnInit {
   this._location.back();
 }
   getData(){
-    this.service.getAllCardAppDoc(this.CardApplicationId,this.historyId).subscribe(
+    this.service.getAllCardAppDoc(this.CardApplicationId,this.historyId,this.stageWise).subscribe(
       (res:any) =>{
- 
-  
       this.DocTypes=res.data;
       },
       err =>{

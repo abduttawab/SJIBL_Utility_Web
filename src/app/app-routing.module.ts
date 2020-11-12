@@ -26,6 +26,8 @@ import { StageRetailHeadComponent } from './stage-retail-head/stage-retail-head.
 import { StageDmdComponent } from './stage-dmd/stage-dmd.component';
 import { StageAmdComponent } from './stage-amd/stage-amd.component';
 import { StageMdComponent } from './stage-md/stage-md.component';
+import { StageDmd2Component } from './stage-dmd2/stage-dmd2.component';
+import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -45,6 +47,8 @@ const routes: Routes = [
     { path: 'registration', component: RegistrationComponent },
     { path: 'entryform', component: EntryFormComponent },
     { path: 'allApplications', component: AllApplicationsStatusComponent },
+    { path: 'unAuthUsers', component: UnAuthUserComponent },
+    
     { path: 'newapplications', component: NewApplicationsComponent }
     ,
     { path: 'irmdHead', component: StageIRMDHeadComponent }
@@ -60,6 +64,8 @@ const routes: Routes = [
     { path: 'retailhead', component: StageRetailHeadComponent }
     ,
     { path: 'dmd', component: StageDmdComponent }
+    ,
+    { path: 'dmd2', component: StageDmd2Component }
     ,
     { path: 'amd', component: StageAmdComponent }
     ,

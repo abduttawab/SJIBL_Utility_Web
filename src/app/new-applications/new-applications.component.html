@@ -120,6 +120,22 @@
             </tr>
 
 
+
+
+            <tr *ngFor="let application of ApprovedApplications; let i = index">
+              <td>{{application.sourceChannel}}</td>
+              <td>{{application.sourcedBy}}</td>
+              <td>{{application.fileNo}}</td>
+            
+              <td>
+
+                <div class="btn-group btn-group-sm m-t-10" role="group" aria-label="Basic example">
+                  
+                  <button (click)="getHistory(application.id)" type="button" class="btn btn-primary" placement="top"  
+                  ngbTooltip="History" ><i class="ti-loop"></i></button> 
+                  </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

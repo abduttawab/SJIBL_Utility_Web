@@ -32,7 +32,7 @@
         // ...
         this.sourceChannelOnChange();
       }
-      ngOnInit() {
+      async ngOnInit() {
 
         let id;
 
@@ -57,16 +57,9 @@
           }
         );
 
-        // Get Branch list
-        this.commonService.getbranchList().subscribe(
-          (res: any) => {
-            this.BranchList = res.data;
-
-          },
-          err => {
-            console.log(err);
-          }
-        );
+         // Get Branch list
+       
+         this.BranchList = await this.getBranchList();
 
         this.activatedRoute.queryParams.subscribe(params => {
           id = params['Id'];
@@ -90,6 +83,22 @@
         } else {
           this.SourceByList = this.SalesAgentList;
         }
+      }
+
+      async  getBranchList() : Promise<any>{
+
+        return new Promise((resolve, reject) => {
+          this.commonService.getbranchList().subscribe(
+            (res: any) => {
+              resolve(res.data);
+            },
+            err => {
+              console.log(err);
+              reject(err);
+            }
+          );
+        })
+       
       }
       getEmployeeId() {
 
@@ -152,6 +161,8 @@
             this.service.formModel.controls['FileNo'].setValue(res.data.fileNo);
            
             this.service.formModel.controls['ReferenceName'].setValue(res.data.referenceName);
+            this.service.formModel.controls['CompanyId'].setValue(res.data.companyId);
+            this.service.formModel.controls['CompanyName'].setValue(res.data.companyName);
 
             if (this.service.formModel.controls['SourceChannel'].value != "" &&
               this.service.formModel.controls['SourcedBy'].value != "" &&
@@ -206,7 +217,7 @@
                   if (res.isSuccessfull) {
                     this.service.formModel.reset();
                     this.toastr.success('Data saved!', 'Record successfully saved.');
-                    this.router.navigate(['/home/appDoc'], { queryParams: { Id: res.data } });
+                    this.router.navigate(['/home/appDoc'], { queryParams: { Id: res.data,HistoryId:'7a29c9dd-dad4-4ee0-ba2d-f5f75758fec4' } });
                   } else {
                     this.toastr.success('Ops! Something went worng!', res.message);
                   }
