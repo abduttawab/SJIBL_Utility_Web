@@ -95,7 +95,7 @@ getData(){
 
   changeStage(id: string) {
     if(confirm("Are you sure to sent this file to IRMD- Divisional Head?")) {
-      this.service.changeStage(id,4).subscribe(
+      this.service.changeStage(id,7).subscribe(
         (res: any) => {
           console.log(res);
 
@@ -115,7 +115,7 @@ getData(){
   }
   backStage(id: string) {
     if(confirm("Are you sure to sent this file to IRMD- Desk Officer?")) {
-      this.service.changeStage(id,2).subscribe(
+      this.service.changeStage(id,5).subscribe(
         (res: any) => {
           
           console.log(res);

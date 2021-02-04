@@ -109,7 +109,7 @@ getData(){
 
   changeStage(id: string) {
     if(confirm("Are you sure to sent this file to Unit In-charge?")) {
-      this.service.changeStage(id,3).subscribe(
+      this.service.changeStage(id,6).subscribe(
         (res: any) => {
           console.log(res);
 
@@ -128,8 +128,8 @@ getData(){
     }
   }
   backStage(id: string) {
-    if(confirm("Are you sure to sent this file for Branch?")) {
-      this.service.changeStage(id,1).subscribe(
+    if(confirm("Are you sure to sent this file for Branch Manager?")) {
+      this.service.changeStage(id,4).subscribe(
         (res: any) => {
           
           console.log(res);

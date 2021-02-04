@@ -126,9 +126,9 @@
                     ngbTooltip="Reverse" ><i class="ti-back-left"></i></button> 
                     <button (click)="getHistory(application.id)" *ngIf="application.receivedBy" type="button" class="btn btn-primary" placement="top"  
                     ngbTooltip="History" ><i class="ti-loop"></i></button> 
-                    <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-secondary" placement="top" (click)="changeStageDinamic(application.id,'IAD',8)"  
+                    <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-secondary" placement="top" (click)="changeStageDinamic(application.id,'IAD',11)"  
                        ngbTooltip="Send To IAD" ><i class="ti-share"></i></button> 
-                       <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-primary" placement="top" (click)="changeStageDinamic(application.id,'Board Secretary',9)"  
+                       <button *ngIf="application.receivedBy && application.givenStatus" type="button" class="btn btn-primary" placement="top" (click)="changeStageDinamic(application.id,'Board Secretary',12)"  
                        ngbTooltip="Send To Board" ><i class="ti-share"></i></button> 
                  
                   </div>

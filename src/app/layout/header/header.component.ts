@@ -10,11 +10,13 @@ import { UserService } from 'src/app/shared/user.service';
 export class HeaderComponent implements OnInit {
   userDetails;
   userRole;
+  userRoles;
   userName;
   constructor(private router:Router, private service:UserService) { }
 
   ngOnInit() {
     this.userRole = localStorage.getItem('role');
+    this.userRoles = localStorage.getItem('UserRoles');
    this.userName= localStorage.getItem('userFullName');
   }
   onLogout(){

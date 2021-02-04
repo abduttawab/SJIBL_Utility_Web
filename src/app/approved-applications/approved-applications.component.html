@@ -1,7 +1,7 @@
 <div class="page-title-box">
   <div class="row align-items-center">
     <div class="col-sm-6">
-      <h4 class="page-title">New Applications Informations</h4>
+      <h4 class="page-title">Approved Applications Informations</h4>
       <ol class="breadcrumb">
         <li class="breadcrumb-item active"></li>
       </ol>
@@ -81,8 +81,6 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-
-
         <table class="table table-striped table-sm table-bordered
                  dt-responsive nowrap" style="border-collapse: collapse;
                   border-spacing: 0; width: 100%;">
@@ -91,45 +89,43 @@
               <th>Source Channel</th>
               <th>Sourced By</th>
               <th>File No</th>
+              <th>Current Division</th>
             
               <th>Action</th>
             </tr>
           </thead>
           <tbody class="text-center">
 
-            <tr *ngFor="let application of NewApplications; let i = index">
+            <tr *ngFor="let application of ApprovedApplications; let i = index">
               <td>{{application.sourceChannel}}</td>
               <td>{{application.sourcedBy}}</td>
               <td>{{application.fileNo}}</td>
-            
+              <td>{{application.stageName}}</td>
+              
               <td>
 
                 <div class="btn-group btn-group-sm m-t-10" role="group" aria-label="Basic example">
-                  
                   <button type="button" class="btn btn-success" placement="top" [routerLink]="['/home/appDoc']"
-                      ngbTooltip="Documents" [queryParams]="{Id:application.id,HistoryId:application.applicationTrackingHistoryId}"><i class="ti-agenda"></i></button>
-         
-                     <button type="button" class="btn btn-secondary" placement="top" (click)="changeStage(application.id)"  
-                       ngbTooltip="Send to Investment Incharge" *ngIf="application.isAllReqDocUp"><i class="ti-share"></i></button>
-                    <button type="button" class="btn btn-warning" placement="top" [routerLink]="['/home/entryform']"
-                      ngbTooltip="Edit" [queryParams]="{Id:application.id}"><i class="ti-pencil-alt"></i></button>
-                      <button type="button" class="btn btn-danger" (click)="delete(application.id)" placement="top" ngbTooltip="Delete" >
-                        <i class="ti-close"></i></button>
+                  ngbTooltip="Documents" [queryParams]="{Id:application.id,HistoryId:application.applicationTrackingHistoryId}"><i class="ti-agenda"></i></button>
+                  
+                  <button (click)="getHistory(application.id)" type="button" class="btn btn-primary" placement="top"  
+                  ngbTooltip="History" ><i class="ti-loop"></i></button> 
                   </div>
               </td>
             </tr>
 
 
-
-
-            <tr *ngFor="let application of ApprovedApplications; let i = index">
+            <tr *ngFor="let application of ApprovedApplicationsBoard; let i = index">
               <td>{{application.sourceChannel}}</td>
               <td>{{application.sourcedBy}}</td>
               <td>{{application.fileNo}}</td>
-            
+              <td>{{application.stageName}}</td>
+              
               <td>
 
                 <div class="btn-group btn-group-sm m-t-10" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-success" placement="top" [routerLink]="['/home/appDoc']"
+                  ngbTooltip="Documents" [queryParams]="{Id:application.id,HistoryId:application.applicationTrackingHistoryId}"><i class="ti-agenda"></i></button>
                   
                   <button (click)="getHistory(application.id)" type="button" class="btn btn-primary" placement="top"  
                   ngbTooltip="History" ><i class="ti-loop"></i></button> 

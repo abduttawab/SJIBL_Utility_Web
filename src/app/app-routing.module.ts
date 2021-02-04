@@ -28,6 +28,11 @@ import { StageAmdComponent } from './stage-amd/stage-amd.component';
 import { StageMdComponent } from './stage-md/stage-md.component';
 import { StageDmd2Component } from './stage-dmd2/stage-dmd2.component';
 import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
+import { CibDataAutomationComponent } from './cib-data-automation/cib-data-automation.component';
+import { StageBranchInvestmentInchargeComponent } from './stage-branch-investmentIncharge/stage-branch-investmentIncharge.component';
+import { StageBranchDeputy } from './stage-branch-deputy/stage-branch-deputy.component';
+import { StageBranchManager } from './stage-branch-manager/stage-branch-manager.component';
+import { ApprovedApplicationsComponent } from './approved-applications/approved-applications.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -55,6 +60,14 @@ const routes: Routes = [
     ,
     { path: 'detailsreport', component: CardapplicationDetailsreportComponent }
     ,
+    { path: 'branchInvestmentIncharge', component: StageBranchInvestmentInchargeComponent }
+    ,
+    { path: 'branchDeputy', component: StageBranchDeputy },
+    { path: 'branchManager', component: StageBranchManager }
+    ,
+    { path: 'approvedApplication', component: ApprovedApplicationsComponent }
+    ,
+    //
     { path: 'irmdDo', component: StageIrmdDoComponent }
     ,
     { path: 'irmdIncharge', component: StageIrmdInchargeComponent }
@@ -78,6 +91,8 @@ const routes: Routes = [
     { path: 'documentType', component: DocumentTypeComponent }
     ,
     { path: 'appDoc', component: CardAppDocComponent }
+    ,
+    { path: 'cibAuto', component: CibDataAutomationComponent }
   ]
 },
 //

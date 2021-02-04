@@ -8,6 +8,7 @@
           <div class="card-body" >
          
               <div class="row" >
+                
                 <button toggleFullscreen>Full Screen</button>
                   
                 <mat-tab-group >
@@ -28,7 +29,16 @@
                           <div class="col-md-1"></div>
                           <div class="col-md-5">
                            
-                            <app-file-upload (onUploadFinished)="uploadFinished($event,obj)" *ngIf="(userRole=='Branch User' || userRole=='IRM-Desk Officer' || userRole=='IRM- Unit In-charge' || userRole=='Admin' || userRole=='IRM- Division Head')"></app-file-upload>
+                            <app-file-upload (onUploadFinished)="uploadFinished($event,obj)" 
+                            *ngIf="((userRole=='Branch User' ||
+                             userRole=='IRM-Desk Officer' ||
+                              userRole=='IRM- Unit In-charge' ||
+                               userRole=='Admin' ||
+                                userRole=='IRM- Division Head') &&
+                             !(stageId == 'dddf3cfd-903b-40d2-9747-95499eda1f6b' ||
+                               
+                                stageId == '58166bdf-2250-4795-9a77-13e906bcd566')
+                                )"></app-file-upload>
                         
                           </div>
                          

@@ -24,8 +24,12 @@ export class UserFormComponent implements OnInit {
      private commonService : CommonService) {}
  
   ngOnInit() {
-    
+   
     this.getRoles();
+
+    if(this.id){
+      this.getData(this.id);
+    }
   }
   getEmployeeId() {
 
@@ -54,7 +58,7 @@ export class UserFormComponent implements OnInit {
     );
   }
   onSubmit() {
-    this.service.saveUser().subscribe(
+    this.service.register().subscribe(
       (res: any) => {
         
         if (res.isSuccessfull) {
@@ -65,8 +69,6 @@ export class UserFormComponent implements OnInit {
       },
       err => {
         console.log(err);
-
-        this.toastr.error('Ops! Something went worng!', err.error.message);
       }
     );
   }
@@ -81,6 +83,24 @@ export class UserFormComponent implements OnInit {
       }
     );
    };
+   getData(id){
+    this.service.getData(id).subscribe(
+      (res: any) => {
+       const obj = res.data;
+       this.service.formModel.controls['Id'].setValue(obj.id);
+       this.service.formModel.controls['UserName'].setValue(obj.userName);
+       this.service.formModel.controls['Email'].setValue(obj.email);
+       this.service.formModel.controls['FullName'].setValue(obj.fullName);
+       this.service.formModel.controls['Role'].setValue(obj.role);
+       this.service.formModel.get('Passwords').get('Password').setValue("00000");
+       this.service.formModel.get('Passwords').get('ConfirmPassword').setValue("00000");
 
+     
+      },
+      err => {
+        console.log(err);
+      }
+    );
+   }
 
 }

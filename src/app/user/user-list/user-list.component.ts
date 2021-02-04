@@ -82,4 +82,63 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  edit(id){
+
+    this.service.formModel.reset()
+    const modalRef = this.modalService.open(UserFormComponent);
+    modalRef.componentInstance.my_modal_title = 'Application User Update';
+    modalRef.componentInstance.id = id;
+ 
+
+    modalRef.result.then((result) => {
+      if ( result === 'Close click' ) {
+        this.getData(); // Refresh Data in table grid
+      }
+    }, (reason) => {
+    });
+  }
+
+  delete(id: string) {
+    if(confirm("Are you sure to delete this information?")) {
+      this.service.delete(id).subscribe(
+        (res: any) => {
+          console.log(res);
+
+          if (res.isSuccessfull) {
+            this.getData();
+            this.toastr.warning('Data deleted!', 'Record successfully deleted.');
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          console.log(err);
+     
+        }
+      );
+    }
+  }
+
+  resetPassword(id: string) {
+    if(confirm("Are you sure to reset password for this user?")) {
+      this.service.resetPassword(id).subscribe(
+        (res: any) => {
+          console.log(res);
+
+          if (res.isSuccessfull) {
+            this.getData();
+            this.toastr.info('Password Reset!', 'New Password: '+res.data, { timeOut: 0 });
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          this.toastr.error('Ops! Something went worng!', "");
+          console.log(err);
+     
+        }
+      );
+    }
+  }
+
 }

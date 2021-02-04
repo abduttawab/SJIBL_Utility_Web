@@ -53,6 +53,7 @@ export class UserService {
   
   {
     var body = {
+      Id : this.formModel.value.Id,
       UserName : this.formModel.value.UserName,
       Email : this.formModel.value.Email,
       Password : this.formModel.value.Passwords.Password,
@@ -94,7 +95,12 @@ export class UserService {
     return this.http.post(this.BaseURI+'ApplicationUser/ChangePassword',body);
   }
 
-
+  deleteUser(id){
+    return this.http.get(this.BaseURI+'ApplicationUser/DeleteUser?userId='+id);
+  }
+  resetPassword(id){
+    return this.http.get(this.BaseURI+'ApplicationUser/ResetPassword?userId='+id);
+  }
 login(formData){
 
   return this.http.post(this.BaseURI+'ApplicationUser/Login',formData);
@@ -114,6 +120,9 @@ getAllUnAuthUsers(){
 
 getRoles(){
   return this.http.get(this.BaseURI+'ApplicationUser/GetRoles');
+}
+getData(id){
+  return this.http.get(this.BaseURI+'ApplicationUser/GetUser?id='+id);
 }
 roleMatch(allowedRoles): boolean {
   var isMatch = false;

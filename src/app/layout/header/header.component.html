@@ -4,7 +4,9 @@
         <div class="container-fluid">
             <!-- Logo container-->
             <div class="logo">
-                <a routerLink="/home/dashboard" class="logo"><h3 style="color: antiquewhite;">SJIBL - IDPA</h3></a>
+                <a routerLink="/home/dashboard" class="logo">
+                    <h3 style="color: antiquewhite;">SJIBL - IDPA</h3>
+                </a>
             </div>
             <!-- MENU Start -->
 
@@ -16,17 +18,18 @@
                     <!-- language-->
                     <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="false" aria-expanded="false"><i class="mdi mdi-account-circle m-r-5"></i> {{userName}} <span class="mdi mdi-chevron-down"></span></a>
+                            aria-haspopup="false" aria-expanded="false"><i class="mdi mdi-account-circle m-r-5"></i>
+                            {{userName}} <span class="mdi mdi-chevron-down"></span></a>
                         <div class="dropdown-menu dropdown-menu-right language-switch" x-placement="top-end"
                             style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-38px, -15px, 0px);">
-                          
-                                 <a class="dropdown-item d-block" routerLink="/home/changePassword" ><i
-                                    class="mdi mdi-settings m-r-5" ></i> Change Password</a>
-                                    
-                            <div class="dropdown-divider"></div><a (click)="onLogout()" class="dropdown-item text-danger"><i
-                                    class="mdi mdi-power text-danger"></i> Logout</a>
 
-                                    
+                            <a class="dropdown-item d-block" routerLink="/home/changePassword"><i
+                                    class="mdi mdi-settings m-r-5"></i> Change Password</a>
+
+                            <div class="dropdown-divider"></div><a (click)="onLogout()"
+                                class="dropdown-item text-danger"><i class="mdi mdi-power text-danger"></i> Logout</a>
+
+
                         </div>
                     </li>
 
@@ -67,55 +70,88 @@
 
                     <li *ngIf="userRole=='Branch User' || userRole=='Admin'" class="has-submenu"><a
                             routerLink="/home/entryform"><i class="ti-agenda"></i>Entry Form</a></li>
+
+
                     <li *ngIf="userRole=='ViewOnly' || userRole=='Admin'" class="has-submenu"><a
                             routerLink="/home/allApplications"><i class="ti-search"></i>Find</a></li>
 
-                    <li class="has-submenu"><a href="#"><i class="ti-harddrives"></i>Applications</a>
+                    <li class="has-submenu"><a routerLink="/home/dashboard"><i
+                                class="ti-harddrives"></i>Applications</a>
                         <ul class="submenu">
-                            <li *ngIf="userRole=='Branch User' || userRole=='Admin'"><a routerLink="/home/newapplications"><i
-                                        class="ti-agenda"></i>New Applications</a></li>
-                                        
+
+                            <li *ngIf="userRole=='Branch User' || userRole=='Admin'"><a
+                                    routerLink="/home/newapplications"><i class="ti-agenda"></i>Branch Desk Officer</a>
+                            </li>
+
+                            <li *ngIf="userRole=='Branch Investment Incharge' || userRole=='Admin'"><a
+                                    routerLink="/home/branchInvestmentIncharge"><i class="ti-agenda"></i>Branch
+                                    Investment Incharge</a></li>
+
+                            <li *ngIf="userRole=='Branch Deputy Manager' || userRole=='Admin'"><a
+                                    routerLink="/home/branchDeputy"><i class="ti-agenda"></i>Branch Deputy Manager</a>
+                            </li>
+
+                            <li *ngIf="userRole=='Branch Manager' || userRole=='Admin'"><a
+                                    routerLink="/home/branchManager"><i class="ti-agenda"></i>Branch Manager</a></li>
+
                             <li *ngIf="userRole=='IRM-Desk Officer' || userRole=='Admin'"><a
-                                            routerLink="/home/irmdDo"><i class="ti-agenda"></i>IRMD- Desk Officer</a>
-                            <li *ngIf="userRole=='IRM- Unit In-charge' || userRole=='Admin'"><a
-                                                routerLink="/home/irmdIncharge"><i class="ti-agenda"></i>IRM- Unit In-charge</a>
-                            <li *ngIf="userRole=='IRM- Unit In-charge' || userRole=='IRM- Division Head' || userRole=='Admin'"><a
-                                                    routerLink="/home/irmdHead"><i class="ti-agenda"></i>IRM- Division Head</a>
-                                    
-                                 
-                          
-                            
-                            <li *ngIf="userRole=='DMD Corporate 1' || userRole=='Admin'"><a
-                                routerLink="/home/dmd"><i class="ti-agenda"></i>DMD Corporate 1</a>
+                                    routerLink="/home/irmdDo"><i class="ti-agenda"></i>IRMD- Desk Officer</a>
                             </li>
-                            <li *ngIf="userRole=='DMD Corporate 2' || userRole=='Admin'"><a
-                                routerLink="/home/dmd2"><i class="ti-agenda"></i>DMD Corporate 2</a>
+
+                            <li *ngIf="userRole=='IRM- Unit In-charge' || userRole=='Admin'">
+                                <a routerLink="/home/irmdIncharge">
+                                    <i class="ti-agenda"></i>
+                                    IRM- Unit In-charge</a>
                             </li>
-                            <li *ngIf="userRole=='AMD' || userRole=='Admin'"><a
-                                routerLink="/home/amd"><i class="ti-agenda"></i>AMD</a>
+                            <li
+                                *ngIf="userRole=='IRM- Unit In-charge' || userRole=='IRM- Division Head' || userRole=='Admin'">
+                                <a routerLink="/home/irmdHead"><i class="ti-agenda"></i>IRM- Division Head</a>
+
                             </li>
-                            <li *ngIf="userRole=='MD' || userRole=='Admin'"><a
-                                routerLink="/home/md"><i class="ti-agenda"></i>MD</a>
+
+
+                            <li *ngIf="userRole=='DMD Corporate 1' || userRole=='Admin'"><a routerLink="/home/dmd"><i
+                                        class="ti-agenda"></i>DMD Corporate 1</a>
                             </li>
-                            
-                          
-                            
-                            <li *ngIf="userRole=='IAD' || userRole=='Admin'"><a
-                                routerLink="/home/iadStage"><i class="ti-agenda"></i>IAD</a>
+                            <li *ngIf="userRole=='DMD Corporate 2' || userRole=='Admin'"><a routerLink="/home/dmd2"><i
+                                        class="ti-agenda"></i>DMD Corporate 2</a>
+                            </li>
+                            <li *ngIf="userRole=='AMD' || userRole=='Admin'"><a routerLink="/home/amd"><i
+                                        class="ti-agenda"></i>AMD</a>
+                            </li>
+                            <li *ngIf="userRole=='MD' || userRole=='Admin'"><a routerLink="/home/md"><i
+                                        class="ti-agenda"></i>MD</a>
+                            </li>
+
+
+
+                            <li *ngIf="userRole=='IAD' || userRole=='Admin'"><a routerLink="/home/iadStage"><i
+                                        class="ti-agenda"></i>IAD</a>
                             </li>
                             <li *ngIf="userRole=='Board Secretary' || userRole=='Admin'"><a
-                                routerLink="/home/boardSecretaryStage"><i class="ti-agenda"></i>Board Secretary</a>
+                                    routerLink="/home/boardSecretaryStage"><i class="ti-agenda"></i>Board Secretary</a>
                             </li>
                         </ul>
                     </li>
-                    <li *ngIf="userRole=='UserMaker' || userRole=='Admin'" class="has-submenu"><a routerLink="/home/unAuthUsers"><i
-                        class="ti-user"></i>Create Application User</a></li>
 
-                    <li *ngIf="userRole=='UserChecker' || userRole=='Admin'" class="has-submenu"><a routerLink="/home/appusers"><i
-                                class="ti-user"></i>Application Users</a></li>
+                    <li *ngIf="userRole=='Branch User' ||
+                    userRole=='Branch Investment Incharge' ||
+                    userRole=='Branch Deputy Manager' ||
+                    userRole=='Branch Manager' ||
+                     userRole=='Admin'" class="has-submenu"><a
+                        routerLink="/home/approvedApplication"><i class="ti-check-box"></i>Approved Applications</a></li>
+
+
+
+                    <li *ngIf="userRole=='UserMaker' || userRole=='Admin'" class="has-submenu"><a
+                            routerLink="/home/unAuthUsers"><i class="ti-user"></i>Create Application User</a></li>
+
+                    <li *ngIf="userRole=='UserChecker' || userRole=='Admin'" class="has-submenu"><a
+                            routerLink="/home/appusers"><i class="ti-user"></i>Application Users</a></li>
                     <li *ngIf="userRole=='Admin'" class="has-submenu"><a routerLink="documentType"><i
-                                    class="ti-layers-alt"></i>Document Type</a></li>
-
+                                class="ti-layers-alt"></i>Document Type</a></li>
+                    <li *ngIf="userRole=='Admin'" class="has-submenu"><a routerLink="cibAuto"><i
+                                class="ti-layers-alt"></i>Cib PDF Extraction</a></li>
                 </ul>
                 <!-- End navigation menu   -->
 
@@ -126,4 +162,5 @@
         <!-- end container -->
     </div>
 </header>
+<br />
 <!-- End Navigation Bar-->

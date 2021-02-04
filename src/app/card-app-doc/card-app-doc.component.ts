@@ -14,8 +14,10 @@ export class CardAppDocComponent implements OnInit {
   @ViewChild('pdfLoaderArea') pdfLoaderArea: ElementRef;
   DocTypes:any[];
   historyId;
+  stageId;
   stageWise=false;
   userRole;
+  applicationStageId;
   modalOptions:NgbModalOptions;
   docUrl:"http://africau.edu/images/default/sample.pdf";
   public baseUrl: string = ``;
@@ -49,6 +51,8 @@ export class CardAppDocComponent implements OnInit {
     });
     this.getData();
     this.baseUrl = this.service.getBaseUrl();
+
+    debugger;
   }
  
   public response: {dbPath: ''};
@@ -99,6 +103,8 @@ export class CardAppDocComponent implements OnInit {
     this.service.getAllCardAppDoc(this.CardApplicationId,this.historyId,this.stageWise).subscribe(
       (res:any) =>{
       this.DocTypes=res.data;
+     
+      this.stageId = res.data[0].applicationStageId;
       },
       err =>{
         this.goBack();

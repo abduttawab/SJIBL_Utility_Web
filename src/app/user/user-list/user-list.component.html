@@ -70,7 +70,7 @@
               <th>Full Name</th>
               <th>Email</th>
               <th>Role</th>
-          
+              <th></th>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -80,6 +80,13 @@
               <td>{{model.fullName}}</td>
               <td>{{model.email}}</td>
               <td>{{model.role}}</td>
+
+              <td>    
+                <button type="button" class="btn btn-sm  btn-warning" placement="top" (click)="edit(model.id)"><i class="ti-pencil-alt"></i></button>
+                <button type="button" class="btn btn-sm  btn-info" placement="top" (click)="resetPassword(model.id)"><i class="ti-key"></i></button>
+               <button type="button" class="btn btn-sm  btn-danger" (click)="delete(model.id)" placement="top" ngbTooltip="Delete" >
+               <i class="ti-close"></i></button>
+             </td>
             </tr>
           </tbody>
         </table>

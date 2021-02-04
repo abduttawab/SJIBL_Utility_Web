@@ -9,15 +9,16 @@ import { AppHistoryModelComponent } from '../app-history-model/app-history-model
 
 
 @Component({
-  selector: 'app-new-applications',
-  templateUrl: './new-applications.component.html',
+  selector: 'app-approved-applications',
+  templateUrl: './approved-applications.component.html',
   styles: []
 
   
 })
-export class NewApplicationsComponent implements OnInit {
+export class ApprovedApplicationsComponent implements OnInit {
   NewApplications: any[];
   ApprovedApplications: any[];
+  ApprovedApplicationsBoard: any[];
   Districts= [];
   BranchList= [];
   SourceByList= [];
@@ -32,8 +33,8 @@ export class NewApplicationsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
- this.getData();
- //this.getApprovedData();
+
+ this.getApprovedData();
          // Get Branch list
          this.commonService.getbranchList().subscribe(
           (res:any) =>{
@@ -53,7 +54,7 @@ export class NewApplicationsComponent implements OnInit {
   initDatatable(){
   }
   onSearch() {
-    this.service.search("7a29c9dd-dad4-4ee0-ba2d-f5f75758fec4").subscribe(
+    this.service.search("dddf3cfd-903b-40d2-9747-95499eda1f6b").subscribe(
       (res: any) => {
         this.NewApplications=res.data;
        
@@ -64,17 +65,7 @@ export class NewApplicationsComponent implements OnInit {
       }
     );
   }
-getData(){
-  this.service.getApplicationsWithStatusId("7a29c9dd-dad4-4ee0-ba2d-f5f75758fec4").subscribe(
-    (res:any) =>{
-      console.log(res);
-      this.NewApplications=res.data;
-    },
-    err =>{
-      console.log(err);
-    }
-  );
-}
+
 getHistory(id){
 
   const modalRef = this.modalService.open(AppHistoryModelComponent, { windowClass : "myCustomModalClass" });
@@ -85,56 +76,23 @@ getApprovedData(){
   this.service.getApplicationsWithStatusId("dddf3cfd-903b-40d2-9747-95499eda1f6b").subscribe(
     (res:any) =>{
       console.log(res);
-     // this.ApprovedApplications=res.data;
+      this.ApprovedApplications=res.data;
+    },
+    err =>{
+      console.log(err);
+    }
+  );
+
+  this.service.getApplicationsWithStatusId("58166bdf-2250-4795-9a77-13e906bcd566").subscribe(
+    (res:any) =>{
+      console.log(res);
+      this.ApprovedApplicationsBoard=res.data;
     },
     err =>{
       console.log(err);
     }
   );
 }
-  delete(id: string) {
-    if(confirm("Are you sure to delete this information?")) {
-      this.service.delete(id).subscribe(
-        (res: any) => {
-          console.log(res);
-
-          if (res.isSuccessfull) {
-            this.getData();
-            this.toastr.warning('Data deleted!', 'Record successfully deleted.');
-          } else {
-            this.toastr.error('Ops! Something went worng!', res.message);
-          }
-        },
-        err => {
-          console.log(err);
-     
-        }
-      );
-    }
-  }
-
-  changeStage(id: string) {
-    if(confirm("Are you sure to sent this file to Investment Incharge?")) {
-      this.service.changeStage(id,2).subscribe(
-        (res: any) => {
-          console.log(res);
-
-          if (res.isSuccessfull) {
-            this.getData();
-            this.toastr.warning('Data Send!', 'Record successfully Send.');
-          } else {
-            this.toastr.error('Ops! Something went worng!', res.message);
-          }
-        },
-        err => {
-          console.log(err);
-     
-        }
-      );
-    }
-  }
-
-
 
   sourceChannelOnChange(){
 

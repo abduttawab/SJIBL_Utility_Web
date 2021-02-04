@@ -10,7 +10,7 @@
  
         <div class="form-group">
           <label>Employee Id</label>
-  
+          <input formControlName="Id" type="hidden"/>
           <input type="text" class="form-control" (blur)="getEmployeeId()" formControlName="UserName"
           placeholder="Enter Employee Id">
            <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
@@ -41,8 +41,8 @@
         <div class="form-group">
           <label>Role</label>
           <select class="form-control" formControlName="Role">
-          
-            <option *ngFor="let role of RoleList; let i = index" [value]="RoleList[i].normalizedName">
+            <option value="">Select</option>
+            <option *ngFor="let role of RoleList; let i = index" [value]="RoleList[i].name">
               {{RoleList[i].name}} 
             </option>
           </select>
@@ -52,13 +52,13 @@
         <div formGroupName="Passwords">
           <div class="form-group required">
             <label>Password</label>
-            <input type="password" class="form-control" formControlName="Password">
+            <input type="password" class="form-control" formControlName="Password" [readonly]="id">
             <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">This field is mandatory.</label>
             <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum 4 characters required.</label>
           </div>
           <div class="form-group required">
             <label>Confirm Password</label>
-            <input type="password" class="form-control" formControlName="ConfirmPassword">
+            <input type="password" class="form-control" formControlName="ConfirmPassword" [readonly]="id">
             <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
             <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
           </div>

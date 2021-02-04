@@ -24,15 +24,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form:NgForm){
+
     this.service.login(form.value).subscribe(
 
       (res:any)=>{
+
         let tokenInfo = this.getDecodedAccessToken(res.token); 
-     
+  
         localStorage.setItem('role',tokenInfo.role);
         localStorage.setItem('token',res.token);
         localStorage.setItem('userFullName',tokenInfo.UserFullName);
         localStorage.setItem('UserID',tokenInfo.UserID);
+        localStorage.setItem('UserRoles',tokenInfo.UserRoles);
         
         this.router.navigateByUrl('/home/dashboard');
       },

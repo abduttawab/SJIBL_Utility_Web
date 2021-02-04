@@ -138,7 +138,7 @@ getData(){
   }
   backStage(id: string) {
     if(confirm("Are you sure to sent this file to IRMD- Unit In-charge?")) {
-      this.service.changeStage(id,3).subscribe(
+      this.service.changeStage(id,6).subscribe(
         (res: any) => {
           
           console.log(res);

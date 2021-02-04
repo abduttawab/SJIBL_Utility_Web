@@ -63,6 +63,12 @@ import { ToggleFullscreenDirectiveDirective } from './shared/toggle-fullscreen-d
 import { AppHistoryModelComponent } from './app-history-model/app-history-model.component';
 import { StageDmd2Component } from './stage-dmd2/stage-dmd2.component';
 import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
+import { CibDataAutomationComponent } from './cib-data-automation/cib-data-automation.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { StageBranchInvestmentInchargeComponent } from './stage-branch-investmentIncharge/stage-branch-investmentIncharge.component';
+import { StageBranchDeputy } from './stage-branch-deputy/stage-branch-deputy.component';
+import { StageBranchManager } from './stage-branch-manager/stage-branch-manager.component';
+import { ApprovedApplicationsComponent } from './approved-applications/approved-applications.component';
 // 
 
 @NgModule({
@@ -113,7 +119,13 @@ import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
     AppHistoryModelComponent,
     StageDmd2Component,
     UnAuthUserComponent,
-
+    CibDataAutomationComponent,
+    
+    ResetPasswordComponent,
+    StageBranchInvestmentInchargeComponent,
+    StageBranchDeputy,
+    StageBranchManager,
+    ApprovedApplicationsComponent
 
   ],
   imports: [
@@ -137,14 +149,15 @@ import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
   ],
   entryComponents:[
     ModalDeduplicationstatusComponent,
-      FormInvestmentDetailsComponent,
+    FormInvestmentDetailsComponent,
     FormContactPointVerificationComponent,
     UserFormComponent,
     RoleFormComponent,
     UserRoleFormComponent,
     CardReceiveModalComponent,
     DeliveredToModalComponent,
-    AppHistoryModelComponent
+    AppHistoryModelComponent,
+    ResetPasswordComponent
   ],
   providers: [UserService,
     CardapplicationService, {

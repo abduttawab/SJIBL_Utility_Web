@@ -96,7 +96,7 @@ getData(){
   }
 
   changeStage(id: string,limit) {
-    this.changeStageDinamic(id,"AMD Sir",6);
+    this.changeStageDinamic(id,"AMD Sir",9);
 
     // if(limit>1000000){
     //   this.changeStageDinamic(id,"AMD Sir",8);
@@ -106,7 +106,7 @@ getData(){
   }
   backStage(id: string) {
     if(confirm("Are you sure to sent this file to IRMD- Divisional Head?")) {
-      this.service.changeStage(id,4).subscribe(
+      this.service.changeStage(id,7).subscribe(
         (res: any) => {
           
           console.log(res);
