@@ -12,6 +12,7 @@
               <th>User Name</th>
               <th>Full Name</th>
               <th>Email</th>
+              <th>Branch</th>
               <th>Role</th>
               <th>Status</th>
               <th>Action</th>
@@ -24,23 +25,20 @@
               <td>{{model.userName}}</td>
               <td>{{model.fullName}}</td>
               <td>{{model.email}}</td>
-              <td>
-                <span *ngIf="model.roleName=='APU'">Branch User</span>
-                <span *ngIf="model.roleName=='IRMD_DO'">IRM-Desk Officer</span>
-                <span *ngIf="model.roleName=='IRMD_IC'">IRM- Unit In-charge</span>
-                <span *ngIf="model.roleName=='BOARDSC'">Board Secretary</span>
-                <span *ngIf="model.roleName=='IRMD_HEAD'">IRM- Division Head</span>
-                <span *ngIf="model.roleName=='DMD'">DMD Corporate 1</span>
-                <span *ngIf="model.roleName=='DMD CORPORATE 2'">DMD Corporate 2</span>
-                <span *ngIf="model.roleName=='IAD'">IAD</span>
-                <span *ngIf="model.roleName=='EC'">EC</span>
-                <span *ngIf="model.roleName=='MD'">MD</span>
-                <span *ngIf="model.roleName=='DMD'">DMD</span>
-                <span *ngIf="model.roleName=='AMD'">AMD</span>
-                <span *ngIf="model.roleName=='USERMAKER'">Maker User</span>
-                <span *ngIf="model.roleName=='USERCHECKER'">Checker User</span>
-                
-              </td>
+              <td>{{model.branch}}</td>
+              <td><span *ngFor="let role of model.roles; let i = index">
+                <span *ngIf="i>0">,</span>
+                "
+               
+                <span *ngIf="role=='KGDCL_MAKER'">KGDCL Maker</span>
+                <span *ngIf="role=='KGDCL_CHECKER'">KGDCL Checker</span>
+                <span *ngIf="role=='BGDCL_MAKER'">BGDCL Maker</span>
+                <span *ngIf="role=='BGDCL_CHECKER'">BGDCL Checker</span>
+                <span *ngIf="role=='ADMINUSERMAKER'">User Creation Maker</span>
+                <span *ngIf="role=='ADMINUSERCHECKER'">User Creation Checker</span> 
+                <span *ngIf="role=='NESCO_MAKER'">NESCO Maker</span>
+                <span *ngIf="role=='NESCO_CHECKER'">NESCO Checker</span>"
+              </span></td>
               <td>
                 <span *ngIf="!model.isAuthorized" class="badge badge-danger">Un-Authorized</span>
                 <span *ngIf="model.isAuthorized" class="badge badge-success">Authorized</span>
@@ -69,23 +67,33 @@
               <th>User Name</th>
               <th>Full Name</th>
               <th>Email</th>
+              <th>Branch</th>
+              <th>IP</th>
               <th>Role</th>
               <th></th>
             </tr>
           </thead>
           <tbody class="text-center">
 
-            <tr *ngFor="let model of UserList; let i = index">
+            <tr [ngStyle]="{'text-decoration':model.isActive ? '' : 'line-through'}" *ngFor="let model of UserList; let i = index">
               <td>{{model.userName}}</td>
               <td>{{model.fullName}}</td>
               <td>{{model.email}}</td>
-              <td>{{model.role}}</td>
+              <td>{{model.branch}}</td>
+              <td>{{model.clientIp}}</td>
+              <td><span *ngFor="let role of model.roles; let i = index"><span *ngIf="i>0">,</span>"{{role}}"</span></td>
 
               <td>    
-                <button type="button" class="btn btn-sm  btn-warning" placement="top" (click)="edit(model.id)"><i class="ti-pencil-alt"></i></button>
-                <button type="button" class="btn btn-sm  btn-info" placement="top" (click)="resetPassword(model.id)"><i class="ti-key"></i></button>
-               <button type="button" class="btn btn-sm  btn-danger" (click)="delete(model.id)" placement="top" ngbTooltip="Delete" >
-               <i class="ti-close"></i></button>
+                <button *ngIf="model.isActive" type="button" class="btn btn-sm btn-warning" placement="top" (click)="edit(model.id)"><i class="ti-pencil-alt"></i></button>
+                <button *ngIf="model.isActive" type="button" class="btn btn-sm btn-info" placement="top" ngbTooltip="Reset Client Ip" (click)="removeClientIp(model.id)"><i class="ti-loop"></i></button>
+                
+                <button *ngIf="model.isActive" type="button" class="btn btn-sm btn-danger" (click)="inactive(model.id,false)" placement="top" ngbTooltip="In Active" ><i class="ti-unlink"></i></button>
+                <button *ngIf="!model.isActive" type="button" class="btn btn-sm btn-success" (click)="inactive(model.id,true)" placement="top" ngbTooltip="Active" ><i class="ti-check"></i></button>
+                
+                <button *ngIf="model.accessFailedCount>2" type="button" class="btn btn-sm btn-warning" (click)="unlock(model.id)" placement="top" ngbTooltip="UnLock User" ><i class="ti-unlock"></i></button>
+                
+
+                <button *ngIf="!service.config.isProduction" type="button" class="btn btn-sm  btn-danger" (click)="delete(model.id)" placement="top" ngbTooltip="Delete" ><i class="ti-close"></i></button>
              </td>
             </tr>
           </tbody>

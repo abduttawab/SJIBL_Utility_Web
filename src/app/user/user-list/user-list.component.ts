@@ -3,6 +3,7 @@ import { UserService } from 'src/app/shared/user.service';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-list',
@@ -15,13 +16,20 @@ export class UserListComponent implements OnInit {
   constructor(
     public service : UserService,
     private toastr: ToastrService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
 
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.getData();
     this.getUnAuthData();
+
+    setTimeout(() => {
+      /** spinner ends after 1 seconds */
+      this.spinner.hide();
+    }, 600);
   }
 
   newEntry(){
@@ -73,7 +81,7 @@ export class UserListComponent implements OnInit {
   getUnAuthData(){
     this.service.getAllUnAuthUsers().subscribe(
       (res:any) =>{
-        console.log(res);
+        console.log(res.data);
         this.UnAuthUserList=res.data;
       },
       err =>{
@@ -100,9 +108,9 @@ export class UserListComponent implements OnInit {
 
   delete(id: string) {
     if(confirm("Are you sure to delete this information?")) {
-      this.service.delete(id).subscribe(
+      this.service.deleteUser(id).subscribe(
         (res: any) => {
-          console.log(res);
+          
 
           if (res.isSuccessfull) {
             this.getData();
@@ -119,15 +127,55 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  resetPassword(id: string) {
-    if(confirm("Are you sure to reset password for this user?")) {
-      this.service.resetPassword(id).subscribe(
+  inactive(id: string, isActive: boolean) {
+    if(confirm("Are you sure to inactive/active this information?")) {
+      this.service.inactiveUser(id,isActive).subscribe(
         (res: any) => {
-          console.log(res);
+          
 
           if (res.isSuccessfull) {
             this.getData();
-            this.toastr.info('Password Reset!', 'New Password: '+res.data, { timeOut: 0 });
+            this.toastr.warning('Data updated!', 'Record successfully updated.');
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          console.log(err);
+     
+        }
+      );
+    }
+  }
+  unlock(id: string){
+    if(confirm("Are you sure to unlock this user?")) {
+      this.service.unlock(id).subscribe(
+        (res: any) => {
+          
+
+          if (res.isSuccessfull) {
+            this.getData();
+            this.toastr.warning('Data updated!', 'Record successfully updated.');
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          console.log(err);
+     
+        }
+      );
+    }
+  }
+  removeClientIp(id: string) {
+    if(confirm("Are you sure to Reset Client Ip for this user?")) {
+      this.service.removeClientIp(id).subscribe(
+        (res: any) => {
+          
+
+          if (res.isSuccessfull) {
+            this.getData();
+            this.toastr.info('Client Ip Reset Done!', 'Client Ip Reset Done!');
           } else {
             this.toastr.error('Ops! Something went worng!', res.message);
           }

@@ -13,6 +13,7 @@
               <th>User Name</th>
               <th>Full Name</th>
               <th>Email</th>
+              <th>Branch</th>
               <th>Role</th>
               <th>Status</th>
               <th></th>
@@ -25,22 +26,22 @@
               <td>{{model.userName}}</td>
               <td>{{model.fullName}}</td>
               <td>{{model.email}}</td>
-              <td>
-                <span *ngIf="model.roleName=='APU'">Branch User</span>
-                <span *ngIf="model.roleName=='IRMD_DO'">IRM-Desk Officer</span>
-                <span *ngIf="model.roleName=='IRMD_IC'">IRM- Unit In-charge</span>
-                <span *ngIf="model.roleName=='BOARDSC'">Board Secretary</span>
-                <span *ngIf="model.roleName=='IRMD_HEAD'">IRM- Division Head</span>
-                <span *ngIf="model.roleName=='DMD'">DMD Corporate 1</span>
-                <span *ngIf="model.roleName=='DMD CORPORATE 2'">DMD Corporate 2</span>
-                <span *ngIf="model.roleName=='IAD'">IAD</span>
-                <span *ngIf="model.roleName=='EC'">EC</span>
-                <span *ngIf="model.roleName=='MD'">MD</span>
-                <span *ngIf="model.roleName=='DMD'">DMD</span>
-                <span *ngIf="model.roleName=='AMD'">AMD</span>
-                <span *ngIf="model.roleName=='USERMAKER'">Maker User</span>
-                <span *ngIf="model.roleName=='USERCHECKER'">Checker User</span>
-              </td>
+              <td>{{model.branch}}</td>
+              <td><span *ngFor="let role of model.roles; let i = index">
+                <span *ngIf="i>0">,</span>
+                
+                "
+               
+                <span *ngIf="role=='KGDCL_MAKER'">KGDCL Maker</span>
+                <span *ngIf="role=='KGDCL_CHECKER'">KGDCL Checker</span>
+                <span *ngIf="role=='BGDCL_MAKER'">BGDCL Maker</span>
+                <span *ngIf="role=='BGDCL_CHECKER'">BGDCL Checker</span>
+                <span *ngIf="role=='ADMINUSERMAKER'">User Creation Maker</span>
+                <span *ngIf="role=='ADMINUSERCHECKER'">User Creation Checker</span>
+                <span *ngIf="role=='NESCO_MAKER'">NESCO Maker</span>
+                <span *ngIf="role=='NESCO_CHECKER'">NESCO Checker</span>
+                "
+              </span></td>
               <td>
                 <span *ngIf="!model.isAuthorized" class="badge badge-danger">Un-Authorized</span>
                 <span *ngIf="model.isAuthorized" class="badge badge-success">Authorized</span>

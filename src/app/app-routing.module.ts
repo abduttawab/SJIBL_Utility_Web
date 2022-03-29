@@ -9,30 +9,22 @@ import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EntryFormComponent } from './entry-form/entry-form.component';
-import { NewApplicationsComponent } from './new-applications/new-applications.component';
-import { CardapplicationDetailsreportComponent } from './cardapplication-detailsreport/cardapplication-detailsreport.component';
-import { StageIRMDHeadComponent as StageIRMDHeadComponent } from './stage-irmd-head/stage-irmd-head.component';
-import { StageIrmdDoComponent } from './stage-irmd-do/stage-irmd-do.component';
-import { StageIrmdInchargeComponent } from './stage-irmd-incharge/stage-irmd-incharge.component';
-import { StageIADComponent } from './stage-iad/stage-iad.component';
-import { StageBoardSecretaryComponent } from './stage-boardSecretary/stage-board-secretary.component';
-import { CreditAnalystFormComponent } from './credit-analyst-form/credit-analyst-form.component';
-import { AllApplicationsStatusComponent } from './all-applications-status/all-applications-status.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { DocumentTypeComponent } from './document-type/document-type.component';
-import { CardAppDocComponent } from './card-app-doc/card-app-doc.component';
-import { StageRetailHeadComponent } from './stage-retail-head/stage-retail-head.component';
-import { StageDmdComponent } from './stage-dmd/stage-dmd.component';
-import { StageAmdComponent } from './stage-amd/stage-amd.component';
-import { StageMdComponent } from './stage-md/stage-md.component';
-import { StageDmd2Component } from './stage-dmd2/stage-dmd2.component';
 import { UnAuthUserComponent } from './un-auth-user/un-auth-user.component';
-import { CibDataAutomationComponent } from './cib-data-automation/cib-data-automation.component';
-import { StageBranchInvestmentInchargeComponent } from './stage-branch-investmentIncharge/stage-branch-investmentIncharge.component';
-import { StageBranchDeputy } from './stage-branch-deputy/stage-branch-deputy.component';
-import { StageBranchManager } from './stage-branch-manager/stage-branch-manager.component';
-import { ApprovedApplicationsComponent } from './approved-applications/approved-applications.component';
+import { NonMpaymentComponent } from './nonMpayment/nonMpayment.component';
+import { FinalPaymentComponent } from './finalPayment/finalPayment.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { UnAuthTransactionsComponent } from './unAuthTransactions/unAuthTransactions.component';
+import { GlobalSettingsComponent } from './global-settings/global-settings.component';
+import { BgdclFinalPaymentComponent } from './bgdclFinalPayment/bgdclFinalPayment.component';
+import { bgdclVerifyComponent } from './bgdclVerify/bgdclVerify.component';
+import { BgdclUnAuthTransactionsComponent } from './bgdclUnAuthTransactions/bgdclUnAuthTransactions.component';
+import { ReconciliationComponent } from './reconciliation/reconciliation.component';
+import { BranchWiseReconciliationComponent } from './branchIwisereconciliation/branchIwisereconciliation.component';
+import { NescoVerifyComponent } from './NESCO/NescoVerify/NescoVerify.component';
+import { NescoFinalPaymentComponent } from './NESCO/NescoFinalPayment/NescoFinalPayment.component';
+import { NescoUnAuthTransactionsComponent } from './NESCO/NescoUnAuthTransactions/NescoUnAuthTransactions.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -51,51 +43,29 @@ const routes: Routes = [
     { path: 'appusers', component: UserListComponent },
     { path: 'registration', component: RegistrationComponent },
     { path: 'entryform', component: EntryFormComponent },
-    { path: 'allApplications', component: AllApplicationsStatusComponent },
+    { path: 'nonMpayment', component: NonMpaymentComponent },
+    { path: 'finalPayment', component: FinalPaymentComponent },
+
+    { path: 'bgdclVerify', component: bgdclVerifyComponent },
+    { path: 'bgdclFinalPayment', component: BgdclFinalPaymentComponent },
+    { path: 'bgdclUnAuthTransactions', component: BgdclUnAuthTransactionsComponent },
+
+    { path: 'NescoVerify', component: NescoVerifyComponent },
+    { path: 'NescoFinalPayment', component: NescoFinalPaymentComponent },
+    { path: 'NescoUnAuthTransactions', component: NescoUnAuthTransactionsComponent },
+    
+
+
     { path: 'unAuthUsers', component: UnAuthUserComponent },
     
-    { path: 'newapplications', component: NewApplicationsComponent }
-    ,
-    { path: 'irmdHead', component: StageIRMDHeadComponent }
-    ,
-    { path: 'detailsreport', component: CardapplicationDetailsreportComponent }
-    ,
-    { path: 'branchInvestmentIncharge', component: StageBranchInvestmentInchargeComponent }
-    ,
-    { path: 'branchDeputy', component: StageBranchDeputy },
-    { path: 'branchManager', component: StageBranchManager }
-    ,
-    { path: 'approvedApplication', component: ApprovedApplicationsComponent }
-    ,
-    //
-    { path: 'irmdDo', component: StageIrmdDoComponent }
-    ,
-    { path: 'irmdIncharge', component: StageIrmdInchargeComponent }
-    ,
-    { path: 'iadStage', component: StageIADComponent }
-    ,
-    { path: 'retailhead', component: StageRetailHeadComponent }
-    ,
-    { path: 'dmd', component: StageDmdComponent }
-    ,
-    { path: 'dmd2', component: StageDmd2Component }
-    ,
-    { path: 'amd', component: StageAmdComponent }
-    ,
-    { path: 'md', component: StageMdComponent }
-    ,
-    { path: 'boardSecretaryStage', component: StageBoardSecretaryComponent }
-    ,
-    { path: 'creditform', component: CreditAnalystFormComponent }
-    ,
-    { path: 'documentType', component: DocumentTypeComponent }
-    ,
-    { path: 'appDoc', component: CardAppDocComponent }
-    ,
-    { path: 'cibAuto', component: CibDataAutomationComponent }
+    { path: 'transactions', component: TransactionsComponent },
+    { path: 'untAuthTransactions', component: UnAuthTransactionsComponent },
+    { path: 'globalSettings', component: GlobalSettingsComponent },
+    { path: 'reconciliation', component: ReconciliationComponent },
+    { path: 'branchWiseReconciliation', component: BranchWiseReconciliationComponent }
   ]
 },
-//
+// 
   {path:'forbidden',component:ForbiddenComponent},
   {path:'adminpanel',component:AdminPanelComponent,
   canActivate:[AuthGuard],data :{permittedRoles:['Admin']}}

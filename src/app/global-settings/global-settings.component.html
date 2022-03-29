@@ -1,0 +1,185 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Global Settings</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"></li>
+      </ol>
+    </div>
+    <div class="col-sm-6">
+   </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-2">
+            <button type="button" class="btn btn-primary btn-lg" (click)="getData('KGDCL')">KGDCL</button>
+           </div>
+           <div class="col-md-2">
+           <button type="button" class="btn btn-warning btn-lg" (click)="getData('BGDCL')">BGDCL</button>
+           </div>
+           <div class="col-md-2">
+            <button type="button" class="btn btn-success btn-lg" (click)="getData('NESCO')">NESCO</button>
+            </div>
+        </div>
+       
+     
+      </div>
+    </div>
+  </div>
+</div>
+<form [formGroup]="service.companySetupModel" autocomplete="off" (submit)="onSubmit()">
+  
+  <div class="row" *ngIf="isDetailsShow">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+ 
+          <div class="form-group required">
+            <label>CompanyShortCode</label>
+            <input type="text" class="form-control" formControlName="CompanyShortCode" readonly>
+            <label class="text-danger" *ngIf="service.companySetupModel.get('CompanyShortCode').touched &&
+             service.companySetupModel.get('CompanyShortCode').errors?.required">This field is mandatory.</label>
+          </div>
+
+          <div class="form-group required">
+            <label>Controlling Branch Id</label>
+            <input type="text" class="form-control" formControlName="CTRLBRID">
+            <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRID').touched &&
+             service.companySetupModel.get('CTRLBRID').errors?.required">This field is mandatory.</label>
+          </div>
+          <span *ngIf="service.companySetupModel.controls['CompanyShortCode'].value=='NESCO'">
+            
+            <div class="form-group required">
+              <label>Controlling Branch Account for Pre-Paid Bills</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_PrePaid">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_PrePaid').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_PrePaid').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Pre-Paid VAT</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_PrePaid_VAT">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_PrePaid_VAT').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_PrePaid_VAT').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Post-Paid Bills</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_PostPaid">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_PostPaid').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_PostPaid').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Post-Paid VAT</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_PostPaid_VAT">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_PostPaid_VAT').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_PostPaid_VAT').errors?.required">This field is mandatory.</label>
+            </div>
+
+          </span>
+
+          <span *ngIf="service.companySetupModel.controls['CompanyShortCode'].value=='BGDCL'
+          || service.companySetupModel.controls['CompanyShortCode'].value=='KGDCL'">
+            
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Domestic</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_Domestic">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_Domestic').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_Domestic').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Domestic (Gov)</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_Domestic_Gov">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_Domestic_Gov').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_Domestic_Gov').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Domestic (NonGov)</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_Domestic_NonGov">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_Domestic_NonGov').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_Domestic_NonGov').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Industrial</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_Industrial">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_Industrial').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_Industrial').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for Commercial</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_Commercial">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_Commercial').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_Commercial').errors?.required">This field is mandatory.</label>
+            </div>
+
+            <div class="form-group required">
+              <label>Controlling Branch Account for CentralCollectionAccount</label>
+              <input type="text" class="form-control" formControlName="CTRLBRACCNO_CentralCollectionAccount">
+              <label class="text-danger" *ngIf="service.companySetupModel.get('CTRLBRACCNO_CentralCollectionAccount').touched &&
+              service.companySetupModel.get('CTRLBRACCNO_CentralCollectionAccount').errors?.required">This field is mandatory.</label>
+            </div>
+
+
+
+          </span>
+
+
+     
+
+          <div class="form-group required">
+            <label>Parking Account No</label>
+            <input type="text" class="form-control" formControlName="ParkingACCNO">
+            <label class="text-danger" *ngIf="service.companySetupModel.get('ParkingACCNO').touched &&
+             service.companySetupModel.get('ParkingACCNO').errors?.required">This field is mandatory.</label>
+          </div>
+
+          <div class="form-group required">
+            <label>Stamp Charge Account No</label>
+            <input type="text" class="form-control" formControlName="StampChgACCNO">
+            <label class="text-danger" *ngIf="service.companySetupModel.get('StampChgACCNO').touched &&
+             service.companySetupModel.get('StampChgACCNO').errors?.required">This field is mandatory.</label>
+          </div>
+
+          <div class="form-group required">
+            <label>Stamp Charge Slab Amount</label>
+            <input type="text" class="form-control" formControlName="StampChgAmount_SlabAmount">
+            <label class="text-danger" *ngIf="service.companySetupModel.get('StampChgAmount_SlabAmount').touched &&
+             service.companySetupModel.get('StampChgAmount_SlabAmount').errors?.required">This field is mandatory.</label>
+          </div>
+
+          <div class="form-group required">
+            <label>Stamp Charge Amount</label>
+            <input type="text" class="form-control" formControlName="StampChgAmount">
+            <label class="text-danger" *ngIf="service.companySetupModel.get('StampChgAmount').touched &&
+             service.companySetupModel.get('StampChgAmount').errors?.required">This field is mandatory.</label>
+          </div>
+          
+      
+            <div class="form-group mb-0 text-right">
+              <div>
+                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+                  [disabled]="!service.companySetupModel.valid">
+                  <span *ngIf="service.companySetupModel.valid">Update</span>
+                  <span *ngIf="!service.companySetupModel.valid">Please fill-up all mandatory fields</span>
+                </button>
+                <!-- <button type="reset" class="btn btn-secondary waves-effect">Cancel</button> -->
+              </div>
+            </div>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+

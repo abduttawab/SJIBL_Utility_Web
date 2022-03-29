@@ -1,0 +1,126 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Branch wise Reconciliation</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"></li>
+      </ol>
+    </div>
+    <div class="col-sm-6">
+   </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div id="accordion">
+          <div class="card mb-1">
+            <div class="card-header p-3" id="headingOne">
+              <h6 class="m-0 font-14"><a href="#collapseOne" class="text-dark collapsed" data-toggle="collapse"
+                  aria-expanded="false" aria-controls="collapseOne">
+                  Process <i class="fas fa-arrow-circle-down"></i></a></h6>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <form [formGroup]="service.searchFormModel" autocomplete="off" (submit)="onProcess()">
+                 
+                  <div class="row">
+                   
+                 
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="ToDate">Date</label>
+                        <div class="form-group">
+                          <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ToDate"
+                              ngbDatepicker #ToDate="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="ToDate.toggle()"
+                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <label class="text-danger" *ngIf="service.searchFormModel.get('ToDate').touched
+                          && service.searchFormModel.get('ToDate').errors?.dateVaidator">Invalid date formate.</label>
+
+                        </div>
+                      </div>
+                    </div>
+           
+                </div>
+
+                  <div class="form-group mb-0 text-right">
+                    <div>
+                      
+                      <button type="submit" class="btn btn-primary btn-large waves-effect waves-light mr-1">Submit <i
+                          class="fa fa-search"></i></button>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="row" *ngIf="ReconciliationLogs">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+  
+          <span><b *ngIf="Transactions">Total : {{Transactions.length}}</b><br/> </span>
+          <span><b *ngIf="Transactions">Total Amount: {{totalAmount}}</b><br/> </span>
+          <div style="text-align: right;">
+            <button type="button" (click)="print_area()" class="btn btn-primary btn-large waves-effect waves-light mr-1">Print <i
+              class="fa fa-print"></i></button><br/>
+          </div>
+  
+          
+          <table class="table table-striped table-sm table-bordered
+                   dt-responsive nowrap" style="border-collapse: collapse;
+                    border-spacing: 0; width: 100%;">
+            <thead>
+              <tr class="text-center">
+                <th>Date</th>
+                <th>Utility Name</th>
+                <th>Utility Amount</th>
+                <th>Utility Total No of Trax</th>
+                <th>CBS Amount</th>
+                <th>CBS Total No of Trax</th>
+                <th>System Amount</th>
+                <th>System AIT Amount</th>
+                <th>System Total No of Trax</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let transaction of ReconciliationLogs; let i = index">
+                <td>{{transaction.date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{transaction.utilityName}}</td>
+                <td>{{transaction.utilityTotalAmount}}</td>
+                <td>{{transaction.utilityNoOfTotalTrax}}</td>
+                <td>{{transaction.cbsTotalAmount}}</td>
+                <td>{{transaction.cbsNoOfTotalTrax}}</td>
+                <td>{{transaction.systemTotalAmount}}</td>
+                <td>{{transaction.systemTotalAITAmount}}</td>
+                <td>{{transaction.systemNoOfTotalTrax}}</td>
+               
+              </tr>
+  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+
+

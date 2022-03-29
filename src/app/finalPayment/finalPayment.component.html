@@ -1,0 +1,418 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Utility/ Service Payment</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Payment area</li>
+      </ol>
+    </div>
+    <div class="col-sm-6"></div>
+  </div>
+</div>
+
+<form
+  [formGroup]="service.paymentFormModel"
+  autocomplete="off"
+  *ngIf="TransactionInfo"
+>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="mt-0 header-title">Bill information</h4> -->
+          <p class="text-muted m-b-30">Final payment.</p>
+
+          <input formControlName="Id" type="hidden" />
+          <input formControlName="UtilityTypeId" type="hidden" />
+          <input formControlName="PaymentTypeId" type="hidden" />
+
+          <input formControlName="TransactionId" type="hidden" />
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="CustomerCode">Customer Code</label>
+
+                    <input
+                      formControlName="CustomerCode"
+                      type="text"
+                      class="form-control"
+                      readonly
+                    />
+                    <label
+                      class="text-danger"
+                      *ngIf="
+                        service.paymentFormModel.get('CustomerCode').touched &&
+                        service.paymentFormModel.get('CustomerCode').errors
+                          ?.required
+                      "
+                      >This field is mandatory.</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="CustomerMobileNumber"
+                      >Customer Mobile Number</label
+                    >
+
+                    <input
+                      formControlName="CustomerMobileNumber"
+                      type="text"
+                      class="form-control"
+                      readonly
+                    />
+                    <label
+                      class="text-danger"
+                      *ngIf="
+                        service.paymentFormModel.get('CustomerMobileNumber')
+                          .touched &&
+                        service.paymentFormModel.get('CustomerMobileNumber')
+                          .errors?.required
+                      "
+                      >This field is mandatory.</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="PaymentMethod">Payment Method</label>
+
+                    <input
+                      formControlName="PaymentMethod"
+                      type="text"
+                      class="form-control"
+                      readonly
+                    />
+                    <label
+                      class="text-danger"
+                      *ngIf="
+                        service.paymentFormModel.get('PaymentMethod').touched &&
+                        service.paymentFormModel.get('PaymentMethod').errors
+                          ?.required
+                      "
+                      >This field is mandatory.</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div
+                        class="form-group"
+                        *ngIf="
+                          service.paymentFormModel.get('PaymentMethod').value ==
+                          'TRANSFER'
+                        "
+                      >
+                        <label for="CustomerBranchCode">Branch Code</label>
+
+                        <input
+                          formControlName="CustomerBranchCode"
+                          type="text"
+                          class="form-control"
+                          readonly
+                        />
+                        <label
+                          class="text-danger"
+                          *ngIf="
+                            service.paymentFormModel.get('CustomerBranchCode')
+                              .touched &&
+                            service.paymentFormModel.get('CustomerBranchCode')
+                              .errors?.required
+                          "
+                          >This field is mandatory.</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-7">
+                      <div
+                        class="form-group"
+                        *ngIf="
+                          service.paymentFormModel.get('PaymentMethod').value ==
+                          'TRANSFER'
+                        "
+                      >
+                        <label for="CustomerAccountNo">Account No.</label>
+
+                        <input
+                          formControlName="CustomerAccountNo"
+                          type="text"
+                          class="form-control"
+                          readonly
+                        />
+                        <label
+                          class="text-danger"
+                          *ngIf="
+                            service.paymentFormModel.get('CustomerAccountNo')
+                              .touched &&
+                            service.paymentFormModel.get('CustomerAccountNo')
+                              .errors?.required
+                          "
+                          >This field is mandatory.</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="Amount">Total Amount:</label>
+
+                    <input
+                      formControlName="Amount"
+                      type="text"
+                      class="form-control"
+                      [readonly]="
+                        (TransactionInfo.paymentTypeId !=
+                          '301e06ea-b2bb-4d84-8da2-a201fa792eae' &&
+                          TransactionInfo.paymentTypeId !=
+                            'd39dbf18-83d6-436d-b421-4afcc978496c') ||
+                        (userService.isInRole(userRoles, ['KGDCL_Checker']) &&
+                          TransactionInfo.isMake)
+                      "
+                    />
+                    <label
+                      class="text-danger"
+                      *ngIf="
+                        service.paymentFormModel.get('Amount').touched &&
+                        service.paymentFormModel.get('Amount').errors?.required
+                      "
+                      >This field is mandatory.</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <table
+                class="table table-bordered table-sm"
+                *ngIf="TransactionInfo"
+              >
+                <tbody>
+                  <tr>
+                    <th>Customer bill information</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      Customer Name: {{ TransactionInfo.customerName }} <br />
+                      Category: {{ TransactionInfo.customerCategory }} <br />
+                      Zone: {{ TransactionInfo.customerZone }} <br />
+                      Is Govt.: {{ TransactionInfo.customerIsGovt }} <br />
+
+                      Last Payment Date:
+                      {{ TransactionInfo.customerLastPaymentDate }} <br />
+                      <span
+                        *ngIf="TransactionInfo.customerCategory == 'Domestic'"
+                      >
+                        Billing Months:
+                        {{ TransactionInfo.customerBillingMonths }} <br />
+                      </span>
+
+                      <span
+                        *ngIf="TransactionInfo.customerCategory == 'Commercial'"
+                      >
+                        Bill Month: {{ TransactionInfo.billMonth }} <br />
+                        Billing Year: {{ TransactionInfo.billYear }} <br />
+                        Gas Bill: {{ TransactionInfo.customerGasBill }} <br />
+                        Meter Charge:
+                        {{ TransactionInfo.customerCustomerMeterCharge }} <br />
+                      </span>
+
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                            'b5645e50-96f8-47e7-aa15-2a870867b51b' ||
+                          TransactionInfo.paymentTypeId ==
+                            '20862ca8-5db2-4671-a6b3-7172d9a1c814'
+                        "
+                      >
+                        BPO Pay Date: {{ TransactionInfo.bpoPayDate }} <br />
+                        BPO Details: {{ TransactionInfo.bpoDetails }} <br />
+                      </span>
+
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                          'fc6cfc88-8bfb-4a8b-8469-291617aa6ff8'
+                        "
+                      >
+                        Ait Amount: {{ TransactionInfo.aitAmount }} <br />
+                        Chalan Date: {{ TransactionInfo.chalanDate }} <br />
+                        Chalan No: {{ TransactionInfo.chalanNo }} <br />
+                        Chalan Bank: {{ TransactionInfo.chalanBank }} <br />
+                        Chalan Branch: {{ TransactionInfo.chalanBranch }} <br />
+                      </span>
+
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                          'bd72c564-8bcb-4286-9cfc-a47c157f7d3e'
+                        "
+                      >
+                        Ait Amount: {{ TransactionInfo.aitAmount }} <br />
+                        PayOrder No: {{ TransactionInfo.payOrderNo }} <br />
+                        PayOrder Date: {{ TransactionInfo.payOrderDate }} <br />
+                        PayOrder Bank: {{ TransactionInfo.payOrderBank }} <br />
+                        PayOrder Branch: {{ TransactionInfo.payOrderBranch }}
+                        <br />
+                        PayOrder Date Authorized:
+                        {{ TransactionInfo.payOrderDateAuthorized }} <br />
+                      </span>
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                          'ad66f648-fd8c-491c-a5ff-535229e8ddd6'
+                        "
+                      >
+                        Ait Amount: {{ TransactionInfo.aitAmount }} <br />
+                        Chalan Date: {{ TransactionInfo.chalanDate }} <br />
+                        Chalan No: {{ TransactionInfo.chalanNo }} <br />
+                        Chalan Bank: {{ TransactionInfo.chalanBank }} <br />
+                        Chalan Branch: {{ TransactionInfo.chalanBranch }} <br />
+                        BPO Pay Date: {{ TransactionInfo.bpoPayDate }} <br />
+                        BPO Details: {{ TransactionInfo.bpoDetails }} <br />
+                      </span>
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                          '5ee8ccfa-1554-4e86-835f-4cf77180c094'
+                        "
+                      >
+                        Ait Amount: {{ TransactionInfo.aitAmount }} <br />
+                        PayOrder No: {{ TransactionInfo.payOrderNo }} <br />
+                        PayOrder Date: {{ TransactionInfo.payOrderDate }} <br />
+                        PayOrder Bank: {{ TransactionInfo.payOrderBank }} <br />
+                        PayOrder Branch: {{ TransactionInfo.payOrderBranch }}
+                        <br />
+                        PayOrder Date Authorized:
+                        {{ TransactionInfo.payOrderDateAuthorized }} <br />
+                        BPO Pay Date: {{ TransactionInfo.bpoPayDate }} <br />
+                        BPO Details: {{ TransactionInfo.bpoDetails }} <br />
+                      </span>
+
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                          '6727e8db-2f42-48dd-b8ce-443c414a43da'
+                        "
+                      >
+                        InstallmentNo: {{ TransactionInfo.installmentNo }}
+                        <br />
+                        Installment Amount:
+                        {{ TransactionInfo.installmentAmount }} <br />
+                      </span>
+
+                      <span
+                        *ngIf="
+                          TransactionInfo.paymentTypeId ==
+                          'ded1231a-68bb-4aa0-99a2-a53e51987e6f'
+                        "
+                      >
+                        DemandNote Code: {{ TransactionInfo.demandNoteCode }}
+                        <br />
+                      </span>
+
+                      Surcharge Amount:
+                      {{ TransactionInfo.customerSurchargeAmount }} <br />
+                      <b
+                        >Current Total(Surch Incl.):
+                        {{ TransactionInfo.customerCurrentTotalInclSurch }}</b
+                      >
+                      <br />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div
+                *ngIf="
+                  userService.isInRole(userRoles, ['KGDCL_Checker', 'Admin']) &&
+                  TransactionInfo.isMake
+                "
+                class="form-group mb-0 text-left"
+              >
+                <label for="Amount">Remarks:</label>
+                <textarea
+                  formControlName="CheckerRemarks"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-0 text-right">
+            <div>
+              <button
+                type="button"
+                *ngIf="
+                  userService.isInRole(userRoles, ['KGDCL_Maker', 'Admin']) &&
+                  !TransactionInfo.isMake
+                "
+                (click)="onMake(); $event.preventDefault()"
+                class="btn btn-primary waves-effect waves-light mr-1"
+              >
+                <span>Submit</span>
+              </button>
+
+              <button
+                type="button"
+                *ngIf="
+                  userService.isInRole(userRoles, ['KGDCL_Checker', 'Admin']) &&
+                  TransactionInfo.isMake
+                "
+                (click)="onDecline(); $event.preventDefault()"
+                class="btn btn-danger waves-effect waves-light mr-1"
+              >
+                <span>Decline</span>
+              </button>
+
+              <button
+                type="button"
+                *ngIf="
+                  userService.isInRole(userRoles, ['KGDCL_Checker', 'Admin']) &&
+                  TransactionInfo.isMake
+                "
+                (click)="onSubmit(); $event.preventDefault()"
+                class="btn btn-success waves-effect waves-light mr-1"
+              >
+                <span>Authorize</span>
+              </button>
+
+              <button
+                type="button"
+                (click)="goBack(); $event.preventDefault()"
+                *ngIf="
+                  userService.isInRole(userRoles, ['KGDCL_Maker', 'Admin'])
+                "
+                class="btn btn-secondary waves-effect"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

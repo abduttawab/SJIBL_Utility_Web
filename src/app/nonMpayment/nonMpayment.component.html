@@ -1,0 +1,814 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Utility/ Service Payment</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Payment area</li>
+      </ol>
+    </div>
+    
+    <div class="col-sm-6">
+
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="service.paymentFormModel" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="mt-0 header-title">Bill information</h4> -->
+          <p class="text-muted m-b-30">Please fillup bill information.
+            <span style="float: right;"><button class="btn btn-primary"
+               (click)="resetWithDefault(); $event.preventDefault()">Reload</button></span>
+          </p>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="UtilityTypeId">Utility Type</label>
+                <input formControlName="Id" type="hidden">
+                <select class="form-control" formControlName="UtilityTypeId" (change)="getPaymentType()">
+                  <option value="">Select</option>
+
+                  <option *ngFor="let UtilityTypeId of UtilityTypes; let i = index" [value]="UtilityTypes[i].id">
+                    {{UtilityTypes[i].name}}
+                  </option>
+                </select>
+
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('UtilityTypeId').touched
+                          && service.paymentFormModel.get('UtilityTypeId').errors?.required">This field is
+                  mandatory.</label>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="PaymentTypeId">Bill Category</label>
+                <select class="form-control" formControlName="PaymentTypeId">
+                  
+                  <option value="">Select</option>
+
+                  <option *ngFor="let PaymentTypeId of PaymentTypes; let i = index" [value]="PaymentTypes[i].id">
+                    {{PaymentTypes[i].name}}
+                  </option>
+
+                </select>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('PaymentTypeId').touched
+                          && service.paymentFormModel.get('PaymentTypeId').errors?.required">This field is
+                  mandatory.</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="PaymentMethod">Payment Method</label>
+                <select class="form-control" formControlName="PaymentMethod">
+                  <option value="">Select</option>
+                  <option value="CASH">Cash</option>
+                  <option value="TRANSFER">Transfer</option>
+                </select>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('PaymentMethod').touched
+                          && service.paymentFormModel.get('PaymentMethod').errors?.required">This field is
+                  mandatory.</label>
+
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="CustomerCode">Customer Code</label>
+               
+                <input formControlName="CustomerCode" type="text" class="form-control" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerCode').touched
+                          && service.paymentFormModel.get('CustomerCode').errors?.required">This field is mandatory.</label>
+              </div>
+
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="CustomerMobileNumber">Customer Mobile Number</label>
+               
+                <input formControlName="CustomerMobileNumber" type="text" class="form-control" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerMobileNumber').touched
+                          && service.paymentFormModel.get('CustomerMobileNumber').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+            
+              
+            </div>
+         
+
+
+          </div>
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentMethod'].value=='TRANSFER'">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="CustomerBranchCode">Branch <span class="badge badge-info">CBS</span></label>
+
+                <select class="form-control" formControlName="CustomerBranchCode" >
+                  <option value="">Select</option>
+                  <option *ngFor="let district of BranchList; let i = index" [value]="BranchList[i].brancH_CODE">
+                    {{BranchList[i].brancH_NAME}} ({{BranchList[i].brancH_CODE}})
+                  </option>
+                </select>
+
+
+
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerBranchCode').touched
+                          && service.paymentFormModel.get('CustomerBranchCode').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="CustomerAccountNo">Client Account No / GL Account Sl <span class="badge badge-info">CBS</span></label>
+               
+                <input formControlName="CustomerAccountNo" type="text" class="form-control" (blur)="accountPadding()" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerAccountNo').touched
+                          && service.paymentFormModel.get('CustomerAccountNo').errors?.required">This field is mandatory.</label>
+              
+                <label class="text-danger" *ngIf="errorText && service.paymentFormModel.controls['PaymentMethod'].value=='TRANSFER'">{{errorText}}</label>
+               
+               
+                <span *ngIf="AccountInfo">
+                  <label class="text-info">Name: {{AccountInfo.clienT_NAME}}</label><br/>
+                  <label class="text-info">Balance: {{AccountInfo.balance}}</label>
+                  
+                </span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="WithdrawalReferenceNumber">Withdrawal Reference <span class="badge badge-info">CBS</span></label>
+              
+                <select class="form-control" (change)="slipCheckOnChange();accountPadding();" formControlName="WithdrawalReferenceNumber" >
+                  <option value="">Select</option>
+                  <option value="Cheque">Cheque</option>
+                  <option value="Slip">Slip</option>
+                </select>
+
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('WithdrawalReferenceNumber').touched
+                          && service.paymentFormModel.get('WithdrawalReferenceNumber').errors?.required">This field is mandatory.</label>
+               
+                </div>
+            </div>
+            <div class="col-md-2" *ngIf="service.paymentFormModel.controls['WithdrawalReferenceNumber'].value=='Cheque'">
+              <div class="form-group">
+                <label for="ChequeNumber">Cheque Number <span class="badge badge-info">CBS</span></label>
+               
+                <input formControlName="ChequeNumber" type="text" class="form-control" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('ChequeNumber').touched
+                          && service.paymentFormModel.get('ChequeNumber').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+            <div class="col-md-2" *ngIf="service.paymentFormModel.controls['WithdrawalReferenceNumber'].value=='Slip'">
+              <div class="form-group">
+                <label for="SlipNumber">Slip Number <span class="badge badge-info">CBS</span></label>
+               
+                <input formControlName="SlipNumber" type="text" class="form-control" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('SlipNumber').touched
+                          && service.paymentFormModel.get('SlipNumber').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="ChequeOrSlipDate">Cheque Or Slip Date <span class="badge badge-info">CBS</span></label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ChequeOrSlipDate"
+                      ngbDatepicker #ChequeOrSlipDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="ChequeOrSlipDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('ChequeOrSlipDate').touched
+                  && service.paymentFormModel.get('ChequeOrSlipDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('ChequeOrSlipDate').touched
+                  && service.paymentFormModel.get('ChequeOrSlipDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+         
+           
+            
+          </div>
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['UtilityTypeId'].value=='4619f598-0db9-462a-bc13-2cdb724a0a7f'">
+           
+        
+
+         </div>
+<div class="row">
+  <div class="col-md-4" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='ded1231a-68bb-4aa0-99a2-a53e51987e6f'">
+    <div class="form-group">
+      <label for="demandNoteCode">Demand Note Code</label>
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="" formControlName="demandNoteCode">
+        </div>
+        <label class="text-danger" *ngIf="service.paymentFormModel.get('demandNoteCode').touched
+        && service.paymentFormModel.get('demandNoteCode').errors?.required">This field is mandatory.</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='b5645e50-96f8-47e7-aa15-2a870867b51b' ||
+           service.paymentFormModel.controls['PaymentTypeId'].value=='20862ca8-5db2-4671-a6b3-7172d9a1c814'">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoPayDate">Bill Pay Order (BPO) Pay Date</label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="bpoPayDate"
+                      ngbDatepicker #bpoPayDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="bpoPayDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoPayDate').touched
+                  && service.paymentFormModel.get('bpoPayDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoPayDate').touched
+                  && service.paymentFormModel.get('bpoPayDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoNumber">BPO Number</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoNumber">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoNumber').touched
+                  && service.paymentFormModel.get('bpoNumber').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoBankName">BPO Bank Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoBankName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoBankName').touched
+                  && service.paymentFormModel.get('bpoBankName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoBranchName">BPO Branch Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoBranchName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoBranchName').touched
+                  && service.paymentFormModel.get('bpoBranchName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='fc6cfc88-8bfb-4a8b-8469-291617aa6ff8'">
+           
+           
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="aitAmount">AIT Amount</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="aitAmount">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('aitAmount').touched
+                  && service.paymentFormModel.get('aitAmount').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+ 
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="chalanNo">Chalan No</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="chalanNo">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanNo').touched
+                  && service.paymentFormModel.get('chalanNo').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+           
+            <div class="col-md-2">
+             <div class="form-group">
+               <label for="chalanDate">Chalan Date</label>
+               <div class="form-group">
+                 <div class="input-group">
+
+                   <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="chalanDate"
+                     ngbDatepicker #chalanDate="ngbDatepicker">
+                   <div class="input-group-append">
+                     <button class="btn btn-outline-secondary calendar" (click)="chalanDate.toggle()"
+                       type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                     </button>
+                   </div>
+                 </div>
+
+                 <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanDate').touched
+                 && service.paymentFormModel.get('chalanDate').errors?.dateVaidator">Invalid date formate.</label>
+                 <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanDate').touched
+                 && service.paymentFormModel.get('chalanDate').errors?.required">This field is mandatory.</label>
+               </div>
+             </div>
+           </div>
+
+          
+
+           <div class="col-md-3">
+             <div class="form-group">
+               <label for="chalanBankName">Chalan Bank Name</label>
+               <div class="form-group">
+                 <div class="input-group">
+                   <input type="text" class="form-control" placeholder="" formControlName="chalanBankName">
+                 </div>
+                 <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanBankName').touched
+                 && service.paymentFormModel.get('chalanBankName').errors?.required">This field is mandatory.</label>
+               </div>
+             </div>
+           </div>
+
+
+
+           <div class="col-md-3">
+            <div class="form-group">
+              <label for="chalanBranchName">Chalan Branch Name</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="" formControlName="chalanBranchName">
+                </div>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanBranchName').touched
+                && service.paymentFormModel.get('chalanBranchName').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+          </div>
+
+         </div>
+
+
+
+        <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='bd72c564-8bcb-4286-9cfc-a47c157f7d3e'">
+           
+           
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="aitAmount">AIT Amount</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="" formControlName="aitAmount">
+                </div>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('aitAmount').touched
+                && service.paymentFormModel.get('aitAmount').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="payOrderNo">Pay Order No</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="" formControlName="payOrderNo">
+                </div>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderNo').touched
+                && service.paymentFormModel.get('payOrderNo').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+          </div>
+         
+          <div class="col-md-2">
+           <div class="form-group">
+             <label for="payOrderDate">Pay Order Date</label>
+             <div class="form-group">
+               <div class="input-group">
+
+                 <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="payOrderDate"
+                   ngbDatepicker #payOrderDate="ngbDatepicker">
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary calendar" (click)="payOrderDate.toggle()"
+                     type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                   </button>
+                 </div>
+               </div>
+
+               <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderDate').touched
+               && service.paymentFormModel.get('payOrderDate').errors?.dateVaidator">Invalid date formate.</label>
+               <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderDate').touched
+               && service.paymentFormModel.get('payOrderDate').errors?.required">This field is mandatory.</label>
+             </div>
+           </div>
+         </div>
+
+        
+
+         <div class="col-md-2">
+           <div class="form-group">
+             <label for="payOrderBank">PayOrder Bank Name</label>
+             <div class="form-group">
+               <div class="input-group">
+                 <input type="text" class="form-control" placeholder="" formControlName="payOrderBank">
+               </div>
+               <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderBank').touched
+               && service.paymentFormModel.get('payOrderBank').errors?.required">This field is mandatory.</label>
+             </div>
+           </div>
+         </div>
+
+
+
+         <div class="col-md-2">
+          <div class="form-group">
+            <label for="payOrderBranch">PayOrder Branch Name</label>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="" formControlName="payOrderBranch">
+              </div>
+              <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderBranch').touched
+              && service.paymentFormModel.get('payOrderBranch').errors?.required">This field is mandatory.</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="payOrderAuthorizedDate">Pay Order Authorized Date</label>
+            <div class="form-group">
+              <div class="input-group">
+
+                <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="payOrderAuthorizedDate"
+                  ngbDatepicker #payOrderAuthorizedDate="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="payOrderAuthorizedDate.toggle()"
+                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+              <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderAuthorizedDate').touched
+              && service.paymentFormModel.get('payOrderAuthorizedDate').errors?.dateVaidator">Invalid date formate.</label>
+              <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderAuthorizedDate').touched
+              && service.paymentFormModel.get('payOrderAuthorizedDate').errors?.required">This field is mandatory.</label>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='ad66f648-fd8c-491c-a5ff-535229e8ddd6'">
+              
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="aitAmount">AIT Amount</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="aitAmount">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('aitAmount').touched
+                  && service.paymentFormModel.get('aitAmount').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="chalanNo">Chalan No</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="chalanNo">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanNo').touched
+                  && service.paymentFormModel.get('chalanNo').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="chalanDate">Chalan Date</label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="chalanDate"
+                      ngbDatepicker #chalanDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="chalanDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanDate').touched
+                  && service.paymentFormModel.get('chalanDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanDate').touched
+                  && service.paymentFormModel.get('chalanDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="chalanBankName">Chalan Bank Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="chalanBankName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanBankName').touched
+                  && service.paymentFormModel.get('chalanBankName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="chalanBranchName">Chalan Branch Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="chalanBranchName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('chalanBranchName').touched
+                  && service.paymentFormModel.get('chalanBranchName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoPayDate">Bill Pay Order (BPO) Pay Date</label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="bpoPayDate"
+                      ngbDatepicker #bpoPayDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="bpoPayDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoPayDate').touched
+                  && service.paymentFormModel.get('bpoPayDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoPayDate').touched
+                  && service.paymentFormModel.get('bpoPayDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoNumber">BPO Number</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoNumber">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoNumber').touched
+                  && service.paymentFormModel.get('bpoNumber').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoBankName">BPO Bank Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoBankName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoBankName').touched
+                  && service.paymentFormModel.get('bpoBankName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoBranchName">BPO Branch Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoBranchName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoBranchName').touched
+                  && service.paymentFormModel.get('bpoBranchName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='5ee8ccfa-1554-4e86-835f-4cf77180c094'">
+              
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="aitAmount">AIT Amount</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="aitAmount">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('aitAmount').touched
+                  && service.paymentFormModel.get('aitAmount').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="payOrderNo">Pay Order No</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="payOrderNo">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderNo').touched
+                  && service.paymentFormModel.get('payOrderNo').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+             <div class="form-group">
+               <label for="payOrderDate">Pay Order Date</label>
+               <div class="form-group">
+                 <div class="input-group">
+  
+                   <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="payOrderDate"
+                     ngbDatepicker #payOrderDate="ngbDatepicker">
+                   <div class="input-group-append">
+                     <button class="btn btn-outline-secondary calendar" (click)="payOrderDate.toggle()"
+                       type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                     </button>
+                   </div>
+                 </div>
+  
+                 <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderDate').touched
+                 && service.paymentFormModel.get('payOrderDate').errors?.dateVaidator">Invalid date formate.</label>
+                 <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderDate').touched
+                 && service.paymentFormModel.get('payOrderDate').errors?.required">This field is mandatory.</label>
+               </div>
+             </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="payOrderBank">PayOrder Bank Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="payOrderBank">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderBank').touched
+                  && service.paymentFormModel.get('payOrderBank').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+            <div class="form-group">
+              <label for="payOrderBranch">PayOrder Branch Name</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="" formControlName="payOrderBranch">
+                </div>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderBranch').touched
+                && service.paymentFormModel.get('payOrderBranch').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="payOrderAuthorizedDate">Pay Order Authorized Date</label>
+                <div class="form-group">
+                  <div class="input-group">
+    
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="payOrderAuthorizedDate"
+                      ngbDatepicker #payOrderAuthorizedDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="payOrderAuthorizedDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+    
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderAuthorizedDate').touched
+                  && service.paymentFormModel.get('payOrderAuthorizedDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('payOrderAuthorizedDate').touched
+                  && service.paymentFormModel.get('payOrderAuthorizedDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoPayDate">Bill Pay Order (BPO) Pay Date</label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="bpoPayDate"
+                      ngbDatepicker #bpoPayDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="bpoPayDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoPayDate').touched
+                  && service.paymentFormModel.get('bpoPayDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoPayDate').touched
+                  && service.paymentFormModel.get('bpoPayDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="bpoNumber">BPO Number</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoNumber">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoNumber').touched
+                  && service.paymentFormModel.get('bpoNumber').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="bpoBankName">BPO Bank Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoBankName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoBankName').touched
+                  && service.paymentFormModel.get('bpoBankName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="bpoBranchName">BPO Branch Name</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="bpoBranchName">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('bpoBranchName').touched
+                  && service.paymentFormModel.get('bpoBranchName').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+          </div>
+          <div class="form-group mb-0 text-right">
+            <div>
+              <button (click)="onSubmit(); $event.preventDefault()" class="btn btn-primary waves-effect waves-light mr-1">
+                <span>Verify</span>
+              </button>
+              <button type="reset" class="btn btn-secondary waves-effect">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

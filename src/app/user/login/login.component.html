@@ -1,35 +1,64 @@
 
+<style type="text/css">   @import url("../../../assets/login/css/util.css"); </style>
+<style type="text/css">   @import url("../../../assets/login/css/main.css"); </style>
 
-<div class="account-card-content">
-  <form class="form-horizontal m-t-30" #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input class="form-control" type="text" #UserName="ngModel" placeholder="Enter username" name="UserName"
-        [(ngModel)]="formModel.UserName" required>
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 
-    </div>
-    <div class="form-group">
-      <label for="userpassword">Password</label>
-      <input type="password" placeholder="Enter password" class="form-control" #Password="ngModel" name="Password"
-        [(ngModel)]="formModel.Password" required>
-    </div>
-    <div class="form-group row m-t-20">
-      <div class="col-sm-6">
-        <!-- <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input"
-            id="customControlInline"> 
-            <label class="custom-control-label" for="customControlInline">Remember
-            me</label>
-          </div> -->
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <form class="login100-form validate-form" #form='ngForm' autocomplete="off" (submit)="onSubmit(form)">
+      <div style="margin: auto; padding: 10px; ">
+
+        <img style="margin-top: -40%; width: 40%; margin-left: 30%;" src="assets/images/logo_big.jpg" />
       </div>
-      <div class="col-sm-6 text-right">
-        <button type="submit" class="btn btn-primary w-md waves-effect waves-light" [disabled]="form.invalid">Log
-          In</button>
-      </div>
+      
+       
+        <span class="login100-form-title p-b-34">
+          SJIBL-Utility-Payment System
+        </span>
+        
+        <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
+          
+          
+          <input class="input100" type="text" #UserName="ngModel" placeholder="Enter username" name="UserName"
+          [(ngModel)]="formModel.UserName" required>
+         
+          <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
+       
+
+          <input type="password" placeholder="Enter password" class="input100" #Password="ngModel" name="Password"
+          [(ngModel)]="formModel.Password" required>
+          <span class="focus-input100"></span>
+        </div>
+        
+        <div class="container-login100-form-btn">
+       
+
+          <button type="submit" class="login100-form-btn" [disabled]="form.invalid">Log
+            In</button>
+        </div>
+
+      
+
+
+      </form>
+
+      <div class="login100-more" style="background-image: url('../../../assets/login/login_bg.gif'); width: 40%;height: 350px;margin-top: 9%;margin-right: 10%;"></div>
     </div>
-    <div class="form-group m-t-10 mb-0 row">
-      <!-- <div class="col-12 m-t-20"><a href="#"><i class="mdi mdi-lock"></i> Forgot your
-            password?</a></div> -->
-    </div>
-  </form>
+  </div>
 </div>
+<script>
+
+</script>
+
+<script src="../../../assets/login/js/main.js"></script>

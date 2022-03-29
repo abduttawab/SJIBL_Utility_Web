@@ -5,6 +5,7 @@ import { tap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as jwt_decode from "jwt-decode";
 
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
 
@@ -14,7 +15,9 @@ export class AuthInterceptor implements HttpInterceptor{
         if(localStorage.getItem('token')!=null){
          
             const cloneReq = req.clone({
-                headers:req.headers.set('Authorization','Bearer '+localStorage.getItem('token'))
+                headers:req.headers
+                .set('Authorization','Bearer '+localStorage.getItem('token'))
+                
             });
             return next.handle(cloneReq).pipe(
                 tap(
@@ -30,7 +33,19 @@ export class AuthInterceptor implements HttpInterceptor{
                 )
             )
           }else{
-            return next.handle(req.clone());
+
+            
+            if(localStorage.getItem('EndUserIp')!=null){
+                 // Clone the request to add the new header
+                const clonedRequest = req.clone({ headers: req.headers.append('EndUserIp', localStorage.getItem('EndUserIp')) });
+
+                return next.handle(clonedRequest);
+                
+            }
+            else{
+                return next.handle(req.clone());
+            }
+           
           }
     }
 
@@ -42,4 +57,6 @@ export class AuthInterceptor implements HttpInterceptor{
             return null;
         }
       }
+  
+     
 }

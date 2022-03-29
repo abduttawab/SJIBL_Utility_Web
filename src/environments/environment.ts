@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
- apiEndpoint : "https://localhost:44344/api/",
- fileEndpoint : "https://localhost:44344/"
+ apiEndpoint : "http://localhost:47884/api/",
+ fileEndpoint : "http://localhost:47884/",
+ getClientIPEndpoint : "http://10.101.104.157/UltimusTrxApi/getClientIP.php"
  // apiEndpoint : "http://10.101.104.140:5050/api/"
   
 };

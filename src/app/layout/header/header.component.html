@@ -1,3 +1,13 @@
+
+
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <!-- Navigation Bar-->
 <header id="topnav">
     <div class="topbar-main">
@@ -5,8 +15,11 @@
             <!-- Logo container-->
             <div class="logo">
                 <a routerLink="/home/dashboard" class="logo">
-                    <h3 style="color: antiquewhite;">SJIBL - IDPA</h3>
+                    <h3 style="color: antiquewhite;">SJIBL-Utility-Payment System</h3>
                 </a>
+
+                <!-- <p><strong style="color: red;">{{idleState}}</strong></p> -->
+
             </div>
             <!-- MENU Start -->
 
@@ -67,91 +80,56 @@
                 <ul class="navigation-menu">
 
                     <li class="has-submenu"><a routerLink="/home/dashboard"><i class="ti-home"></i>Dashboard</a></li>
+               
+                    <li *ngIf="service.isInRole(userRoles,['KGDCL_Maker','Admin'])" class="has-submenu"><a
+                            routerLink="/home/nonMpayment"><i class="ti-agenda"></i>KGDCL Payment</a></li>
+                        
+                    <li *ngIf="service.isInRole(userRoles,['BGDCL_Maker','Admin'])" class="has-submenu"><a
+                        routerLink="/home/bgdclVerify"><i class="ti-agenda"></i>BGDCL Payment</a></li>
 
-                    <li *ngIf="userRole=='Branch User' || userRole=='Admin'" class="has-submenu"><a
-                            routerLink="/home/entryform"><i class="ti-agenda"></i>Entry Form</a></li>
+                    <li *ngIf="service.isInRole(userRoles,['NESCO_Maker','Admin'])" class="has-submenu"><a
+                        routerLink="/home/NescoVerify"><i class="ti-agenda"></i>NESCO Payment</a></li>
 
+                    <li *ngIf="service.isInRole(userRoles,['KGDCL_Maker','BGDCL_Maker','NESCO_Maker'
+                    ,'KGDCL_Checker','BGDCL_Checker','NESCO_Checker'
+                    ,'Admin'])" class="has-submenu"><a
+                        routerLink="/home/transactions"><i class="ti-agenda"></i>Report</a></li>
 
-                    <li *ngIf="userRole=='ViewOnly' || userRole=='Admin'" class="has-submenu"><a
-                            routerLink="/home/allApplications"><i class="ti-search"></i>Find</a></li>
-
-                    <li class="has-submenu"><a routerLink="/home/dashboard"><i
-                                class="ti-harddrives"></i>Applications</a>
+                        <li *ngIf="service.isInRole(userRoles,['KGDCL_Checker'])" class="has-submenu"><a
+                            routerLink="/home/untAuthTransactions"><i class="ti-agenda"></i>KGDCL Unauthorized Transactions</a></li>
+                        <li *ngIf="service.isInRole(userRoles,['BGDCL_Checker'])" class="has-submenu"><a
+                            routerLink="/home/bgdclUnAuthTransactions"><i class="ti-agenda"></i>BGDCL Unauthorized Transactions</a></li>
+                        <li *ngIf="service.isInRole(userRoles,['NESCO_Checker'])" class="has-submenu"><a
+                            routerLink="/home/NescoUnAuthTransactions"><i class="ti-agenda"></i>NESCO Unauthorized Transactions</a></li>
+                    
+                    <li class="has-submenu" *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker','AdminUserChecker'])"><a href="#"><i class="ti-user"></i>User Management</a>
                         <ul class="submenu">
+                            <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker'])" class="has-submenu"><a
+                                routerLink="/home/unAuthUsers"><i class="ti-user"></i>Create New User</a></li>
+        
+                            <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserChecker'])"  class="has-submenu"><a
+                                    routerLink="/home/appusers"><i class="ti-user"></i>Authorized Users</a></li>
 
-                            <li *ngIf="userRole=='Branch User' || userRole=='Admin'"><a
-                                    routerLink="/home/newapplications"><i class="ti-agenda"></i>Branch Desk Officer</a>
-                            </li>
-
-                            <li *ngIf="userRole=='Branch Investment Incharge' || userRole=='Admin'"><a
-                                    routerLink="/home/branchInvestmentIncharge"><i class="ti-agenda"></i>Branch
-                                    Investment Incharge</a></li>
-
-                            <li *ngIf="userRole=='Branch Deputy Manager' || userRole=='Admin'"><a
-                                    routerLink="/home/branchDeputy"><i class="ti-agenda"></i>Branch Deputy Manager</a>
-                            </li>
-
-                            <li *ngIf="userRole=='Branch Manager' || userRole=='Admin'"><a
-                                    routerLink="/home/branchManager"><i class="ti-agenda"></i>Branch Manager</a></li>
-
-                            <li *ngIf="userRole=='IRM-Desk Officer' || userRole=='Admin'"><a
-                                    routerLink="/home/irmdDo"><i class="ti-agenda"></i>IRMD- Desk Officer</a>
-                            </li>
-
-                            <li *ngIf="userRole=='IRM- Unit In-charge' || userRole=='Admin'">
-                                <a routerLink="/home/irmdIncharge">
-                                    <i class="ti-agenda"></i>
-                                    IRM- Unit In-charge</a>
-                            </li>
-                            <li
-                                *ngIf="userRole=='IRM- Unit In-charge' || userRole=='IRM- Division Head' || userRole=='Admin'">
-                                <a routerLink="/home/irmdHead"><i class="ti-agenda"></i>IRM- Division Head</a>
-
-                            </li>
-
-
-                            <li *ngIf="userRole=='DMD Corporate 1' || userRole=='Admin'"><a routerLink="/home/dmd"><i
-                                        class="ti-agenda"></i>DMD Corporate 1</a>
-                            </li>
-                            <li *ngIf="userRole=='DMD Corporate 2' || userRole=='Admin'"><a routerLink="/home/dmd2"><i
-                                        class="ti-agenda"></i>DMD Corporate 2</a>
-                            </li>
-                            <li *ngIf="userRole=='AMD' || userRole=='Admin'"><a routerLink="/home/amd"><i
-                                        class="ti-agenda"></i>AMD</a>
-                            </li>
-                            <li *ngIf="userRole=='MD' || userRole=='Admin'"><a routerLink="/home/md"><i
-                                        class="ti-agenda"></i>MD</a>
-                            </li>
-
-
-
-                            <li *ngIf="userRole=='IAD' || userRole=='Admin'"><a routerLink="/home/iadStage"><i
-                                        class="ti-agenda"></i>IAD</a>
-                            </li>
-                            <li *ngIf="userRole=='Board Secretary' || userRole=='Admin'"><a
-                                    routerLink="/home/boardSecretaryStage"><i class="ti-agenda"></i>Board Secretary</a>
-                            </li>
                         </ul>
                     </li>
+                    
+                               
 
-                    <li *ngIf="userRole=='Branch User' ||
-                    userRole=='Branch Investment Incharge' ||
-                    userRole=='Branch Deputy Manager' ||
-                    userRole=='Branch Manager' ||
-                     userRole=='Admin'" class="has-submenu"><a
-                        routerLink="/home/approvedApplication"><i class="ti-check-box"></i>Approved Applications</a></li>
-
-
-
-                    <li *ngIf="userRole=='UserMaker' || userRole=='Admin'" class="has-submenu"><a
-                            routerLink="/home/unAuthUsers"><i class="ti-user"></i>Create Application User</a></li>
-
-                    <li *ngIf="userRole=='UserChecker' || userRole=='Admin'" class="has-submenu"><a
-                            routerLink="/home/appusers"><i class="ti-user"></i>Application Users</a></li>
-                    <li *ngIf="userRole=='Admin'" class="has-submenu"><a routerLink="documentType"><i
-                                class="ti-layers-alt"></i>Document Type</a></li>
-                    <li *ngIf="userRole=='Admin'" class="has-submenu"><a routerLink="cibAuto"><i
-                                class="ti-layers-alt"></i>Cib PDF Extraction</a></li>
+                    <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserChecker'])" class="has-submenu"><a href="#"><i class="ti-harddrives"></i>Manage</a>
+                        <ul class="submenu">
+                            <li   class="has-submenu"><a
+                                routerLink="/home/globalSettings"><i class="ti-settings"></i>Global Settings</a></li>
+        
+                                <li  class="has-submenu"><a
+                                    routerLink="/home/reconciliation"><i class="ti-settings"></i>Reconciliation</a></li>
+                        </ul>
+                    </li>
+                   
+                   
+                   
+                   
+                   
+                          
                 </ul>
                 <!-- End navigation menu   -->
 

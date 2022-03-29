@@ -1,0 +1,346 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Report</h4>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"></li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div id="accordion">
+          <div class="card mb-1">
+            <div class="card-header p-3" id="headingOne">
+              <h6 class="m-0 font-14"><a href="#collapseOne" class="text-dark collapsed" data-toggle="collapse"
+                  aria-expanded="false" aria-controls="collapseOne">
+                  Searching Fields <i class="fas fa-arrow-circle-down"></i></a></h6>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <form [formGroup]="service.searchFormModel" autocomplete="off" (submit)="onSearch()">
+                  <div class="row">
+
+                    <div class="col-md-4">
+                      
+                      <label for="CompanyShortCode">Company Name</label>
+                      <select class="form-control" formControlName="CompanyShortCode">
+                        <option value="">Select</option>
+                        <option value="KGDCL">KGDCL</option>
+                        <option value="BGDCL">BGDCL</option>
+                        <option value="NESCO">NESCO</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      
+                      <label for="AuthStatus">Auth Status</label>
+                      <select class="form-control" formControlName="AuthStatus">
+                        <option value="">All</option>
+                        <option value="Authorized">Authorized</option>
+                        <option value="UnAuthorized">UnAuthorized</option>
+                      </select>
+                    </div>
+                    <!-- <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="UtilityTypeId">Utility Type</label>
+                        <select class="form-control" formControlName="UtilityTypeId" (change)="getPaymentType()">
+                          <option value="">Select</option>
+        
+                          <option *ngFor="let UtilityTypeId of UtilityTypes; let i = index" [value]="UtilityTypes[i].id">
+                            {{UtilityTypes[i].name}}
+                          </option>
+                        </select>
+        
+                        <label class="text-danger" *ngIf="service.paymentFormModel.get('UtilityTypeId').touched
+                                  && service.paymentFormModel.get('UtilityTypeId').errors?.required">This field is
+                          mandatory.</label>
+        
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="PaymentTypeId">Bill Category</label>
+                        <select class="form-control" formControlName="PaymentTypeId">
+                          
+                          <option value="">Select</option>
+        
+                          <option *ngFor="let PaymentTypeId of PaymentTypes; let i = index" [value]="PaymentTypes[i].id">
+                            {{PaymentTypes[i].name}}
+                          </option>
+        
+                        </select>
+                        <label class="text-danger" *ngIf="service.paymentFormModel.get('PaymentTypeId').touched
+                                  && service.paymentFormModel.get('PaymentTypeId').errors?.required">This field is
+                          mandatory.</label>
+                      </div>
+                    </div> -->
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="PaymentMethod">Payment Method</label>
+                        <select class="form-control" formControlName="PaymentMethod">
+                          <option value="">Select</option>
+                          <option value="CASH">Cash</option>
+                          <option value="TRANSFER">Transfer</option>
+                        </select>
+                        <label class="text-danger" *ngIf="service.paymentFormModel.get('PaymentMethod').touched
+                                  && service.paymentFormModel.get('PaymentMethod').errors?.required">This field is
+                          mandatory.</label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                   
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="BranchCode">Branch</label>
+                        
+                        <select class="form-control" formControlName="BranchCode">
+                          <option value="">Select</option>
+                          <option *ngFor="let district of BranchList; let i = index" [value]="BranchList[i].brancH_CODE">
+                            {{BranchList[i].brancH_NAME}} ({{BranchList[i].brancH_CODE}})
+                          </option>
+                        </select>
+
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="CustomerCode">Customer Code</label>
+
+                        <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                          <input type="text" class="form-control" formControlName="CustomerCode" placeholder="Enter Customer Code">
+                        </div>
+
+                      </div>
+                    </div>
+                  
+              
+              
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="FromDate">From Date</label>
+                        <div class="form-group">
+                          <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="FromDate"
+                              ngbDatepicker #FromDate="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="FromDate.toggle()"
+                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <label class="text-danger" *ngIf="service.searchFormModel.get('FromDate').touched
+                          && service.searchFormModel.get('FromDate').errors?.dateVaidator">Invalid date formate.</label>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="ToDate">To Date</label>
+                        <div class="form-group">
+                          <div class="input-group">
+
+                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ToDate"
+                              ngbDatepicker #ToDate="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="ToDate.toggle()"
+                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <label class="text-danger" *ngIf="service.searchFormModel.get('ToDate').touched
+                          && service.searchFormModel.get('ToDate').errors?.dateVaidator">Invalid date formate.</label>
+
+                        </div>
+                      </div>
+                    </div>
+           
+                </div>
+
+                  <div class="form-group mb-0 text-right">
+                    <div>
+                      <button type="button" class="btn btn-warning btn-large waves-effect waves-light mr-1" (click)="onExcelReport('KGDCL'); $event.preventDefault()">Download Excel (KGDCL) <i
+                        class="fa fa-file-excel"></i></button>
+                        <button type="button" class="btn btn-warning btn-large waves-effect waves-light mr-1"  (click)="onExcelReport('BGDCL'); $event.preventDefault()">Download Excel (BGDCL) <i
+                          class="fa fa-file-excel"></i></button>
+                      <button type="submit" class="btn btn-primary btn-large waves-effect waves-light mr-1">Search <i
+                          class="fa fa-search"></i></button>
+
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <span><b *ngIf="Transactions">Total : {{Transactions.length}}</b><br/> </span>
+        <span><b *ngIf="Transactions">Total Amount: {{totalAmount}}</b><br/> </span>
+        <div style="text-align: right;">
+          <button type="button" (click)="print_area()" class="btn btn-primary btn-large waves-effect waves-light mr-1">Print <i
+            class="fa fa-print"></i></button><br/>
+        </div>
+
+        
+        <table class="table table-striped table-sm table-bordered
+                 dt-responsive nowrap" style="border-collapse: collapse;
+                  border-spacing: 0; width: 100%;">
+          <thead>
+            <tr class="text-center">
+              <th>Date (Report)</th>
+              <th>Code/ Account No</th>
+              <th>Name</th>
+              <th>Mobile/ BillNo</th>
+              <th>Utility TrxId</th>
+              <th>Amount</th>
+              <th>Utility</th>
+              <th>Payment Method</th>
+             
+              <th>CBS TrxId</th>
+      
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+
+            <tr *ngFor="let transaction of Transactions; let i = index">
+              <td>{{transaction.addedDate | date: 'MM/dd/yyyy'}}</td>
+             
+              <td>{{transaction.customerCode}}</td>
+              <td>{{transaction.customerName}}</td>
+ 
+              <td>{{transaction.customerMobileNumber}}</td>
+              <td>{{transaction.utilityTrxTransactionId}}</td>
+              <td>{{ ConvertToInt(transaction.amount)   + ConvertToInt(transaction.aitAmount) }}</td>
+
+              <td>{{transaction.companyShortCode}}</td>
+              <td>{{transaction.paymentMethod}}</td>
+              
+            
+              <td>{{transaction.cbsTransactionId}}</td>
+      
+              <td>{{transaction.addedDate | date: 'dd/MM/yyyy, h:mm a'}}</td>
+
+              <td>
+                <span *ngIf="!transaction.isAuthorize" class="badge badge-danger">Un-Authorized</span>
+                <span *ngIf="transaction.isAuthorize" class="badge badge-success">Authorized</span>
+              </td>
+
+              <td>
+                <button *ngIf="transaction.isAllowedForDecline" type="button" class="btn btn-sm btn-primary" (click)="allowTranxDecline(transaction.id)" placement="top" ngbTooltip="Already allowed for decline!" disabled><i class="ti-unlock"></i></button>
+                <button *ngIf="userService.isInRole(userRoles,['Admin','AdminUserChecker']) && !transaction.isAuthorize && !transaction.isAllowedForDecline" type="button" class="btn btn-sm btn-warning" (click)="allowTranxDecline(transaction.id)" placement="top" ngbTooltip="Allow for decline!" ><i class="ti-unlock"></i></button>
+              </td>
+             
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- end col -->
+</div>
+
+<div id="printArea" [hidden]="!viewPrintArea">
+
+
+<div class="col-md-7 col-sm-7 text-center" style="margin-left: 22%;margin-bottom: 1%;">
+
+  <h4 style="text-transform: uppercase;color: #333;margin-bottom: 0px;"><img
+      style="width: 150px;border: none;" src="assets/images/bismillah.png" alt=""> <br />
+
+    <img class="img-responsive" style="padding-right: 66px;width: 20%;border: none;margin-right: -51px;"
+      src="assets/images/sjibl.jpg" alt="">Shahjalal Islami
+    Bank Ltd.</h4>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+
+        <span><b *ngIf="Transactions">Total : {{Transactions.length}}</b><br/> </span>
+        <span><b *ngIf="Transactions">Total Amount: {{totalAmount}}</b><br/> </span>
+
+        
+        <table class="table table-striped table-sm table-bordered
+                 dt-responsive nowrap" style="border-collapse: collapse;
+                  border-spacing: 0; width: 100%;">
+          <thead>
+            <tr class="text-center">
+              <th>Date (Report)</th>
+              <th>Customer Code</th>
+              <th>Customer Name</th>
+              <th>Mobile</th>
+              <th>Utility TrxId</th>
+              <th>Amount</th>
+              <th>Utility Type</th>
+              <th>Payment Method</th>
+             
+              <th>CBS TrxId</th>
+      
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+
+            <tr *ngFor="let transaction of Transactions; let i = index">
+              <td>{{transaction.addedDate | date: 'MM/dd/yyyy'}}</td>
+             
+              <td>{{transaction.customerCode}}</td>
+              <td>{{transaction.customerName}}</td>
+ 
+              <td>{{transaction.customerMobileNumber}}</td>
+              <td>{{transaction.utilityTrxTransactionId}}</td>
+              <td>{{ ConvertToInt(transaction.amount)   + ConvertToInt(transaction.aitAmount) }}</td>
+
+              <td>{{transaction.customerCategory}}</td>
+              <td>{{transaction.paymentMethod}}</td>
+              
+            
+              <td>{{transaction.cbsTransactionId}}</td>
+      
+              <td>{{transaction.addedDate | date: 'dd/MM/yyyy, h:mm a'}}</td>
+
+              <td>
+                <span *ngIf="!transaction.isAuthorize" class="badge badge-danger">Un-Authorized</span>
+                <span *ngIf="transaction.isAuthorize" class="badge badge-success">Authorized</span>
+              </td>
+             
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <!-- end col -->
+</div>
+
+
+
+
+<!-- end row -->

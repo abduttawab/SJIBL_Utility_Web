@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../shared/user.service';
 import { UserFormComponent } from '../user/user-form/user-form.component';
@@ -14,12 +15,19 @@ export class UnAuthUserComponent implements OnInit {
   constructor(
     public service : UserService,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
 
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.getData();
+
+    setTimeout(() => {
+      /** spinner ends after 1 seconds */
+      this.spinner.hide();
+    }, 600);
   }
 
   newEntry(){
@@ -39,7 +47,7 @@ export class UnAuthUserComponent implements OnInit {
   getData(){
     this.service.getAllUnAuthUsers().subscribe(
       (res:any) =>{
-        console.log(res);
+        console.log(res.data);
         this.UserList=res.data;
       },
       err =>{
@@ -52,7 +60,7 @@ export class UnAuthUserComponent implements OnInit {
     if(confirm("Are you sure to delete this information?")) {
       this.service.delete(id).subscribe(
         (res: any) => {
-          console.log(res);
+          
 
           if (res.isSuccessfull) {
             this.getData();

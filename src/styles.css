@@ -103,8 +103,12 @@ body{
 }
 .myCustomModalClass .modal-dialog {
   max-width: 86%;
+  
 }
-
+.modal-content{
+  width: 258%;
+  margin-left: -80%;
+}
 
 #preloader {
   position: fixed;

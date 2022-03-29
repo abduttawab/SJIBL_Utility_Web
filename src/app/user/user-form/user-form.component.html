@@ -1,55 +1,95 @@
 <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
   <div class="modal-header">
-      <h4 class="modal-title">{{my_modal_title}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-   
- 
+    <h4 class="modal-title">{{my_modal_title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
         <div class="form-group">
-          <label>Employee Id</label>
-          <input formControlName="Id" type="hidden"/>
-          <input type="text" class="form-control" (blur)="getEmployeeId()" formControlName="UserName"
-          placeholder="Enter Employee Id">
-           <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
-           && service.formModel.get('UserName').errors?.required">This field is mandatory.</label>
-          <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
-                  && service.formModel.get('UserName').errors?.maxlength">Maximum 30 characters
-            required.</label>
-   
-
-    <span *ngIf="EmployeeInfo">
-      <label class="text-info">{{EmployeeInfo.name}} ({{EmployeeInfo.designation}})</label>
-      
-    </span>
+          <label>User Type</label>
+          <select formControlName="UserType"  class="form-control" (change)="changeUserType()">
+            <option value="BranchUser">Branch User</option>
+            <option value="SupportUser">Support User</option>
+          </select>
         </div>
+      </div>
+
+
+
+
+
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>User Id</label>
+          <input formControlName="Id" type="hidden" />
+          <input type="text" class="form-control" (blur)="getEmployeeId()" formControlName="UserName"
+            placeholder="User Id">
+          <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
+         && service.formModel.get('UserName').errors?.required">This field is mandatory.</label>
+          <label class="text-danger" *ngIf="service.formModel.get('UserName').touched
+                && service.formModel.get('UserName').errors?.maxlength">Maximum 30 characters
+            required.</label>
+
+
+          <span *ngIf="EmployeeInfo">
+            <label class="text-info">{{EmployeeInfo.name}} ({{EmployeeInfo.designation}})</label>
+
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-4">
         <div class="form-group">
           <label>Full Name</label>
-          <input formControlName="FullName" class="form-control" type="text">
+          <input formControlName="FullName" class="form-control" type="text" readonly>
           <label class="text-danger" *ngIf="service.formModel.get('FullName').touched &&
-           service.formModel.get('FullName').errors?.required">This field is mandatory.</label>
+               service.formModel.get('FullName').errors?.required">This field is mandatory.</label>
         </div>
-     
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Branch Info</label>
+          <input formControlName="Branch" class="form-control" type="text" readonly>
+          <input formControlName="BranchId" class="form-control" type="hidden" readonly>
+          <label class="text-danger" *ngIf="service.formModel.get('Branch').touched &&
+               service.formModel.get('Branch').errors?.required">This field is mandatory.</label>
+        </div>
+      </div>
+      <div class="col-md-4">
         <div class="form-group">
           <label>Email</label>
-          <input formControlName="Email" class="form-control" type="text">
+          <input formControlName="Email" class="form-control" type="text" readonly>
           <label class="text-danger" *ngIf="service.formModel.get('Email').touched &&
-           service.formModel.get('Email').errors?.required">This field is mandatory.</label>
+               service.formModel.get('Email').errors?.required">This field is mandatory.</label>
         </div>
-        <div class="form-group">
-          <label>Role</label>
-          <select class="form-control" formControlName="Role">
-            <option value="">Select</option>
-            <option *ngFor="let role of RoleList; let i = index" [value]="RoleList[i].name">
-              {{RoleList[i].name}} 
-            </option>
-          </select>
-          <label class="text-danger" *ngIf="service.formModel.get('Role').touched &&
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label>Role</label>
+      <ng-multiselect-dropdown [placeholder]="'Select roles'" [data]="RoleList" [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" formControlName="selectedRoles">
+      </ng-multiselect-dropdown>
+
+
+
+
+      <label class="text-danger" *ngIf="service.formModel.get('Role').touched &&
            service.formModel.get('Role').errors?.required">This field is mandatory.</label>
-        </div>
-        <div formGroupName="Passwords">
+    </div>
+    <!-- <div formGroupName="Passwords">
           <div class="form-group required">
             <label>Password</label>
             <input type="password" class="form-control" formControlName="Password" [readonly]="id">
@@ -62,13 +102,13 @@
             <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
             <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
           </div>
-        </div>
-    
-    
-    </div>
-    <div class="modal-footer">
-       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-          <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
-          [disabled]="!service.formModel.valid">Submit</button>
-    </div>
-  </form>
+        </div> -->
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+      [disabled]="!service.formModel.valid">Submit</button>
+  </div>
+</form>
