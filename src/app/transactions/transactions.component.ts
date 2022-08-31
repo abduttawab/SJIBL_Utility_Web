@@ -10,6 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {saveAs as importedSaveAs} from "file-saver";
 import { formatDate } from '@angular/common';
 import { UserService } from '../shared/user.service';
+import * as jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'transactions',
@@ -209,7 +211,49 @@ export class TransactionsComponent implements OnInit {
    
   }
 
+  generatePdf(){
 
+    const doc = new jsPDF();
+    var pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+    var pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+
+    doc.setFontSize(10);
+    doc.setFont(undefined, 'bold');
+    doc.text("Shahjalal Islami Bank Ltd.", pageWidth / 2, 10, {align: 'center'});
+  
+    doc.setFontSize(8);
+    doc.setFont(undefined, 'normal');
+    doc.text("Utility Bill Collection Report", pageWidth / 2, 14, {align: 'center'});
+   
+    doc.text("Date: "+formatDate(new Date(), 'dd/MM/yyyy, h:mm a', 'en-US'), pageWidth / 2, 18, {align: 'center'});
+
+    doc.addImage("assets/images/sjibl.jpg", "JPEG", 10, 8, 20, 20);
+      
+    autoTable(doc, { html: '#pdftable_transactions'
+        ,startY: 34,
+        styles: {
+          lineColor: 0,
+          lineWidth: 0.5 ,
+          fontSize:6,
+          valign: 'middle',
+          halign: 'center'
+        },
+        headStyles: {
+          fillColor: [255, 255, 255],
+          fontSize: 6,
+          textColor: 0
+          
+        },
+        bodyStyles: {
+          fillColor: [255, 255, 255],
+          textColor: 0,
+        }
+          
+          //, useCss: true
+        });
+        const cValue = formatDate(new Date(), 'dd-MM-yyyyTh:mm:ssa', 'en-US');
+        doc.save("UtilityBillCollectionReport_"+cValue+ ".pdf");
+  }
 getData(){
   this.service.getTransactions().subscribe(
     (res:any) =>{

@@ -30,7 +30,7 @@ type="ball-scale-multiple"
 
                     <!-- language-->
                     <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
-                        <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
+                        <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"  role="button"
                             aria-haspopup="false" aria-expanded="false"><i class="mdi mdi-account-circle m-r-5"></i>
                             {{userName}} <span class="mdi mdi-chevron-down"></span></a>
                         <div class="dropdown-menu dropdown-menu-right language-switch" x-placement="top-end"
@@ -47,7 +47,7 @@ type="ball-scale-multiple"
                     </li>
 
                     <!-- full screen -->
-                    <!-- <li class="dropdown notification-list list-inline-item d-none d-md-inline-block"><a class="nav-link" href="#" id="btn-fullscreen"><i class="mdi mdi-fullscreen noti-icon"></i></a></li>
+                    <!-- <li class="dropdown notification-list list-inline-item d-none d-md-inline-block"><a class="nav-link"  id="btn-fullscreen"><i class="mdi mdi-fullscreen noti-icon"></i></a></li>
                        -->
                     <li class="menu-item list-inline-item">
                         <!-- Mobile menu toggle-->
@@ -81,19 +81,54 @@ type="ball-scale-multiple"
 
                     <li class="has-submenu"><a routerLink="/home/dashboard"><i class="ti-home"></i>Dashboard</a></li>
                
-                    <li *ngIf="service.isInRole(userRoles,['KGDCL_Maker','Admin'])" class="has-submenu"><a
-                            routerLink="/home/nonMpayment"><i class="ti-agenda"></i>KGDCL Payment</a></li>
-                        
-                    <li *ngIf="service.isInRole(userRoles,['BGDCL_Maker','Admin'])" class="has-submenu"><a
-                        routerLink="/home/bgdclVerify"><i class="ti-agenda"></i>BGDCL Payment</a></li>
 
-                    <li *ngIf="service.isInRole(userRoles,['NESCO_Maker','Admin'])" class="has-submenu"><a
-                        routerLink="/home/NescoVerify"><i class="ti-agenda"></i>NESCO Payment</a></li>
+                    <li class="has-submenu"><a > <i class="ti-receipt"></i>Utility Services</a>
+                        <ul class="submenu">
 
-                    <li *ngIf="service.isInRole(userRoles,['KGDCL_Maker','BGDCL_Maker','NESCO_Maker'
-                    ,'KGDCL_Checker','BGDCL_Checker','NESCO_Checker'
-                    ,'Admin'])" class="has-submenu"><a
-                        routerLink="/home/transactions"><i class="ti-agenda"></i>Report</a></li>
+                            <li class="has-submenu" *ngIf="service.isInRole(userRoles,['KGDCL_Maker','Admin'])" class="has-submenu"><a
+                                    routerLink="/home/nonMpayment"><i class="ti-agenda"></i>KGDCL Payment</a></li>
+                                
+                            <li class="has-submenu" *ngIf="service.isInRole(userRoles,['BGDCL_Maker','Admin'])" class="has-submenu"><a
+                                routerLink="/home/bgdclVerify"><i class="ti-agenda"></i>BGDCL Payment</a></li>
+        
+                            <li class="has-submenu" *ngIf="service.isInRole(userRoles,['NESCO_Maker','Admin'])" class="has-submenu"><a
+                                routerLink="/home/NescoVerify"><i class="ti-agenda"></i>NESCO Payment</a></li>
+        
+                            <li class="has-submenu" *ngIf="service.isInRole(userRoles,['DESCO_Maker','Admin'])" class="has-submenu"><a
+                                    routerLink="/home/DescoVerify"><i class="ti-agenda"></i>DESCO Payment</a></li>
+        
+          
+                        </ul>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+                   
+
+                        <li class="has-submenu"><a > <i class="ti-agenda"></i>Report</a>
+                            <ul class="submenu">
+                                <li class="has-submenu"><a
+                                    routerLink="/home/transactions">All Transactions</a></li>
+
+                                <span 
+                                *ngIf="service.isInRole(userRoles,['NESCO_Maker','NESCO_Checker','Admin'])">
+                                  
+                                    <li  class="has-submenu"><a routerLink="/home/NescoPostPiadDatwise">Nesco Postpiad</a></li>
+                                    <li  class="has-submenu"><a   routerLink="/home/NescoPrePiadReport">Nesco Prepiad</a></li>
+        
+                                </span>
+            
+              
+                            </ul>
+                        </li>
+
 
                         <li *ngIf="service.isInRole(userRoles,['KGDCL_Checker'])" class="has-submenu"><a
                             routerLink="/home/untAuthTransactions"><i class="ti-agenda"></i>KGDCL Unauthorized Transactions</a></li>
@@ -101,8 +136,11 @@ type="ball-scale-multiple"
                             routerLink="/home/bgdclUnAuthTransactions"><i class="ti-agenda"></i>BGDCL Unauthorized Transactions</a></li>
                         <li *ngIf="service.isInRole(userRoles,['NESCO_Checker'])" class="has-submenu"><a
                             routerLink="/home/NescoUnAuthTransactions"><i class="ti-agenda"></i>NESCO Unauthorized Transactions</a></li>
+
+                            <li *ngIf="service.isInRole(userRoles,['DESCO_Checker'])" class="has-submenu"><a
+                                routerLink="/home/DescoUnAuthTransactions"><i class="ti-agenda"></i>DESCO Unauthorized Transactions</a></li>
                     
-                    <li class="has-submenu" *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker','AdminUserChecker'])"><a href="#"><i class="ti-user"></i>User Management</a>
+                    <li class="has-submenu" *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker','AdminUserChecker'])"><a ><i class="ti-user"></i>User Management</a>
                         <ul class="submenu">
                             <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker'])" class="has-submenu"><a
                                 routerLink="/home/unAuthUsers"><i class="ti-user"></i>Create New User</a></li>
@@ -115,7 +153,7 @@ type="ball-scale-multiple"
                     
                                
 
-                    <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserChecker'])" class="has-submenu"><a href="#"><i class="ti-harddrives"></i>Manage</a>
+                    <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserChecker'])" class="has-submenu"><a ><i class="ti-harddrives"></i>Manage</a>
                         <ul class="submenu">
                             <li   class="has-submenu"><a
                                 routerLink="/home/globalSettings"><i class="ti-settings"></i>Global Settings</a></li>

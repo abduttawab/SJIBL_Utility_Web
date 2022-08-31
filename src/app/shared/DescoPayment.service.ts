@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class NescoPaymentService {
+export class DescoPaymentService {
   
 
   constructor(private fb: FormBuilder,
@@ -21,7 +21,7 @@ export class NescoPaymentService {
 
      }
 
-     readonly BaseConrtURI = this.config.apiEndpoint+'NESCO/';
+     readonly BaseConrtURI = this.config.apiEndpoint+'DESCO/';
 
      SearchFromDate;
      SearchToDate;
@@ -111,7 +111,7 @@ setPayByBillValidators() {
   this.paymentFormModel.get('PaymentTypeId').valueChanges
     .subscribe(PaymentTypeId => {
       this.removeAllValidators();
-      if (PaymentTypeId === '3f385296-6592-4c3a-87a8-8df24c0626d7') {
+      if (PaymentTypeId === '813b6a80-155a-4744-b462-c0bc1a56eae5') {
         BillNo.setValidators([Validators.required]);
 
         BillNo.updateValueAndValidity();
@@ -128,37 +128,7 @@ setPayByBillValidators() {
 
       }
      
-      if (PaymentTypeId === '7529013a-4e0a-48ff-be5a-797195d4d8f1') {
-        BillNo.setValidators(null);
-        Amount.setValidators(null);
-        ConsumerNo.setValidators([Validators.required]);
-        Year.setValidators([Validators.required]);
-        Month.setValidators([Validators.required]);
-        
-        BillNo.updateValueAndValidity();
-        ConsumerNo.updateValueAndValidity();
-        Year.updateValueAndValidity();
-        Month.updateValueAndValidity();
-        Amount.updateValueAndValidity();
-       
-      }
-      if (PaymentTypeId === '7608298f-0fdc-4ab8-ac27-c040578af849') {
-        var numRegex = /^-?\d*[.,]?\d{0,2}$/;
-        BillNo.setValidators(null);
-       Year.setValidators(null);
-        Month.setValidators(null);
-
-        ConsumerNo.setValidators([Validators.required]);
-        Amount.setValidators([Validators.required, Validators.pattern(numRegex)]);
-       
-        
-        BillNo.updateValueAndValidity();
-        ConsumerNo.updateValueAndValidity();
-        Year.updateValueAndValidity();
-        Month.updateValueAndValidity();
-        Amount.updateValueAndValidity();
-       
-      }
+   
       //
     });
 }
@@ -343,7 +313,7 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
     }
   }
 
-  GetDateWiseReportNescoPostPaids() {
+  GetDateWiseReportDescoPostPaids() {
 
   
     if(this.reportModel.value.FromDate){
@@ -358,11 +328,11 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
              + this.reportModel.value.ToDate.year;
     
              return this.http.get(this.BaseConrtURI +
-               'GetDateRangeWiseReportNescoPostPaids?fromDate='+this.SearchFromDate+'&toDate='+this.SearchToDate);
+               'GetDateRangeWiseReportDescoPostPaids?fromDate='+this.SearchFromDate+'&toDate='+this.SearchToDate);
             }
 
 
-    return this.http.get(this.BaseConrtURI + 'GetDateWiseReportNescoPostPaids?date='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI + 'GetDateWiseReportDescoPostPaids?date='+this.SearchFromDate);
   }
 
   PrepaidDetailsReports(){
@@ -387,7 +357,7 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
 
 
 
-  DateWiseSummaryReportNescoPostPaids(){
+  DateWiseSummaryReportDescoPostPaids(){
 
   
     if(this.reportModel.value.FromDate){
@@ -397,10 +367,10 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
     }
 
 
-    return this.http.get(this.BaseConrtURI + 'DateWiseSummaryReportNescoPostPaids?date='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI + 'DateWiseSummaryReportDescoPostPaids?date='+this.SearchFromDate);
   }
 
-  MonthlySummaryReportNescoPostPaids(){
+  MonthlySummaryReportDescoPostPaids(){
 
   
     if(this.reportModel.value.FromDate){
@@ -417,9 +387,9 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
     }
 
 
-    return this.http.get(this.BaseConrtURI + 'MonthlySummaryReportNescoPostPaids?fromDate='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI + 'MonthlySummaryReportDescoPostPaids?fromDate='+this.SearchFromDate);
   }
-  MonthlyDatewiseReportNescoPostPaids(){
+  MonthlyDatewiseReportDescoPostPaids(){
 
   
     if(this.reportModel.value.FromDate){
@@ -436,7 +406,7 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
     }
 
 
-    return this.http.get(this.BaseConrtURI + 'MonthlyReportNescoPostpaids?date='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI + 'MonthlyReportDescoPostpaids?date='+this.SearchFromDate);
   }
 
   //

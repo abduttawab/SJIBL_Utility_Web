@@ -4,6 +4,7 @@ import { UserFormComponent } from '../user-form/user-form.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TimeExtensionComponent } from '../time-extension-modal/time-extension-modal.component';
 
 @Component({
   selector: 'app-user-list',
@@ -13,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class UserListComponent implements OnInit {
   UserList: any[];
   UnAuthUserList: any[];
+  ExtensionHour;
   constructor(
     public service : UserService,
     private toastr: ToastrService,
@@ -45,6 +47,24 @@ export class UserListComponent implements OnInit {
     }, (reason) => {
     });
   }
+
+  SetTimeExtensionHour(userid,userName){
+    this.service.formModel.reset()
+    const modalRef = this.modalService.open(TimeExtensionComponent);
+    modalRef.componentInstance.my_modal_title = 'Transaction Time Extension';
+    modalRef.componentInstance.userId =userid;
+    modalRef.componentInstance.username =userName;
+
+
+    modalRef.result.then((result) => {
+      if ( result === 'Close click' ) {
+        this.getData(); // Refresh Data in table grid
+      }
+    }, (reason) => {
+    });
+  }
+
+
   authorize(id) {
     if(confirm("Are you sure to authorize this user?")) {
     this.service.authorizeUser(id).subscribe(

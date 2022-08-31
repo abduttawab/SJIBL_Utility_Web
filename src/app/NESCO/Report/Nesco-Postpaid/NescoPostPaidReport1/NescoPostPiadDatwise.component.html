@@ -1,0 +1,461 @@
+      <style type="text/css">
+      .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+        /* .table-borders {
+          border: 1px solid !important;
+        } */
+
+        .print-wrap {
+          /* width: 500px; */
+          margin: auto;
+          /*margin-bottom: 30px;*/
+          font-family: Arial;
+          padding: 15px;
+          width: 100%;
+          padding:10px;
+          
+        }
+
+        .loader {
+  border: 16px solid #4e5ccf;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 280px;
+  height: 280px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  z-index: 9999999;
+  position: absolute;
+  top: 7%;
+    left: 39%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media print {
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+}
+
+      </style>
+
+      <section id="content">
+        <div class="container">
+        
+          <div class="card">
+            <div class="row" style="margin-top: 25px;
+
+                  margin-left: 33px;">
+              <div class="col-sm-9">
+                <a class="btn btn-outline-danger" (click)="goBack()"><b>Back</b></a>
+               
+                &nbsp;
+                <a class="btn btn-outline-warning" id="downloadbtn" (click)="print()"><b>PDF</b></a>
+               
+              </div>
+
+              <form [formGroup]="service.reportModel" autocomplete="off" (submit)="generateReport()">
+              
+                <div class="row">
+                  <div class="col-md-4">
+
+                    <div class="form-group">
+                      <label for="ReportType">Report Type</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <select class="form-control" formControlName="ReportType" (change)="reset()">
+                            <option value="">Select</option>
+                            <option value="Daily Detail Report (DDT)">Daily Detail Report (DDT)</option>
+                            <option value="Daily S&D-wise Summary (DSS)">Daily S&D-wise Summary (DSS)</option>
+                            <option value="Monthly S&D-wise Summary (MSS)">Monthly S&D-wise Summary (MSS)</option>
+                            <option value="Monthly Date-wise Summary (MDS)">Monthly Date-wise Summary (MDS)</option>
+                          </select>
+
+                         
+                        </div>
+
+                       
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="FromDate">From Date</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="FromDate"
+                            ngbDatepicker #FromDate="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="FromDate.toggle()"
+                              type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <label class="text-danger" *ngIf="service.searchFormModel.get('FromDate').touched
+                        && service.searchFormModel.get('FromDate').errors?.dateVaidator">Invalid date formate.</label>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <!-- <div class="form-group">
+                      <label for="ToDate">To Date</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ToDate"
+                            ngbDatepicker #ToDate="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="ToDate.toggle()"
+                              type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> -->
+                  </div>
+        
+
+                  
+                </div>
+                <div class="form-group mb-0 text-right">
+                  <div>
+                  
+                    <button type="submit" class="btn btn-primary btn-large waves-effect waves-light mr-1">Search <i
+                        class="fa fa-search"></i></button>
+
+                  </div>
+                </div>
+              </form>
+         
+            </div>
+           
+            
+          
+            <div class="">
+              <br /><br />
+              <div id="printArea" >
+
+                <div class="row" style="width: 100%;margin:0px auto 20px;padding:0px;color: #333;">
+                  
+                  <div class="col-md-4 col-sm-4 text-center">
+                    <img class="img-responsive" style="width: 25%;margin-top: 3%;"
+                    src="assets/images/sjibl.jpg" alt="">
+                  </div>
+                  <div class="col-md-4 col-sm-4 text-center">
+
+                    <h6 style="color: #333;margin-bottom: 0px;">
+
+                      Shahjalal Islami Bank Ltd. <br />
+                      Electricity Bill Collection Report of <br />
+                      Northern Electricity Supply Company Limited 
+                    </h6>
+                  
+                 
+                    <span style="font-size: 14px;">{{service.reportModel.value.ReportType}}</span><br />
+                    <span style="font-size: 14px;">Collection Date: {{service.SearchFromDate}} 
+                    <span *ngIf="service.SearchToDate">To: {{service.SearchToDate}} </span></span>
+                  </div>
+                  <div class="col-md-4 col-sm-4 text-center">
+                    <img class="img-responsive" style="width: 36%;margin-top: 5%;"
+                    src="assets/images/Logo_of_NESCO.png" alt="">
+                  </div>
+                </div>
+           
+                <!-- DDT -->
+
+                <div *ngIf="service.reportModel.value.ReportType=='Daily Detail Report (DDT)'" class="row">
+                  <div class="col-md-1"></div> 
+                  <div class="col-md-10">
+                    
+                    <ng-container  *ngFor="let sndList of AllData; let i = index">
+                      <b style="padding-left: 2%;">{{ sndList.name }}</b>
+                      <br/>
+                     
+                      <table  class="table table-bordered pdftable" id="pdftable_1_{{i}}" style="font-size: smaller;">
+                        <thead>
+                          <tr>
+                            <th>Sl</th>
+                            <th>Bill No. </th>
+                            <th>Collection
+                              Date </th>
+                            <th>Bank
+                              Transaction Id </th>
+                              <th>NESCO
+                                Transaction Id </th>
+                              <th>Collected
+                                Amount
+                                (Tk.)</th>
+                              <th>Principal
+                                Amount
+                                (Tk.)</th>
+                              <th>VAT
+                                (Tk.)</th>
+                              <th>LPC
+                                (Tk.)</th>
+                              <th>Rev.
+                                Stm.
+                                (Tk.) </th>
+                              <th>Net
+                                Amount
+                                (Tk.) </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of sndList.values; let j = index">
+                            <ng-container *ngIf="data.date!='SNDWise'">
+                              <td><span>{{j+1 }}</span></td>
+                              <td><span >{{data.billNo }}</span></td>
+                              <td><span >{{data.date }}</span></td>
+                              <td><span>{{data.bankTransactionId }}</span></td>
+                              <td><span>{{data.nescoTransactionId.replace('SUCCESS:', '') }}</span></td>
+                              <td><span>{{data.collectedAmount }}</span></td>
+                              <td><span>{{data.principalAmount }}</span></td>
+                              <td><span>{{data.vat }}</span></td>
+                              <td><span>{{data.lpc }}</span></td>
+                              <td><span>{{data.revStm }}</span></td>
+                              <td><span>{{data.netAmount }}</span></td>
+                            </ng-container>
+
+                            <ng-container  *ngIf="data.date=='SNDWise'">
+  
+                              <td colspan="5" class="text-right">SND Total (Count: {{sndList.values.length-1}})</td>
+                               
+ 
+ 
+                               <td ><span>{{data.sndSumCollectedAmount }}</span></td>
+                               <td ><span>{{data.sndSumPrincipalAmount }}</span></td>
+                               <td ><span>{{data.sndSumVAT }}</span></td>
+                               <td ><span>{{data.sndSumLPC }}</span></td>
+                               <td><span>{{data.sndSumRevStm }}</span></td>
+                               <td ><span>{{data.sndSumNetAmount }}</span></td>
+                             
+                              </ng-container>
+                            
+                          </tr>
+
+                       
+
+                        </tbody>
+
+                      </table>
+                      
+
+                    </ng-container>
+
+                    <table class="table table-bordered" style="font-size: smaller;">
+                      <thead>
+                        <th colspan="5"></th>
+                   
+                        <th >Count </th>
+                        <th>Collected Amount(Tk.)</th>
+                      
+                        <th>Principal Amount(Tk.)</th>
+                        <th>VAT(Tk.)</th>
+                        <th>LPC (Tk.)</th>
+                        <th>Rev. St. (Tk.)</th>
+                        <th>Net Amount(Tk.)</th>
+
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="DateWiseReportNescoPostPaids_GrandTotal">
+                    
+                        <td colspan="5" style="width:46%">Grand Total: </td>
+                        <td ><span>{{DateWiseReportNescoPostPaids.length }}</span></td>
+                        <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalCollectedAmount }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalPrincipalAmount }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalVAT }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalLPC }}</span></td>
+                              <td><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalRevStm }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalNetAmount }}</span></td>
+                      </tr>
+
+                      </tbody>
+                      
+                    </table>
+                  
+                  
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div *ngIf="service.reportModel.value.ReportType=='Daily S&D-wise Summary (DSS)'
+                || service.reportModel.value.ReportType== 'Monthly S&D-wise Summary (MSS)'" class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+
+                    <ng-container  *ngFor="let sndList of AllData; let i = index">
+                      <b style="padding-left: 2%;">{{ sndList.name }}</b>
+                      <br/>
+                     
+                      <table  class="table table-bordered" id="pdftable_2_{{i}}" style="font-size: smaller;">
+                        <thead>
+                          <tr>
+                            <th>Sl</th>
+                            <th style="width:30%">SND Name</th>
+                            
+                            <th>Txn Count</th>
+                            <th>Collected Amount (Tk.)</th>
+                              <th>Principal Amt. (Tk.)</th>
+                             
+                              <th>VAT
+                                (Tk.)</th>
+                              <th>LPC
+                                (Tk.)</th>
+                              <th>Rev.
+                                Stm.
+                                (Tk.) </th>
+                              <th>Net Principal Amount (Tk.) </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of sndList.values; let j = index">
+                            <td>{{j+1 }}</td>
+                            <td>{{data.sndId }}</td>
+                            <td>{{data.sndCountTotalTrx }}</td>
+                            <td>{{data.sndSumCollectedAmount }}</td>
+                            <td>{{data.sndSumPrincipalAmount }}</td>
+                            <td>{{data.sndSumVAT }}</td>
+                            <td>{{data.sndSumLPC }}</td>
+                            <td>{{data.sndSumRevStm }}</td>
+                            <td>{{data.sndSumNetAmount }}</td>
+                            <ng-container *ngIf="j==10" ><span class="pagebreak"></span></ng-container>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td>{{sndList.sndWiseTotla.sndId }}</td>
+                            <td>{{sndList.sndWiseTotla.sndCountTotalTrx }}</td>
+                            <td>{{sndList.sndWiseTotla.sndSumCollectedAmount }}</td>
+                            <td>{{sndList.sndWiseTotla.sndSumPrincipalAmount }}</td>
+                            <td>{{sndList.sndWiseTotla.sndSumVAT }}</td>
+                            <td>{{sndList.sndWiseTotla.sndSumLPC }}</td>
+                            <td>{{sndList.sndWiseTotla.sndSumRevStm }}</td>
+                            <td>{{sndList.sndWiseTotla.sndSumNetAmount }}</td>
+                            <ng-container *ngIf="j==10" ><span class="pagebreak"></span></ng-container>
+                          </tr>
+
+                        </tbody>
+
+                      </table>
+                      
+
+                    </ng-container>
+
+                    <table class="table table-bordered" style="font-size: smaller;">
+                      <thead>
+                        <th colspan="2"></th>
+                   
+                        <th >Count </th>
+                        <th>Collected Amount(Tk.)</th>
+                      
+                        <th>Principal Amount(Tk.)</th>
+                        <th>VAT(Tk.)</th>
+                        <th>LPC (Tk.)</th>
+                        <th>Rev. St. (Tk.)</th>
+                        <th>Net Amount(Tk.)</th>
+
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="DateWiseReportNescoPostPaids_GrandTotal">
+                    
+                        <td colspan="2" style="width:34%">Grand Total </td>
+                        <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].sndCountTotalTrx }}</span></td>
+                        <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalCollectedAmount }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalPrincipalAmount }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalVAT }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalLPC }}</span></td>
+                              <td><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalRevStm }}</span></td>
+                              <td ><span>{{DateWiseReportNescoPostPaids_GrandTotal[0].grandTotalNetAmount }}</span></td>
+                      </tr>
+
+                      </tbody>
+                      
+                    </table>
+
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+
+                <div class="row" *ngIf="service.reportModel.value.ReportType=='Monthly Date-wise Summary (MDS)'">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <table class="table table-bordered" id="pdftable_3_MDS" style="font-size: smaller;">
+                     
+                      <tbody>
+                        <tr>
+                          <td><b>SL</b></td>
+                          <td><b>Date</b> </td>
+                          <td><b>Txn Count</b></td>
+                          <td><b>Collected Amount (Tk.)</b> </td>
+                          <td><b>Principal Amt. (Tk.)</b></td>
+                          <td><b>VAT(Tk.)</b> </td>
+                          <td><b>LPC (Tk.)</b></td>
+                          <td><b>Rev. St.  Amt. (Tk.)</b> </td>
+                          <td><b>Net Principal Amount (Tk.)</b></td>
+                        </tr>
+                      
+                        <tr *ngFor="let data of AllData; let j = index">
+                          <td>{{j+1 }}</td>
+                          <td>{{data.date }}</td>
+                          <td>{{data.trxCount }}</td>
+                          <td>{{data.collectedAmount }}</td>
+                          <td>{{data.principalAmount }}</td>
+                          <td>{{data.vat }}</td>
+                          <td>{{data.lpc }}</td>
+                          <td>{{data.revStAmount }}</td>
+                          <td>{{data.netPrincipalAmount }}</td>
+                        </tr>
+  
+                        <tr *ngIf="DateWiseReportNescoPostPaids_GrandTotal">
+                      
+                          <td colspan="2"> Total </td>
+
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].trxCount }}</td>
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].collectedAmount }}</td>
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].principalAmount }}</td>
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].vat }}</td>
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].lpc }}</td>
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].revStAmount }}</td>
+                          <td>{{DateWiseReportNescoPostPaids_GrandTotal[0].netPrincipalAmount }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-1"></div>
+                
+
+                </div>
+
+                 
+
+                  
+              
+                 
+                
+
+           
+  
+            
+
+
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </section>

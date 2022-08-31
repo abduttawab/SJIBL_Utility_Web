@@ -103,7 +103,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label for="Amount">Total Amount <span *ngIf="TransactionInfo.paymentTypeId!='7608298f-0fdc-4ab8-ac27-c040578af849'">(TotalBillAmount + LPC + VAT)</span>:</label>
+                    <label for="Amount">Total Amount:</label>
                    
                     <input formControlName="Amount" type="text" class="form-control" 
                     readonly>
@@ -126,41 +126,31 @@
                   <tr>
                   
                     <td>
-                      <span *ngIf="TransactionInfo.paymentTypeId=='7608298f-0fdc-4ab8-ac27-c040578af849'">
-                        Meter No: {{TransactionInfo.meterNo}} <br/>
-                        Transaction Id: {{TransactionInfo.transactionId}} <br/>
-                        Customer No: {{TransactionInfo.customerNo}} <br/>
-                        Customer Name: {{TransactionInfo.customerName}} <br/>
-                       
-                       
-                        Energy Cost: {{TransactionInfo.energyCost}} <br/>
-                        Meter Rent: {{TransactionInfo.meterRent}} <br/>
-                        Tax: {{TransactionInfo.tax}} <br/>
-                        Rebate: {{TransactionInfo.rebate}} <br/>
-                        Demand Charge: {{TransactionInfo.demandCharge}} <br/>
-                        Pfc: {{TransactionInfo.pfc}} <br/>
-                        Debt: {{TransactionInfo.debt}} <br/>
-                        Vat: {{TransactionInfo.vat}} <br/>
-                        <b>Purchase Amount: {{TransactionInfo.purchaseAmount}}</b> <br/>
-                      </span>
-                      <span *ngIf="TransactionInfo.paymentTypeId!='7608298f-0fdc-4ab8-ac27-c040578af849'">
-                        AccountNo: {{TransactionInfo.accountNo}} <br/>
-                        Name: {{TransactionInfo.name}} <br/>
+                      <span>
+                        Consumer Name: {{TransactionInfo.consumerName}}; &emsp;
                         Address: {{TransactionInfo.address}} <br/>
-                        MeterNo: {{TransactionInfo.meterNo}} <br/>
+                        Payment Type: {{TransactionInfo.paymentType}}; &emsp;
+                        Payment Status: {{TransactionInfo.paymentStatus}} <br/>
                        
-                        TotalBillAmount: {{TransactionInfo.totalBillAmount}} <br/>
-                      
-                        
-                        VATAmount: {{TransactionInfo.vatAmount}} <br/> 
-                        LPC: {{TransactionInfo.lpc}} <br/> 
-                        PaymentStatus: {{TransactionInfo.paymentStatus}} <br/> 
-                        DueDate: {{TransactionInfo.dueDate}} <br/> 
-                        SNDId: {{TransactionInfo.sndId}} <br/> 
-  
-  
-                        <b>Total Bill Amount: {{TransactionInfo.totalBillAmount}}</b> <br/>
+                        Bill No: {{TransactionInfo.billNo}} <br/>
+                        Bill Token: {{TransactionInfo.billToken}}; &emsp;
+                        Account No: {{TransactionInfo.accountNo}} <br/>
+                        Meter No: {{TransactionInfo.meterNo}}; &emsp;
+                        Year: {{TransactionInfo.year}} <br/>
+                        Month: {{TransactionInfo.month}}; &emsp;
+                        Total Amount: {{TransactionInfo.totalAmount}} <br/>
+                        Total Vat: {{TransactionInfo.totalVat}}; &emsp;
+                        Issue Date: {{TransactionInfo.issueDate}} <br/>
+                        Department Code: {{TransactionInfo.departmentCode}}; &emsp;
+                        Due Date: {{TransactionInfo.dueDate}} <br/>
+                        Lpc: {{TransactionInfo.lpc}}; &emsp;
+                        Tariff: {{TransactionInfo.tariff}} <br/>
+                        Organization Code: {{TransactionInfo.organizationCode}}; &emsp;
+                        TotalKwh: {{TransactionInfo.totalKwh}} <br/>
                       </span>
+                        <b>Total Amount To be Paid: {{TransactionInfo.totalAmountTobePaid}}</b> <br/>
+                     
+                     
                      
                     </td>
 
@@ -188,7 +178,7 @@
 
           <div class="row">
             <div class="col-md-6">
-              <div *ngIf="userService.isInRole(userRoles,['NESCO_Checker','Admin']) && TransactionInfo.isMake" class="form-group mb-0 text-left">
+              <div *ngIf="userService.isInRole(userRoles,['DESCO_Checker','Admin']) && TransactionInfo.isMake" class="form-group mb-0 text-left">
                 <label for="Amount">Remarks:</label>
                 <textarea formControlName="CheckerRemarks" class="form-control"></textarea>
               </div>
@@ -197,20 +187,20 @@
           
           <div class="form-group mb-0 text-right">
             <div>
-              <button type="button" *ngIf="userService.isInRole(userRoles,['NESCO_Maker','Admin']) && !TransactionInfo.isMake" (click)="onMake(); $event.preventDefault()" class="btn btn-primary waves-effect waves-light mr-1">
+              <button type="button" *ngIf="userService.isInRole(userRoles,['DESCO_Maker','Admin']) && !TransactionInfo.isMake" (click)="onMake(); $event.preventDefault()" class="btn btn-primary waves-effect waves-light mr-1">
                 <span>Submit</span>
               </button>
 
-              <button type="button" *ngIf="userService.isInRole(userRoles,['NESCO_Checker','Admin']) && TransactionInfo.isMake" (click)="onDecline(); $event.preventDefault()" class="btn btn-danger waves-effect waves-light mr-1">
+              <button type="button" *ngIf="userService.isInRole(userRoles,['DESCO_Checker','Admin']) && TransactionInfo.isMake" (click)="onDecline(); $event.preventDefault()" class="btn btn-danger waves-effect waves-light mr-1">
                 <span>Decline</span>
               </button>
 
-              <button type="button" *ngIf="userService.isInRole(userRoles,['NESCO_Checker','Admin'])  && TransactionInfo.isMake" (click)="onSubmit(); $event.preventDefault()" class="btn btn-success waves-effect waves-light mr-1">
+              <button type="button" *ngIf="userService.isInRole(userRoles,['DESCO_Checker','Admin'])  && TransactionInfo.isMake" (click)="onSubmit(); $event.preventDefault()" class="btn btn-success waves-effect waves-light mr-1">
                 <span>Authorize</span>
               </button>
 
 
-              <button type="button" (click)="goBack(); $event.preventDefault()" *ngIf="userService.isInRole(userRoles,['NESCO_Maker','Admin'])"  class="btn btn-secondary waves-effect">Cancel</button>
+              <button type="button" (click)="goBack(); $event.preventDefault()" *ngIf="userService.isInRole(userRoles,['DESCO_Maker','Admin'])"  class="btn btn-secondary waves-effect">Cancel</button>
             </div>
           </div>
 

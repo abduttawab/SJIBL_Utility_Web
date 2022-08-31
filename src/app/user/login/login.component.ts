@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     Password: ''
   }
   clientIP;
+  lastTranshour;
   constructor(private service:UserService,
      private router:Router,
       private toastr: ToastrService,
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
    
     this.spinner.show();
     this.getClientIPasync();
+    this. GetLastTransactionHour();
     setTimeout(() => {
       /** spinner ends after 1 seconds */
       this.spinner.hide();
@@ -101,5 +103,17 @@ if(result){
 }
     
    
+  }
+  GetLastTransactionHour(){
+
+    this.service.GetLastTransactionHour().subscribe(
+      (res:any) =>{
+        console.log(res);
+        this.lastTranshour = res.data;
+      },
+      err =>{
+        console.log(err);
+      }
+    );
   }
 }

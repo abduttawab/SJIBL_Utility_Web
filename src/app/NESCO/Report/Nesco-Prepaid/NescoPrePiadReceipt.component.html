@@ -1,0 +1,163 @@
+      <style type="text/css">
+      .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+        /* .table-borders {
+          border: 1px solid !important;
+        } */
+
+        .print-wrap {
+          width: 500px;
+          margin: auto;
+          /*margin-bottom: 30px;*/
+          font-family: Arial;
+          padding: 15px;
+          width: 100%;
+          padding:10px;
+          
+        }
+
+        .loader {
+  border: 16px solid #4e5ccf;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 280px;
+  height: 280px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  z-index: 9999999;
+  position: absolute;
+  top: 7%;
+    left: 39%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+      </style>
+
+      <section id="content">
+        <div class="container">
+        
+          <div class="card">
+            <div class="row" style="margin-top: 25px;
+
+                  margin-left: 33px;">
+              <div class="col-sm-9">
+                <a class="btn btn-outline-danger" (click)="goBack()"><b>Back</b></a>
+               
+                &nbsp;
+                <a class="btn btn-outline-warning" id="downloadbtn" (click)="print_area()"><b>PDF</b></a>
+
+               
+              </div>
+         
+            </div>
+           
+          
+            <div class="">
+              <br /><br />
+              <div id="printArea" >
+
+                <div class="row" style="width: 100%;margin:0px auto 20px;padding:0px;color: #333;">
+                  
+                  <div class="col-md-4 col-sm-4 text-center">
+                    
+                  </div>
+                  <div class="col-md-4 col-sm-4 text-center">
+
+                    <h5 style="color: #333;margin-bottom: 0px;">
+
+                      Shahjalal Islami Bank Ltd. <br />
+                   
+                      Northern Electricity Supply Company Limited 
+                    </h5>
+                  
+                 
+                  </div>
+                
+                  <div class="col-md-4 col-sm-4 text-center">
+                 
+                  </div>
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+
+                    <div class="row">
+                      <div class="col-md-6 text-left"><b>Date:</b></div>
+                      <div class="col-md-6 text-right">
+                        <b>{{TransactionInfo.addedDate | date: 'dd/MM/yyyy h:mm:ss a'}}</b></div>
+                      <div class="col-md-6 text-left"><b>Order No.:</b></div>
+                      <div class="col-md-6 text-right"><b>{{TransactionInfo.utilityTrxTransactionId}}</b></div>
+                      <div class="col-md-6 text-left"><b>Meter No.:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.meterNo}}</b></div>
+                      <div class="col-md-6 text-left"><b>Customer No.:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.customerNo}}</b></div>
+                      <div class="col-md-6 text-left"><b>Customer Name:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.customerName}}</b></div>
+                 
+
+                      <div class="col-md-6 text-left"><b>Vending Station:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.vendingSystem}}</b></div>
+                      
+                      <hr style="width:100%">
+
+                      <div class="col-md-6 text-left"><b>Energy Cost:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.energyCost}}</b></div>
+                      <div class="col-md-6 text-left"><b>Rebate (1%):</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.rebate}}</b></div>
+                      <div class="col-md-6 text-left"><b>Paid debt:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.debt}}</b></div>
+                      <div class="col-md-6 text-left"><b>Demand Charge:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.demandCharge}}</b></div>
+                      <div class="col-md-6 text-left"><b>Meter Rent:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.meterRent}}</b></div>
+                      <div class="col-md-6 text-left"><b>VAT (5%):</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.vat}}</b></div>
+                      <div class="col-md-6 text-left"><b>PFC:</b></div>
+                      <div class="col-md-6 text-right"><b>{{NescoInfo.pfc}}</b></div>
+                      <div class="col-md-6 text-left"><b>Total Amount:</b></div>
+                      <div class="col-md-6 text-right"><b>{{TransactionInfo.amount}}</b></div>
+                      <div class="col-md-6 text-left"><b>Paid Amount:</b></div>
+                      <div class="col-md-6 text-right"><b>{{TransactionInfo.amount}}</b></div>
+                      <hr style="width:100%">
+                      <div class="col-md-12 text-center" style="font-size: x-large;color: red;"><b>{{NescoInfo.token}}</b></div>
+                      <div class="col-md-12 text-left"><b><small>Please press Enter after each 20 digits Token, then continue to another new
+                        token.</small></b></div>
+
+                        <div class="col-md-12 text-center"><b><small>This token is generated from prepaid.nesco.gov.bd.</small></b></div>
+
+                      
+                    </div>
+
+                    
+                  </div>
+                  <div class="col-md-3"></div>
+               
+
+                </div>
+
+              
+
+                 
+                
+
+           
+  
+            
+
+
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </section>

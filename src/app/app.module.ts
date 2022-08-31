@@ -66,6 +66,15 @@ import { NescoVerifyComponent } from './NESCO/NescoVerify/NescoVerify.component'
 import { NescoFinalPaymentComponent } from './NESCO/NescoFinalPayment/NescoFinalPayment.component';
 import { NescoUnAuthTransactionsComponent } from './NESCO/NescoUnAuthTransactions/NescoUnAuthTransactions.component';
 import { NescoPaymentService } from './shared/NescoPayment.service';
+import { NescoPostPiadDatwise } from './NESCO/Report/Nesco-Postpaid/NescoPostPaidReport1/NescoPostPiadDatwise.component';
+import { DatePipe } from '@angular/common';
+import { NescoPrePiadReport } from './NESCO/Report/Nesco-Prepaid/NescoPrePiadReport.component';
+import { NescoPrePiadReceipt } from './NESCO/Report/Nesco-Prepaid/NescoPrePiadReceipt.component';
+import { TimeExtensionComponent } from './user/time-extension-modal/time-extension-modal.component';
+import { DescoVerifyComponent } from './DESCO/DescoVerify/DescoVerify.component';
+import { DescoFinalPaymentComponent } from './DESCO/DescoFinalPayment/DescoFinalPayment.component';
+import { DescoUnAuthTransactionsComponent } from './DESCO/DescoUnAuthTransactions/DescoUnAuthTransactions.component';
+import { DescoPaymentService } from './shared/DescoPayment.service';
 
 @NgModule({
   declarations: [
@@ -110,7 +119,16 @@ import { NescoPaymentService } from './shared/NescoPayment.service';
 
     NescoVerifyComponent,
     NescoFinalPaymentComponent,
-    NescoUnAuthTransactionsComponent
+    NescoUnAuthTransactionsComponent,
+    NescoPostPiadDatwise,
+    NescoPrePiadReport,
+    NescoPrePiadReceipt,
+
+    DescoVerifyComponent,
+    DescoFinalPaymentComponent,
+    DescoUnAuthTransactionsComponent,
+
+    TimeExtensionComponent
 
   ],
   imports: [
@@ -144,10 +162,11 @@ import { NescoPaymentService } from './shared/NescoPayment.service';
     RoleFormComponent,
     UserRoleFormComponent,
     ResetPasswordComponent,
-    MessageModComponent
+    MessageModComponent,
+    TimeExtensionComponent
   ],
-  providers: [UserService,PaymentService,
-    BgdclPaymentService, NescoPaymentService, {
+  providers: [DatePipe,UserService,PaymentService,
+    BgdclPaymentService, NescoPaymentService,DescoPaymentService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

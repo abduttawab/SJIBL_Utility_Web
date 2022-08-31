@@ -173,7 +173,7 @@
 
 
 
-          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='3f385296-6592-4c3a-87a8-8df24c0626d7'">
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='813b6a80-155a-4744-b462-c0bc1a56eae5'">
               
             <div class="col-md-4">
               <div class="form-group">
@@ -190,100 +190,7 @@
             
 
           </div>
-          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='7529013a-4e0a-48ff-be5a-797195d4d8f1'">
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="ConsumerNo">Consumer No</label>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="" formControlName="ConsumerNo">
-                  </div>
-                  <label class="text-danger" *ngIf="service.paymentFormModel.get('ConsumerNo').touched
-                  && service.paymentFormModel.get('ConsumerNo').errors?.required">This field is mandatory.</label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="Year">Year</label>
-                <div class="form-group">
-                  <div class="input-group">
-
-                    <select class="form-control" formControlName="Year" required *ngIf="Years">
-                      <option value="">Select Year</option>
-                      <option *ngFor="let option of Years" [value]="option" >{{option}}</option>
-     
-                    </select>
-                  </div>
-                  <label class="text-danger" *ngIf="service.paymentFormModel.get('Year').touched
-                  && service.paymentFormModel.get('Year').errors?.required">This field is mandatory.</label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="Month">Month</label>
-                <div class="form-group">
-                  <div class="input-group">
-
-                    <select class="form-control" formControlName="Month" required *ngIf="Years">
-                      <option value="">Select Month</option>
-                      <option value="01">JANUARY</option>
-                      <option value="02">FEBRUARY</option>
-                      <option value="03">MARCH</option>
-                      <option value="04">APRIL</option>
-                      <option value="05">MAY</option>
-                      <option value="06">JUNE</option>
-                      <option value="07">JULY</option>
-                      <option value="08">AUGUST</option>
-                      <option value="09">SEPTEMBER</option>
-                      <option value="10">OCTOBER</option>
-                      <option value="11">NOVEMBER</option>
-                      <option value="12">DECEMBER</option>
-                    </select>
-                  </div>
-                  <label class="text-danger" *ngIf="service.paymentFormModel.get('Month').touched
-                  && service.paymentFormModel.get('Month').errors?.required">This field is mandatory.</label>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='7608298f-0fdc-4ab8-ac27-c040578af849'">
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="ConsumerNo">Consumer No</label>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="" formControlName="ConsumerNo">
-                  </div>
-                  <label class="text-danger" *ngIf="service.paymentFormModel.get('ConsumerNo').touched
-                  && service.paymentFormModel.get('ConsumerNo').errors?.required">This field is mandatory.</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="Amount">Amount</label>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="" formControlName="Amount">
-                  </div>
-                  <label class="text-danger" *ngIf="service.paymentFormModel.get('Amount').touched
-                  && service.paymentFormModel.get('Amount').errors?.required">This field is mandatory.</label>
-                  <label class="text-danger" *ngIf="service.paymentFormModel.get('Amount').touched
-                  && service.paymentFormModel.get('Amount').errors?.pattern">Invalid amount.</label>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-
+      
 
         </div>
       </div>

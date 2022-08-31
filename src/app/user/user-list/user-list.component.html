@@ -11,8 +11,9 @@
             <tr class="text-center">
               <th>User Name</th>
               <th>Full Name</th>
-              <th>Email</th>
+        
               <th>Branch</th>
+             
               <th>Role</th>
               <th>Status</th>
               <th>Action</th>
@@ -24,8 +25,9 @@
             <tr *ngFor="let model of UnAuthUserList; let i = index">
               <td>{{model.userName}}</td>
               <td>{{model.fullName}}</td>
-              <td>{{model.email}}</td>
+       
               <td>{{model.branch}}</td>
+            
               <td><span *ngFor="let role of model.roles; let i = index">
                 <span *ngIf="i>0">,</span>
                 "
@@ -37,7 +39,10 @@
                 <span *ngIf="role=='ADMINUSERMAKER'">User Creation Maker</span>
                 <span *ngIf="role=='ADMINUSERCHECKER'">User Creation Checker</span> 
                 <span *ngIf="role=='NESCO_MAKER'">NESCO Maker</span>
-                <span *ngIf="role=='NESCO_CHECKER'">NESCO Checker</span>"
+                <span *ngIf="role=='NESCO_CHECKER'">NESCO Checker</span>
+                <span *ngIf="role=='DESCO_MAKER'">DESCO Maker</span>
+                <span *ngIf="role=='DESCO_CHECKER'">DESCO Checker</span>
+                "
               </span></td>
               <td>
                 <span *ngIf="!model.isAuthorized" class="badge badge-danger">Un-Authorized</span>
@@ -66,8 +71,9 @@
             <tr class="text-center">
               <th>User Name</th>
               <th>Full Name</th>
-              <th>Email</th>
+            
               <th>Branch</th>
+              <th>ExtensionDatetime</th>
               <th>IP</th>
               <th>Role</th>
               <th></th>
@@ -78,8 +84,9 @@
             <tr [ngStyle]="{'text-decoration':model.isActive ? '' : 'line-through'}" *ngFor="let model of UserList; let i = index">
               <td>{{model.userName}}</td>
               <td>{{model.fullName}}</td>
-              <td>{{model.email}}</td>
+            
               <td>{{model.branch}}</td>
+              <td>{{model.timeExtensionDatetime}}</td>
               <td>{{model.clientIp}}</td>
               <td><span *ngFor="let role of model.roles; let i = index"><span *ngIf="i>0">,</span>"{{role}}"</span></td>
 
@@ -90,6 +97,12 @@
                 <button *ngIf="model.isActive" type="button" class="btn btn-sm btn-danger" (click)="inactive(model.id,false)" placement="top" ngbTooltip="In Active" ><i class="ti-unlink"></i></button>
                 <button *ngIf="!model.isActive" type="button" class="btn btn-sm btn-success" (click)="inactive(model.id,true)" placement="top" ngbTooltip="Active" ><i class="ti-check"></i></button>
                 
+       
+               
+
+                <button type="button" class="btn btn-sm btn-success" (click)="SetTimeExtensionHour(model.id,model.userName)" placement="top" ngbTooltip="Set Time Extension Hour" ><i class="ti-timer"></i></button>
+
+
                 <button *ngIf="model.accessFailedCount>2" type="button" class="btn btn-sm btn-warning" (click)="unlock(model.id)" placement="top" ngbTooltip="UnLock User" ><i class="ti-unlock"></i></button>
                 
 

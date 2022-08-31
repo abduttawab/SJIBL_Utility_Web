@@ -25,6 +25,12 @@ import { BranchWiseReconciliationComponent } from './branchIwisereconciliation/b
 import { NescoVerifyComponent } from './NESCO/NescoVerify/NescoVerify.component';
 import { NescoFinalPaymentComponent } from './NESCO/NescoFinalPayment/NescoFinalPayment.component';
 import { NescoUnAuthTransactionsComponent } from './NESCO/NescoUnAuthTransactions/NescoUnAuthTransactions.component';
+import { NescoPostPiadDatwise } from './NESCO/Report/Nesco-Postpaid/NescoPostPaidReport1/NescoPostPiadDatwise.component';
+import { NescoPrePiadReport } from './NESCO/Report/Nesco-Prepaid/NescoPrePiadReport.component';
+import { NescoPrePiadReceipt } from './NESCO/Report/Nesco-Prepaid/NescoPrePiadReceipt.component';
+import { DescoUnAuthTransactionsComponent } from './DESCO/DescoUnAuthTransactions/DescoUnAuthTransactions.component';
+import { DescoFinalPaymentComponent } from './DESCO/DescoFinalPayment/DescoFinalPayment.component';
+import { DescoVerifyComponent } from './DESCO/DescoVerify/DescoVerify.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -54,7 +60,9 @@ const routes: Routes = [
     { path: 'NescoFinalPayment', component: NescoFinalPaymentComponent },
     { path: 'NescoUnAuthTransactions', component: NescoUnAuthTransactionsComponent },
     
-
+    { path: 'DescoVerify', component: DescoVerifyComponent },
+    { path: 'DescoFinalPayment', component: DescoFinalPaymentComponent },
+    { path: 'DescoUnAuthTransactions', component: DescoUnAuthTransactionsComponent },
 
     { path: 'unAuthUsers', component: UnAuthUserComponent },
     
@@ -62,7 +70,10 @@ const routes: Routes = [
     { path: 'untAuthTransactions', component: UnAuthTransactionsComponent },
     { path: 'globalSettings', component: GlobalSettingsComponent },
     { path: 'reconciliation', component: ReconciliationComponent },
-    { path: 'branchWiseReconciliation', component: BranchWiseReconciliationComponent }
+    { path: 'branchWiseReconciliation', component: BranchWiseReconciliationComponent },
+    { path: 'NescoPostPiadDatwise', component: NescoPostPiadDatwise },
+    { path: 'NescoPrePiadReport', component: NescoPrePiadReport },
+    { path: 'NescoPrePiadReceipt', component: NescoPrePiadReceipt }
   ]
 },
 // 

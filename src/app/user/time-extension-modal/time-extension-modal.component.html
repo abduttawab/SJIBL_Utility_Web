@@ -1,0 +1,48 @@
+<form [formGroup]="service.formTimeExtensionModel" autocomplete="off" (submit)="onSubmit()">
+  <div class="modal-header">
+      <h4 class="modal-title">{{my_modal_title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+      <div class="form-group">
+        <label>User Name: {{username}}</label>
+        <!-- <input type="text" class="form-control" value="" disabled> -->
+       
+       </div>
+
+
+      <input formControlName="Id"  type="hidden">
+  
+      <div class="form-group">
+        <label>Extension Hour</label>
+        <select class="form-control" formControlName="TimeExtensionHour">
+          <option value="">Select Hour</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      
+      
+        <label class="text-danger" *ngIf="service.formTimeExtensionModel.get('TimeExtensionHour').touched &&
+         service.formTimeExtensionModel.get('TimeExtensionHour').errors?.required">This field is mandatory.</label>
+      </div>
+   
+    
+    
+    </div>
+    <div class="modal-footer">
+       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+          <button type="submit" class="btn btn-primary waves-effect waves-light mr-1"
+          [disabled]="!service.formTimeExtensionModel.valid">Submit</button>
+    </div>
+  </form>

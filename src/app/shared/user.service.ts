@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 
 })
 export class UserService {
+ 
 
 //public userSelectedRoles=[];
   constructor(private fb: FormBuilder, private http: HttpClient,
@@ -21,6 +22,11 @@ export class UserService {
      }
 
   readonly BaseURI = this.config.apiEndpoint;
+  formTimeExtensionModel = this.fb.group({
+
+    Id: ['', Validators.required],
+    TimeExtensionHour: ['', Validators.required]
+  });
 
   formModel = this.fb.group({
 
@@ -193,6 +199,16 @@ this.formModel.value.selectedRoles.forEach(element => {
     return this.http.get(this.BaseURI + 'ApplicationUser/UnlockUser?userId=' + id);
   
   }
+  GetLastTransactionHour(){
+
+    return this.http.get(this.BaseURI + 'Common/GetLastTransactionHour');
+  
+  }
+  SetTimeExtensionHour(){
+    return this.http.get(this.BaseURI + 
+      'ApplicationUser/SetTimeExtensionHour?userId=' + this.formTimeExtensionModel.value.Id+'&timeExtensionHour='+this.formTimeExtensionModel.value.TimeExtensionHour);
+  
+  }
   removeClientIp(id) {
     return this.http.get(this.BaseURI + 'ApplicationUser/RemoveClientIp?userId=' + id);
   }
@@ -208,6 +224,7 @@ this.formModel.value.selectedRoles.forEach(element => {
   getAllUsers() {
     return this.http.get(this.BaseURI + 'ApplicationUser/GetUsers');
   }
+
 
   getAllUnAuthUsers() {
     return this.http.get(this.BaseURI + 'UnAuthApplicationUser');

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, ValidationErrors } from '@angular/forms';
-import { of } from 'rxjs';
+import { ValidationErrors } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,15 +8,15 @@ import { Location } from '@angular/common';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/shared/common.service';
-import { NescoPaymentService } from 'src/app/shared/NescoPayment.service';
 import { UserService } from 'src/app/shared/user.service';
+import { DescoPaymentService } from 'src/app/shared/DescoPayment.service';
 
 @Component({
-  selector: 'app-NescoFinalPayment.component',
-  templateUrl: './NescoFinalPayment.component.html',
+  selector: 'app-DescoFinalPayment.component',
+  templateUrl: './DescoFinalPayment.component.html',
   styles: []
 })
-export class NescoFinalPaymentComponent implements OnInit {
+export class DescoFinalPaymentComponent implements OnInit {
   Districts = [];
   BranchList = [];
   SourceByList = [];
@@ -35,7 +34,7 @@ export class NescoFinalPaymentComponent implements OnInit {
 
   constructor(private commonService: CommonService,
     private activatedRoute: ActivatedRoute,
-    public service: NescoPaymentService,
+    public service: DescoPaymentService,
     public userService: UserService,
     private toastr: ToastrService,
     private router: Router,
@@ -79,7 +78,7 @@ export class NescoFinalPaymentComponent implements OnInit {
       (res: any) => {
         console.log(res.data);
 
-        this.TransactionInfo = res.data.nescoTransactionInfo;
+        this.TransactionInfo = res.data.descoTransactionInfo;
         this.TransactionInfo.isMake = res.data.isMake;
         this.TransactionInfo.paymentTypeId = res.data.paymentTypeId;
         
