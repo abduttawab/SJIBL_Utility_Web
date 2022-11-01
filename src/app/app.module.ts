@@ -75,6 +75,14 @@ import { DescoVerifyComponent } from './DESCO/DescoVerify/DescoVerify.component'
 import { DescoFinalPaymentComponent } from './DESCO/DescoFinalPayment/DescoFinalPayment.component';
 import { DescoUnAuthTransactionsComponent } from './DESCO/DescoUnAuthTransactions/DescoUnAuthTransactions.component';
 import { DescoPaymentService } from './shared/DescoPayment.service';
+import { BREBPaymentService } from './shared/BREBPayment.service';
+import { BREBVerifyComponent } from './BREB/BREBVerify/BREBVerify.component';
+import { BREBFinalPaymentComponent } from './BREB/BREBFinalPayment/BREBFinalPayment.component';
+import { BREBUnAuthTransactionsComponent } from './BREB/BREBUnAuthTransactions/BREBUnAuthTransactions.component';
+import { DpdcPaymentService } from './shared/DpdcPayment.service';
+import { DpdcVerifyComponent } from './DPDC/DpdcVerify/DpdcVerify.component';
+import { DpdcFinalPaymentComponent } from './DPDC/DpdcFinalPayment/DpdcFinalPayment.component';
+import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/DpdcUnAuthTransactions.component';
 
 @NgModule({
   declarations: [
@@ -128,6 +136,15 @@ import { DescoPaymentService } from './shared/DescoPayment.service';
     DescoFinalPaymentComponent,
     DescoUnAuthTransactionsComponent,
 
+
+    BREBVerifyComponent,
+    BREBFinalPaymentComponent,
+    BREBUnAuthTransactionsComponent,
+
+    DpdcVerifyComponent,
+    DpdcFinalPaymentComponent,
+    DpdcUnAuthTransactionsComponent,
+
     TimeExtensionComponent
 
   ],
@@ -166,7 +183,7 @@ import { DescoPaymentService } from './shared/DescoPayment.service';
     TimeExtensionComponent
   ],
   providers: [DatePipe,UserService,PaymentService,
-    BgdclPaymentService, NescoPaymentService,DescoPaymentService, {
+    BgdclPaymentService, NescoPaymentService,DescoPaymentService,DpdcPaymentService, BREBPaymentService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

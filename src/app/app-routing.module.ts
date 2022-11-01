@@ -31,6 +31,12 @@ import { NescoPrePiadReceipt } from './NESCO/Report/Nesco-Prepaid/NescoPrePiadRe
 import { DescoUnAuthTransactionsComponent } from './DESCO/DescoUnAuthTransactions/DescoUnAuthTransactions.component';
 import { DescoFinalPaymentComponent } from './DESCO/DescoFinalPayment/DescoFinalPayment.component';
 import { DescoVerifyComponent } from './DESCO/DescoVerify/DescoVerify.component';
+import { BREBVerifyComponent } from './BREB/BREBVerify/BREBVerify.component';
+import { BREBFinalPaymentComponent } from './BREB/BREBFinalPayment/BREBFinalPayment.component';
+import { BREBUnAuthTransactionsComponent } from './BREB/BREBUnAuthTransactions/BREBUnAuthTransactions.component';
+import { DpdcVerifyComponent } from './DPDC/DpdcVerify/DpdcVerify.component';
+import { DpdcFinalPaymentComponent } from './DPDC/DpdcFinalPayment/DpdcFinalPayment.component';
+import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/DpdcUnAuthTransactions.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -63,6 +69,14 @@ const routes: Routes = [
     { path: 'DescoVerify', component: DescoVerifyComponent },
     { path: 'DescoFinalPayment', component: DescoFinalPaymentComponent },
     { path: 'DescoUnAuthTransactions', component: DescoUnAuthTransactionsComponent },
+
+    { path: 'DpdcVerify', component: DpdcVerifyComponent },
+    { path: 'DpdcFinalPayment', component: DpdcFinalPaymentComponent },
+    { path: 'DpdcUnAuthTransactions', component: DpdcUnAuthTransactionsComponent },
+
+    { path: 'BREBVerify', component: BREBVerifyComponent },
+    { path: 'BREBFinalPayment', component: BREBFinalPaymentComponent },
+    { path: 'BREBUnAuthTransactions', component: BREBUnAuthTransactionsComponent },
 
     { path: 'unAuthUsers', component: UnAuthUserComponent },
     

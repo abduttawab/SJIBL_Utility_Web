@@ -1,0 +1,268 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-sm-6">
+      <h4 class="page-title">Utility/ Service Payment</h4>
+    
+    </div>
+    <div class="col-sm-6">
+
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="service.paymentFormModel" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="mt-0 header-title">Bill information</h4> -->
+          <p class="text-muted m-b-30">Please fillup bill information.
+            <span style="float: right;"><button class="btn btn-default"
+               (click)="resetWithDefault(); $event.preventDefault()">Reload</button></span>
+          </p>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="UtilityTypeId">Utility Type</label>
+                <input formControlName="Id" type="hidden">
+                <select class="form-control" formControlName="UtilityTypeId" (change)="getPaymentType()">
+                  <option value="">Select</option>
+
+                  <option *ngFor="let UtilityTypeId of UtilityTypes; let i = index" [value]="UtilityTypes[i].id">
+                    {{UtilityTypes[i].name}}
+                  </option>
+                </select>
+
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('UtilityTypeId').touched
+                          && service.paymentFormModel.get('UtilityTypeId').errors?.required">This field is
+                  mandatory.</label>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="PaymentTypeId">Bill Category</label>
+                <select class="form-control" formControlName="PaymentTypeId">
+                  
+                  <option value="">Select</option>
+
+                  <option *ngFor="let PaymentTypeId of PaymentTypes; let i = index" [value]="PaymentTypes[i].id">
+                    {{PaymentTypes[i].name}}
+                  </option>
+
+                </select>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('PaymentTypeId').touched
+                          && service.paymentFormModel.get('PaymentTypeId').errors?.required">This field is
+                  mandatory.</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="PaymentMethod">Payment Method</label>
+                <select class="form-control" formControlName="PaymentMethod">
+                  <option value="">Select</option>
+                  <option value="CASH">Cash</option>
+                  <option value="TRANSFER">Transfer</option>
+                </select>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('PaymentMethod').touched
+                          && service.paymentFormModel.get('PaymentMethod').errors?.required">This field is
+                  mandatory.</label>
+
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+         
+          
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentMethod'].value=='TRANSFER'">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="CustomerBranchCode">Branch <span class="badge badge-info">CBS</span></label>  
+                <select class="form-control" formControlName="CustomerBranchCode" >
+                  <option value="">Select</option>
+                  <option *ngFor="let district of BranchList; let i = index" [value]="BranchList[i].brancH_CODE">
+                    {{BranchList[i].brancH_NAME}} ({{BranchList[i].brancH_CODE}})
+                  </option>
+                </select>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerBranchCode').touched
+                          && service.paymentFormModel.get('CustomerBranchCode').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="CustomerAccountNo">Client Account No / GL Account Sl <span class="badge badge-info">CBS</span></label>  
+               
+                <input formControlName="CustomerAccountNo" type="text" class="form-control" (blur)="accountPadding()" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerAccountNo').touched
+                          && service.paymentFormModel.get('CustomerAccountNo').errors?.required">This field is mandatory.</label>
+              
+                <label class="text-danger" *ngIf="errorText && service.paymentFormModel.controls['PaymentMethod'].value=='TRANSFER'">{{errorText}}</label>
+               
+               
+                <span *ngIf="AccountInfo">
+                  <label class="text-info">Name: {{AccountInfo.clienT_NAME}}</label><br/>
+                  <label class="text-info">Balance: {{AccountInfo.balance}}</label>
+                  
+                </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="WithdrawalReferenceNumber">Withdrawal Reference <span class="badge badge-info">CBS</span></label>  
+              
+                <select class="form-control" (change)="slipCheckOnChange();accountPadding();" formControlName="WithdrawalReferenceNumber" >
+                  <option value="">Select</option>
+                  <option value="Cheque">Cheque</option>
+                  <option value="Slip">Slip</option>
+                </select>
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('WithdrawalReferenceNumber').touched
+                          && service.paymentFormModel.get('WithdrawalReferenceNumber').errors?.required">This field is mandatory.</label>
+               
+                </div>
+            </div>
+            <div class="col-md-2" *ngIf="service.paymentFormModel.controls['WithdrawalReferenceNumber'].value=='Cheque'">
+              <div class="form-group">
+                <label for="ChequeNumber">Cheque Number <span class="badge badge-info">CBS</span></label>  
+               
+                <input formControlName="ChequeNumber" type="text" class="form-control" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('ChequeNumber').touched
+                          && service.paymentFormModel.get('ChequeNumber').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+            <div class="col-md-2" *ngIf="service.paymentFormModel.controls['WithdrawalReferenceNumber'].value=='Slip'">
+              <div class="form-group">
+                <label for="SlipNumber">Slip Number <span class="badge badge-info">CBS</span></label>  
+               
+                <input formControlName="SlipNumber" type="text" class="form-control" >
+                <label class="text-danger" *ngIf="service.paymentFormModel.get('SlipNumber').touched
+                          && service.paymentFormModel.get('SlipNumber').errors?.required">This field is mandatory.</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="ChequeOrSlipDate">Cheque Or Slip Date <span class="badge badge-info">CBS</span></label>  
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ChequeOrSlipDate"
+                      ngbDatepicker #ChequeOrSlipDate="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="ChequeOrSlipDate.toggle()"
+                        type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('ChequeOrSlipDate').touched
+                  && service.paymentFormModel.get('ChequeOrSlipDate').errors?.dateVaidator">Invalid date formate.</label>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('ChequeOrSlipDate').touched
+                  && service.paymentFormModel.get('ChequeOrSlipDate').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+         
+           
+            
+          </div>
+         
+
+
+
+
+          <div class="row" *ngIf="service.paymentFormModel.controls['PaymentTypeId'].value=='63d65853-c8d2-494c-bb75-899df458defe'">
+              
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="CustomerNo">Customer No</label>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" formControlName="CustomerNo">
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerNo').touched
+                  && service.paymentFormModel.get('CustomerNo').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="Year">Year</label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <select class="form-control" formControlName="Year" required *ngIf="Years">
+                      <option value="">Select Year</option>
+                      <option *ngFor="let option of Years" [value]="option" >{{option}}</option>
+     
+                    </select>
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('Year').touched
+                  && service.paymentFormModel.get('Year').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="Month">Month</label>
+                <div class="form-group">
+                  <div class="input-group">
+
+                    <select class="form-control" formControlName="Month" required *ngIf="Years">
+                      <option value="">Select Month</option>
+                      <option value="01">JANUARY</option>
+                      <option value="02">FEBRUARY</option>
+                      <option value="03">MARCH</option>
+                      <option value="04">APRIL</option>
+                      <option value="05">MAY</option>
+                      <option value="06">JUNE</option>
+                      <option value="07">JULY</option>
+                      <option value="08">AUGUST</option>
+                      <option value="09">SEPTEMBER</option>
+                      <option value="10">OCTOBER</option>
+                      <option value="11">NOVEMBER</option>
+                      <option value="12">DECEMBER</option>
+                    </select>
+                  </div>
+                  <label class="text-danger" *ngIf="service.paymentFormModel.get('Month').touched
+                  && service.paymentFormModel.get('Month').errors?.required">This field is mandatory.</label>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
+      
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+          </div>
+          <div class="form-group mb-0 text-right">
+            <div>
+              <button (click)="onSubmit(); $event.preventDefault()" class="btn btn-primary waves-effect waves-light mr-1">
+                <span>Verify</span>
+              </button>
+              <button type="reset" class="btn btn-secondary waves-effect">Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

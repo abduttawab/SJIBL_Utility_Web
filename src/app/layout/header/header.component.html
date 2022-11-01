@@ -96,7 +96,14 @@ type="ball-scale-multiple"
         
                             <li class="has-submenu" *ngIf="service.isInRole(userRoles,['DESCO_Maker','Admin'])" class="has-submenu"><a
                                     routerLink="/home/DescoVerify"><i class="ti-agenda"></i>DESCO Payment</a></li>
-        
+
+                            <li class="has-submenu" *ngIf="service.isInRole(userRoles,['DPDC_Maker','Admin'])" class="has-submenu"><a
+                                routerLink="/home/DpdcVerify"><i class="ti-agenda"></i>DPDC Payment</a></li>
+
+                            <li class="has-submenu" *ngIf="service.isInRole(userRoles,['BREB_Maker','Admin'])" class="has-submenu"><a
+                                routerLink="/home/BREBVerify"><i class="ti-agenda"></i>BREB Payment</a></li>
+
+                           
           
                         </ul>
                     </li>
@@ -139,6 +146,12 @@ type="ball-scale-multiple"
 
                             <li *ngIf="service.isInRole(userRoles,['DESCO_Checker'])" class="has-submenu"><a
                                 routerLink="/home/DescoUnAuthTransactions"><i class="ti-agenda"></i>DESCO Unauthorized Transactions</a></li>
+                                <li *ngIf="service.isInRole(userRoles,['DPDC_Checker'])" class="has-submenu"><a
+                                    routerLink="/home/DpdcUnAuthTransactions"><i class="ti-agenda"></i>DPDC Unauthorized Transactions</a></li>
+    
+
+                                <li *ngIf="service.isInRole(userRoles,['BREB_Checker'])" class="has-submenu"><a
+                                    routerLink="/home/BREBUnAuthTransactions"><i class="ti-agenda"></i>BREB Unauthorized Transactions</a></li>
                     
                     <li class="has-submenu" *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker','AdminUserChecker'])"><a ><i class="ti-user"></i>User Management</a>
                         <ul class="submenu">
