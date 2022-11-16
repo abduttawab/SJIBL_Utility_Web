@@ -1,0 +1,304 @@
+      <style type="text/css">
+      .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+        /* .table-borders {
+          border: 1px solid !important;
+        } */
+
+        .print-wrap {
+          width: 500px;
+          margin: auto;
+          /*margin-bottom: 30px;*/
+          font-family: Arial;
+          padding: 15px;
+          width: 100%;
+          padding:10px;
+          
+        }
+
+        .loader {
+  border: 16px solid #4e5ccf;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 280px;
+  height: 280px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  z-index: 9999999;
+  position: absolute;
+  top: 7%;
+    left: 39%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+      </style>
+
+      <section id="content">
+        <div class="container">
+        
+          <div class="card">
+            <div class="row" style="margin-top: 25px;
+
+                  margin-left: 33px;">
+             
+              <form [formGroup]="service.reportModel" autocomplete="off" (submit)="generateReport()">
+              
+                <div class="row">
+                 
+
+
+
+                  <div class="col-md-4">
+
+                    <div class="form-group">
+                      <label for="ReportType">Report Type</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <select class="form-control" formControlName="ReportType">
+                            <option value="">Select</option>
+                            <option value="DESCO Postpaid Datewise Bill Collection Report">DESCO Postpaid Datewise Bill Collection Report</option>
+                            <option value="DESCO Postpaid Daily Bill Collection Details Report"> DESCO Postpaid Daily Bill Collection Details Report</option>
+                           
+                          </select>
+
+                         
+                        </div>
+
+                       
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="FromDate">From Date</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="FromDate"
+                            ngbDatepicker #FromDate="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="FromDate.toggle()"
+                              type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <label class="text-danger" *ngIf="service.searchFormModel.get('FromDate').touched
+                        && service.searchFormModel.get('FromDate').errors?.dateVaidator">Invalid date formate.</label>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="ToDate">To Date</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ToDate"
+                            ngbDatepicker #ToDate="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="ToDate.toggle()"
+                              type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+        
+
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="BranchCode">Branch </label>  
+                      <select class="form-control" formControlName="BranchCode" >
+                        <option value="">All</option>
+                        <option *ngFor="let district of BranchList; let i = index" [value]="BranchList[i].brancH_CODE">
+                          {{BranchList[i].brancH_NAME}} ({{BranchList[i].brancH_CODE}})
+                        </option>
+                      </select>
+                      <label class="text-danger" *ngIf="service.paymentFormModel.get('CustomerBranchCode').touched
+                                && service.paymentFormModel.get('CustomerBranchCode').errors?.required">This field is mandatory.</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-0 text-right">
+                  <div>
+                  
+                    <button type="submit" class="btn btn-primary btn-large waves-effect waves-light mr-1">Search <i
+                        class="fa fa-search"></i></button>
+
+                        <a  class="btn btn-warning btn-large waves-effect waves-light mr-1" id="downloadbtn" (click)="print_area()"><b>PDF <i
+                          class="fa fa-print"></i></b></a>
+
+                  </div>
+                </div>
+              </form>
+         
+            </div>
+           
+            
+          
+            <div class="">
+              <br /><br />
+              <div id="printArea" >
+
+                <div class="row" style="width: 100%;margin:0px auto 20px;padding:0px;color: #333;">
+                  
+                  <div class="col-md-4 col-sm-4 text-center">
+                    <img class="img-responsive" style="width: 25%;margin-top: 3%;"
+                    src="assets/images/sjibl.jpg" alt="">
+                  </div>
+                  <div class="col-md-4 col-sm-4 text-center">
+
+                    <h6 style="color: #333;margin-bottom: 0px;">
+
+                      Shahjalal Islami Bank Ltd. <br />
+                      Dhaka Electric Supply Company Limited 
+                    </h6>
+                  
+                 
+                    <span style="font-size: 14px;">{{service.reportModel.value.ReportType}}</span><br />
+                    <span style="font-size: 14px;">Collection Date: {{service.SearchFromDate}} 
+                    <span *ngIf="service.SearchToDate">To: {{service.SearchToDate}} </span></span>
+                  </div>
+                
+                  <div class="col-md-4 col-sm-4 text-center">
+                    <img class="img-responsive" style="width: 36%;margin-top: 5%;"
+                    src="assets/images/Logo_of_DESCO.png" alt="">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-8"></div>
+                  <div class="col-md-4">
+                    <div >
+                      <span>Report Generaed Time: {{currentDate}}</span>
+                    </div>
+                  </div>
+                  
+                  
+
+                </div>
+
+                <div class="row" *ngIf="service.reportModel.value.ReportType=='DESCO Postpaid Datewise Bill Collection Report'">
+   
+                  <div class="col-md-12">
+
+                    <table class="table table-bordered" id="pdftable_1" style="font-size: smaller;">
+                     
+                      <tbody>
+                        <tr>
+                          <td><b>S.N</b></td>
+                          <td><b>Date</b> </td>
+                          <td><b>Quantity</b> </td>
+                          <td><b>NetAmount</b></td>
+                          <td><b>VAT(Tk.)</b> </td>
+                          <td><b>TotalPaid (Tk.)</b></td>
+                      
+
+                     
+                        </tr>
+                      
+                        <tr *ngFor="let data of AllData; let j = index">
+                          <td>{{data.sl }}</td>
+                          <td>{{data.date }}</td>
+                          <td>{{data.quantity }}</td>
+                          <td>{{data.netAmount }}</td>
+                          <td>{{data.vat }}</td>
+                          <td>{{data.totalPaid }}</td>
+                          
+                        </tr>
+  
+                        <tr *ngIf="PrepaidDetailsReports_GrandTotal">
+                      
+                          <td colspan="2"> Total </td>
+
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].quantity }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].netAmount }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].vat }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalPaid }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+
+                  </div>
+                  
+                
+                </div>
+
+                 
+                <div class="row" *ngIf="service.reportModel.value.ReportType=='DESCO Postpaid Daily Bill Collection Details Report'">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <table class="table table-bordered" id="pdftable_2" style="font-size: smaller;">
+                
+                      <tbody>
+                        <tr>
+                          <td><b>S.N</b></td>
+                          <td><b>TransactionNo</b> </td>
+                          <td><b>BillNo</b> </td>
+                          <td><b>Date</b> </td>
+                          <td><b>NetAmount</b></td>
+                          <td><b>VAT(Tk.)</b> </td>
+                          <td><b>TotalPaid (Tk.)</b></td>
+                      
+
+                     
+                        </tr>
+                        <tr *ngFor="let data of AllData; let j = index">
+                          <td>{{data.sl }}</td>
+                          <td>{{data.transactionNo }}</td>
+                          <td>{{data.billNo }}</td>
+                          <td>{{data.date }}</td>
+                          <td>{{data.netAmount }}</td>
+                          <td>{{data.vat }}</td>
+                          <td>{{data.totalPaid }}</td>
+                        
+                        </tr>
+  
+                        <tr *ngIf="PrepaidDetailsReports_GrandTotal">
+                      
+                          <td colspan="4"> Total </td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].netAmount }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].vat }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalPaid }}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-1"></div>
+                
+                </div>
+                  
+              
+                 
+                
+
+           
+  
+            
+
+
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </section>

@@ -61,6 +61,7 @@ export class DescoPaymentService {
 
   reportModel = this.fb.group({
     ReportType: [''],
+    BranchCode: [''],
    
     FromDate: ['', [CommonService.dateVaidator]],
     ToDate: ['', [CommonService.dateVaidator]]
@@ -328,30 +329,41 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
              + this.reportModel.value.ToDate.year;
     
              return this.http.get(this.BaseConrtURI +
-               'GetDateRangeWiseReportDescoPostPaids?fromDate='+this.SearchFromDate+'&toDate='+this.SearchToDate);
+               'desco_datewisereports?fromDate='+this.SearchFromDate+'&toDate='+this.SearchToDate);
             }
 
 
     return this.http.get(this.BaseConrtURI + 'GetDateWiseReportDescoPostPaids?date='+this.SearchFromDate);
   }
 
-  PrepaidDetailsReports(){
+  desco_datewisereports(){
     if(this.reportModel.value.FromDate){
       this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
             +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
              + this.reportModel.value.FromDate.year;
     }
-    return this.http.get(this.BaseConrtURI + 'PrepaidDetailsReports?date='+this.SearchFromDate);
+
+    if(this.reportModel.value.ToDate){
+      this.SearchToDate=('0'+this.reportModel.value.ToDate.day).slice(-2)+'-'
+            +('0'+this.reportModel.value.ToDate.month).slice(-2)+'-'
+             + this.reportModel.value.ToDate.year;
+    }
+
+
+    return this.http.get(this.BaseConrtURI +
+       'desco_datewisereports?fromDate='+this.SearchFromDate+
+       '&toDate='+this.SearchToDate+'&branchCode='+this.reportModel.value.BranchCode);
  
   }
 
-  PrepaidSummaryReports(){
+  desco_detailsreports(){
     if(this.reportModel.value.FromDate){
       this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
             +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
              + this.reportModel.value.FromDate.year;
     }
-    return this.http.get(this.BaseConrtURI + 'PrepaidSummaryReports?date='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI + 'desco_detailsreports?reportdate='+this.SearchFromDate
+    +'&branchCode='+this.reportModel.value.BranchCode);
  
   }
 

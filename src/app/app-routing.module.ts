@@ -37,6 +37,8 @@ import { BREBUnAuthTransactionsComponent } from './BREB/BREBUnAuthTransactions/B
 import { DpdcVerifyComponent } from './DPDC/DpdcVerify/DpdcVerify.component';
 import { DpdcFinalPaymentComponent } from './DPDC/DpdcFinalPayment/DpdcFinalPayment.component';
 import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/DpdcUnAuthTransactions.component';
+import { DESCOReport } from './DESCO/Report/DESCOReport.component';
+import { DPDCReport } from './DPDC/Report/DPDCReport.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -69,10 +71,14 @@ const routes: Routes = [
     { path: 'DescoVerify', component: DescoVerifyComponent },
     { path: 'DescoFinalPayment', component: DescoFinalPaymentComponent },
     { path: 'DescoUnAuthTransactions', component: DescoUnAuthTransactionsComponent },
+    { path: 'DESCOReport', component: DESCOReport },
 
     { path: 'DpdcVerify', component: DpdcVerifyComponent },
     { path: 'DpdcFinalPayment', component: DpdcFinalPaymentComponent },
     { path: 'DpdcUnAuthTransactions', component: DpdcUnAuthTransactionsComponent },
+    { path: 'DPDCReport', component: DPDCReport },
+
+    //
 
     { path: 'BREBVerify', component: BREBVerifyComponent },
     { path: 'BREBFinalPayment', component: BREBFinalPaymentComponent },

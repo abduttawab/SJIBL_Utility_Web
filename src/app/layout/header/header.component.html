@@ -131,6 +131,19 @@ type="ball-scale-multiple"
                                     <li  class="has-submenu"><a   routerLink="/home/NescoPrePiadReport">Nesco Prepiad</a></li>
         
                                 </span>
+
+                                <span 
+                                *ngIf="service.isInRole(userRoles,['DESCO_Maker','DESCO_Checker','Admin'])">
+                                  
+                                    <li  class="has-submenu"><a routerLink="/home/DESCOReport">DESCO Report</a></li>
+        
+                                </span>
+                                <span 
+                                *ngIf="service.isInRole(userRoles,['DPDC_Maker','DPDC_Checker','Admin'])">
+                                  
+                                    <li  class="has-submenu"><a routerLink="/home/DPDCReport">DPDC Report</a></li>
+        
+                                </span>
             
               
                             </ul>

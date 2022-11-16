@@ -83,6 +83,8 @@ import { DpdcPaymentService } from './shared/DpdcPayment.service';
 import { DpdcVerifyComponent } from './DPDC/DpdcVerify/DpdcVerify.component';
 import { DpdcFinalPaymentComponent } from './DPDC/DpdcFinalPayment/DpdcFinalPayment.component';
 import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/DpdcUnAuthTransactions.component';
+import { DESCOReport } from './DESCO/Report/DESCOReport.component';
+import { DPDCReport } from './DPDC/Report/DPDCReport.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +137,8 @@ import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/D
     DescoVerifyComponent,
     DescoFinalPaymentComponent,
     DescoUnAuthTransactionsComponent,
+    DESCOReport,
+    DPDCReport,
 
 
     BREBVerifyComponent,

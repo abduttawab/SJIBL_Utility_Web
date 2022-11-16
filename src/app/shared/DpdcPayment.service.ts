@@ -60,7 +60,7 @@ export class DpdcPaymentService {
 
   reportModel = this.fb.group({
     ReportType: [''],
-   
+    BranchCode: [''],
     FromDate: ['', [CommonService.dateVaidator]],
     ToDate: ['', [CommonService.dateVaidator]]
   });
@@ -292,9 +292,7 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
     }
   }
 
-  GetDateWiseReportDpdcPostPaids() {
-
-  
+  dpdc_datewisereports(){
     if(this.reportModel.value.FromDate){
       this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
             +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
@@ -305,87 +303,24 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
       this.SearchToDate=('0'+this.reportModel.value.ToDate.day).slice(-2)+'-'
             +('0'+this.reportModel.value.ToDate.month).slice(-2)+'-'
              + this.reportModel.value.ToDate.year;
-    
-             return this.http.get(this.BaseConrtURI +
-               'GetDateRangeWiseReportDpdcPostPaids?fromDate='+this.SearchFromDate+'&toDate='+this.SearchToDate);
-            }
-
-
-    return this.http.get(this.BaseConrtURI + 'GetDateWiseReportDpdcPostPaids?date='+this.SearchFromDate);
-  }
-
-  PrepaidDetailsReports(){
-    if(this.reportModel.value.FromDate){
-      this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
-            +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
-             + this.reportModel.value.FromDate.year;
     }
-    return this.http.get(this.BaseConrtURI + 'PrepaidDetailsReports?date='+this.SearchFromDate);
+
+
+    return this.http.get(this.BaseConrtURI +
+       'dpdc_datewisereports?fromDate='+this.SearchFromDate+
+       '&toDate='+this.SearchToDate+'&branchCode='+this.reportModel.value.BranchCode);
  
   }
 
-  PrepaidSummaryReports(){
+  dpdc_detailsreports(){
     if(this.reportModel.value.FromDate){
       this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
             +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
              + this.reportModel.value.FromDate.year;
     }
-    return this.http.get(this.BaseConrtURI + 'PrepaidSummaryReports?date='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI + 'dpdc_detailsreports?reportdate='+this.SearchFromDate
+    +'&branchCode='+this.reportModel.value.BranchCode);
  
-  }
-
-
-
-  DateWiseSummaryReportDpdcPostPaids(){
-
-  
-    if(this.reportModel.value.FromDate){
-      this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
-            +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
-             + this.reportModel.value.FromDate.year;
-    }
-
-
-    return this.http.get(this.BaseConrtURI + 'DateWiseSummaryReportDpdcPostPaids?date='+this.SearchFromDate);
-  }
-
-  MonthlySummaryReportDpdcPostPaids(){
-
-  
-    if(this.reportModel.value.FromDate){
-      this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
-            +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
-             + this.reportModel.value.FromDate.year;
-
-             var lastDay = new Date(this.reportModel.value.FromDate.year,
-              this.reportModel.value.FromDate.month, 0);
-
-              console.log(this.datepipe.transform(lastDay, 'dd-MM-yyyy'));
-
-              this.SearchToDate=this.datepipe.transform(lastDay, 'dd-MM-yyyy');
-    }
-
-
-    return this.http.get(this.BaseConrtURI + 'MonthlySummaryReportDpdcPostPaids?fromDate='+this.SearchFromDate);
-  }
-  MonthlyDatewiseReportDpdcPostPaids(){
-
-  
-    if(this.reportModel.value.FromDate){
-      this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
-            +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
-             + this.reportModel.value.FromDate.year;
-
-             var lastDay = new Date(this.reportModel.value.FromDate.year,
-              this.reportModel.value.FromDate.month, 0);
-
-              console.log(this.datepipe.transform(lastDay, 'dd-MM-yyyy'));
-
-              this.SearchToDate=this.datepipe.transform(lastDay, 'dd-MM-yyyy');
-    }
-
-
-    return this.http.get(this.BaseConrtURI + 'MonthlyReportDpdcPostpaids?date='+this.SearchFromDate);
   }
 
   //
