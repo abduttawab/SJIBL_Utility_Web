@@ -28,6 +28,7 @@ export class BREBPaymentService {
 
   paymentFormModel = this.fb.group({
     Id: [''],
+    CompanySetupId: [null, [Validators.required]],
     UtilityTypeId: [null, [Validators.required]],
     PaymentTypeId: ['', Validators.required],
     PaymentMethod: ['', Validators.required],
@@ -61,6 +62,7 @@ export class BREBPaymentService {
 
   reportModel = this.fb.group({
     ReportType: [''],
+    CompanyShortCode: [''],
    
     FromDate: ['', [CommonService.dateVaidator]],
     ToDate: ['', [CommonService.dateVaidator]]
@@ -172,6 +174,7 @@ if(this.paymentFormModel.value.ChequeOrSlipDate){
       var body = {
         Id: this.paymentFormModel.value.Id,
         UtilityTypeId: this.paymentFormModel.value.UtilityTypeId,
+        CompanyShortCode: this.paymentFormModel.value.CompanySetupId,
         PaymentTypeId: this.paymentFormModel.value.PaymentTypeId,
         PaymentMethod: this.paymentFormModel.value.PaymentMethod,
         CustomerBranchCode: this.paymentFormModel.getRawValue().CustomerBranchCode,
@@ -266,6 +269,9 @@ if(this.paymentFormModel.value.ChequeOrSlipDate){
       console.log(error);
     }
   }
+  Dispute(transId,disputeType){
+    return this.http.get(this.BaseConrtURI + 'Dispute?transId=' + transId + '&disputeType='+disputeType);
+  }
 //
   getverified(trxId) {
     return this.http.get(this.BaseConrtURI + 'GetVerifiedTrx?trxId=' + trxId);
@@ -337,13 +343,15 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
     return this.http.get(this.BaseConrtURI + 'GetDateWiseReportBREBPostPaids?date='+this.SearchFromDate);
   }
 
-  PrepaidDetailsReports(){
+  GetDateWiseDetailsReport(){
     if(this.reportModel.value.FromDate){
       this.SearchFromDate=('0'+this.reportModel.value.FromDate.day).slice(-2)+'-'
             +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
              + this.reportModel.value.FromDate.year;
     }
-    return this.http.get(this.BaseConrtURI + 'PrepaidDetailsReports?date='+this.SearchFromDate);
+    return this.http.get(this.BaseConrtURI 
+      + 'GetDateWiseDetailsReport?date='+this.SearchFromDate +
+       '&collectionStatus=&companyShortCode='+this.reportModel.value.CompanyShortCode);
  
   }
 

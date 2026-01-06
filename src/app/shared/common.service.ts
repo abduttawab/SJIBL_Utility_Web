@@ -64,9 +64,12 @@ public getEmpInfoFromHrm(empId) {
 public getAccountInfo(branch,accNo) {
   return this.http.get(this.BaseURI+"Common/GetAccountInfo?branch="+branch+"&accNo="+accNo);
 }
-
+//getCompanyCode
 public getUtilityType() {
   return this.http.get(this.BaseURI+"Common/GetUtilityType");
+}
+public getCompanyCode() {
+  return this.http.get(this.BaseURI+"Common/GetCompanyCode");
 }
 public getClientIP() {
 var rrr = calljsapi(this.clientIpUrl);
@@ -85,6 +88,10 @@ public getPaymentType(utilityTypeId) {
 
 getGetCompanyInfo(companyCode) {
   return this.http.get(this.BaseURI + 'Common/GetCompanySetup?companyCode='+companyCode);
+}
+
+getCompanySetups() {
+  return this.http.get(this.BaseURI + 'Common/GetCompanySetups');
 }
 updateCompanyInfo() {
 

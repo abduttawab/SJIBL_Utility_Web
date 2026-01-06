@@ -26,6 +26,7 @@ import { BREBPaymentService } from 'src/app/shared/BREBPayment.service';
       public response: {dbPath: ''};
 
       UtilityTypes: any[];
+      CompanySetups: any[];
       PaymentTypes: any[];
 
       constructor(private commonService: CommonService,
@@ -58,6 +59,7 @@ import { BREBPaymentService } from 'src/app/shared/BREBPayment.service';
         this.service.paymentFormModel.get('CustomerBranchCode').enable();
        
        this.getUtilityType();
+       this.getCompanySetups();
        this.service.setPaymentMethodValidators();
 
        this.service.setPayByBillValidators();
@@ -84,6 +86,27 @@ import { BREBPaymentService } from 'src/app/shared/BREBPayment.service';
            this.service.paymentFormModel.get('CustomerBranchCode').enable();
          }
       }
+
+// getCompanySetups
+
+getCompanySetups(){
+  this.commonService.getCompanySetups().subscribe(
+    (res:any) =>{
+      
+      this.CompanySetups=res.data;
+
+
+      this.CompanySetups = Object.assign([], this.CompanySetups).filter(
+        item => item.companyShortCode.indexOf("BREB") > -1
+     );
+     
+    },
+    err =>{
+     
+    }
+  );
+}
+
       getUtilityType(){
         this.commonService.getUtilityType().subscribe(
           (res:any) =>{
@@ -121,6 +144,7 @@ import { BREBPaymentService } from 'src/app/shared/BREBPayment.service';
  
         this.service.paymentFormModel.controls['Year'].setValue("");
         this.service.paymentFormModel.controls['Month'].setValue("");
+        this.service.paymentFormModel.controls['CompanySetupId'].setValue("");
         this.service.paymentFormModel.controls['UtilityTypeId'].setValue("");
         this.service.paymentFormModel.controls['PaymentTypeId'].setValue("");
         this.service.paymentFormModel.controls['PaymentMethod'].setValue("");

@@ -80,12 +80,14 @@ export class BREBFinalPaymentComponent implements OnInit {
   getVerifiedTrans(traxId) {
     this.service.getverified(traxId).subscribe(
       (res: any) => {
-        console.log(res.data);
+      
 
         this.TransactionInfo = res.data.brebTransactionInfo;
         this.TransactionInfo.isMake = res.data.isMake;
         this.TransactionInfo.paymentTypeId = res.data.paymentTypeId;
         
+        
+        this.service.paymentFormModel.controls['CompanySetupId'].setValue(res.data.companyShortCode);
         this.service.paymentFormModel.controls['TransactionId'].setValue(res.data.id);
         this.service.paymentFormModel.controls['UtilityTypeId'].setValue(res.data.utilityTypeId);
         this.service.paymentFormModel.controls['PaymentTypeId'].setValue(res.data.paymentTypeId);
@@ -109,25 +111,31 @@ export class BREBFinalPaymentComponent implements OnInit {
   getVerifiedTransAuth(traxId) {
     this.service.getverifiedAuth(traxId).subscribe(
       (res: any) => {
-        console.log(res.data);
+     
 
-        this.TransactionInfo = res.data.brebTransactionInfo;
-        this.TransactionInfo.isMake = res.data.isMake;
-        this.TransactionInfo.paymentTypeId = res.data.paymentTypeId;
-        
-        this.service.paymentFormModel.controls['TransactionId'].setValue(res.data.id);
-        this.service.paymentFormModel.controls['UtilityTypeId'].setValue(res.data.utilityTypeId);
-        this.service.paymentFormModel.controls['PaymentTypeId'].setValue(res.data.paymentTypeId);
-        this.service.paymentFormModel.controls['PaymentMethod'].setValue(res.data.paymentMethod);
-        this.service.paymentFormModel.controls['CustomerBranchCode'].setValue(res.data.customerBranchCode);
-        this.service.paymentFormModel.controls['CustomerAccountNo'].setValue(res.data.customerAccountNo);
-        if(res.data.brebTransactionInfo){
-          this.service.paymentFormModel.controls['SMSAccountNo'].setValue(res.data.brebTransactionInfo.smsAccountNo);
-         
+        if(res.isSuccessfull){
+          this.TransactionInfo = res.data.brebTransactionInfo;
+          this.TransactionInfo.isMake = res.data.isMake;
+          this.TransactionInfo.paymentTypeId = res.data.paymentTypeId;
           
+          this.service.paymentFormModel.controls['CompanySetupId'].setValue(res.data.companyShortCode);
+          this.service.paymentFormModel.controls['TransactionId'].setValue(res.data.id);
+          this.service.paymentFormModel.controls['UtilityTypeId'].setValue(res.data.utilityTypeId);
+          this.service.paymentFormModel.controls['PaymentTypeId'].setValue(res.data.paymentTypeId);
+          this.service.paymentFormModel.controls['PaymentMethod'].setValue(res.data.paymentMethod);
+          this.service.paymentFormModel.controls['CustomerBranchCode'].setValue(res.data.customerBranchCode);
+          this.service.paymentFormModel.controls['CustomerAccountNo'].setValue(res.data.customerAccountNo);
+          if(res.data.brebTransactionInfo){
+            this.service.paymentFormModel.controls['SMSAccountNo'].setValue(res.data.brebTransactionInfo.smsAccountNo);
+          }
+          
+          this.service.paymentFormModel.controls['Amount'].setValue(res.data.amount);
+        }else{
+          this.toastr.error('Ops! Something went worng!', res.message);
         }
-        
-        this.service.paymentFormModel.controls['Amount'].setValue(res.data.amount);
+      
+
+       
    
       },
       err => {

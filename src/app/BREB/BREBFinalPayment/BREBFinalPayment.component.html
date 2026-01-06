@@ -18,6 +18,7 @@
      
 
           <input formControlName="Id" type="hidden">
+          <input formControlName="CompanySetupId" type="hidden">
           <input formControlName="UtilityTypeId" type="hidden">
           <input formControlName="PaymentTypeId" type="hidden">
        
@@ -157,6 +158,14 @@
           
           <div class="form-group mb-0 text-right">
             <div>
+
+              <div style="color: red; font-weight: bold; border: 1px solid red; padding: 10px; background-color: #ffe6e6;">
+                ⚠️ <strong>Note:</strong> After submitting the transaction, it must be authorized by the user (checker) within thirty (30) minutes, otherwise posting will be decline/cancel from BREB server end.
+            </div>
+            <br/>
+            
+
+
               <button type="button" *ngIf="userService.isInRole(userRoles,['BREB_Maker','Admin']) && !TransactionInfo.isMake" (click)="onMake(); $event.preventDefault()" class="btn btn-primary waves-effect waves-light mr-1">
                 <span>Submit</span>
               </button>

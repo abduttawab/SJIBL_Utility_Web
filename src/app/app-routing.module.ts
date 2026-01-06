@@ -39,6 +39,10 @@ import { DpdcFinalPaymentComponent } from './DPDC/DpdcFinalPayment/DpdcFinalPaym
 import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/DpdcUnAuthTransactions.component';
 import { DESCOReport } from './DESCO/Report/DESCOReport.component';
 import { DPDCReport } from './DPDC/Report/DPDCReport.component';
+import { BREBReport } from './BREB/Report/BREBReport.component';
+import { BKASHFinalPaymentComponent } from './BKASH/BKASHFinalPayment/BKASHFinalPayment.component';
+import { BKASHUnAuthTransactionsComponent } from './BKASH/BKASHUnAuthTransactions/BKASHUnAuthTransactions.component';
+import { BKASHVerifyComponent } from './BKASH/BKASHVerify/BKASHVerify.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/user/login',pathMatch:'full'},
@@ -78,7 +82,13 @@ const routes: Routes = [
     { path: 'DpdcUnAuthTransactions', component: DpdcUnAuthTransactionsComponent },
     { path: 'DPDCReport', component: DPDCReport },
 
-    //
+
+    { path: 'BKASHVerify', component: BKASHVerifyComponent },
+    { path: 'BKASHFinalPayment', component: BKASHFinalPaymentComponent },
+    { path: 'BKASHUnAuthTransactions', component: BKASHUnAuthTransactionsComponent },
+
+    { path: 'BREBReport', component: BREBReport },
+    // 
 
     { path: 'BREBVerify', component: BREBVerifyComponent },
     { path: 'BREBFinalPayment', component: BREBFinalPaymentComponent },

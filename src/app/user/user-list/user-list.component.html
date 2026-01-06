@@ -68,7 +68,7 @@
      
         <table class="table table-striped table-sm table-bordered
                  dt-responsive nowrap" style="border-collapse: collapse;
-                  border-spacing: 0; width: 100%;">
+                  border-spacing: 0; font-size: 11px;">
           <thead>
             <tr class="text-center">
               <th>User Name</th>
@@ -90,7 +90,12 @@
               <td>{{model.branch}}</td>
               <td>{{model.timeExtensionDatetime}}</td>
               <td>{{model.clientIp}}</td>
-              <td><span *ngFor="let role of model.roles; let i = index"><span *ngIf="i>0">,</span>"{{role}}"</span></td>
+              <td>
+                <span *ngFor="let role of model.roles; let i = index">
+                <span *ngIf="i>0">,<br/></span>
+                "{{role}}"
+              </span>
+              </td>
 
               <td>    
                 <button *ngIf="model.isActive" type="button" class="btn btn-sm btn-warning" placement="top" (click)="edit(model.id)"><i class="ti-pencil-alt"></i></button>

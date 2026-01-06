@@ -104,6 +104,8 @@ type="ball-scale-multiple"
                                 routerLink="/home/BREBVerify"><i class="ti-agenda"></i>BREB Payment</a></li>
 
                            
+                                <li class="has-submenu" *ngIf="service.isInRole(userRoles,['BKASH_Maker','Admin'])" class="has-submenu"><a
+                                    routerLink="/home/BKASHVerify"><i class="ti-agenda"></i>BKASH Payment</a></li>
           
                         </ul>
                     </li>
@@ -144,8 +146,15 @@ type="ball-scale-multiple"
                                     <li  class="has-submenu"><a routerLink="/home/DPDCReport">DPDC Report</a></li>
         
                                 </span>
+
+                                <span 
+                                *ngIf="service.isInRole(userRoles,['BREB_Maker','BREB_Checker','Admin'])">
+                                  
+                                    <li  class="has-submenu"><a routerLink="/home/BREBReport">BREB Report</a></li>
+        
+                                </span>
             
-              
+                                
                             </ul>
                         </li>
 
@@ -166,6 +175,10 @@ type="ball-scale-multiple"
                                 <li *ngIf="service.isInRole(userRoles,['BREB_Checker'])" class="has-submenu"><a
                                     routerLink="/home/BREBUnAuthTransactions"><i class="ti-agenda"></i>BREB Unauthorized Transactions</a></li>
                     
+                                    <li *ngIf="service.isInRole(userRoles,['BKASH_Checker'])" class="has-submenu"><a
+                                        routerLink="/home/BKASHUnAuthTransactions"><i class="ti-agenda"></i>BKASH Unauthorized Transactions</a></li>
+
+
                     <li class="has-submenu" *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker','AdminUserChecker'])"><a ><i class="ti-user"></i>User Management</a>
                         <ul class="submenu">
                             <li *ngIf="service.isInRole(userRoles,['Admin','AdminUserMaker'])" class="has-submenu"><a

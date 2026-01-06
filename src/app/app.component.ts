@@ -9,7 +9,7 @@ import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'CoreTestWeb';
+  title = 'SJIBL_Utility_Web';
 
  
 }

@@ -69,6 +69,8 @@ export class UserFormComponent implements OnInit {
             this.service.formModel.controls['BranchId'].setValue(res.data.branchId);
             this.service.formModel.controls['Email'].setValue(res.data.email);
             this.service.formModel.controls['selectedRoles'].setValue(null);
+
+            
             
 
             this.errorText = null;

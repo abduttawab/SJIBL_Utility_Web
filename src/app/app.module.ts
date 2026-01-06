@@ -85,6 +85,10 @@ import { DpdcFinalPaymentComponent } from './DPDC/DpdcFinalPayment/DpdcFinalPaym
 import { DpdcUnAuthTransactionsComponent } from './DPDC/DpdcUnAuthTransactions/DpdcUnAuthTransactions.component';
 import { DESCOReport } from './DESCO/Report/DESCOReport.component';
 import { DPDCReport } from './DPDC/Report/DPDCReport.component';
+import { BREBReport } from './BREB/Report/BREBReport.component';
+import { BKASHFinalPaymentComponent } from './BKASH/BKASHFinalPayment/BKASHFinalPayment.component';
+import { BKASHUnAuthTransactionsComponent } from './BKASH/BKASHUnAuthTransactions/BKASHUnAuthTransactions.component';
+import { BKASHVerifyComponent } from './BKASH/BKASHVerify/BKASHVerify.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +134,17 @@ import { DPDCReport } from './DPDC/Report/DPDCReport.component';
     NescoVerifyComponent,
     NescoFinalPaymentComponent,
     NescoUnAuthTransactionsComponent,
+
+
+
+    BKASHVerifyComponent,
+    BKASHFinalPaymentComponent,
+    BKASHUnAuthTransactionsComponent,
+
+
+
+
+
     NescoPostPiadDatwise,
     NescoPrePiadReport,
     NescoPrePiadReceipt,
@@ -140,7 +155,8 @@ import { DPDCReport } from './DPDC/Report/DPDCReport.component';
     DESCOReport,
     DPDCReport,
 
-
+    BREBReport,
+    
     BREBVerifyComponent,
     BREBFinalPaymentComponent,
     BREBUnAuthTransactionsComponent,

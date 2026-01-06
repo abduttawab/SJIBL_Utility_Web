@@ -1,0 +1,358 @@
+      <style type="text/css">
+      .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+        /* .table-borders {
+          border: 1px solid !important;
+        } */
+
+        .print-wrap {
+          width: 500px;
+          margin: auto;
+          /*margin-bottom: 30px;*/
+          font-family: Arial;
+          padding: 15px;
+          width: 100%;
+          padding:10px;
+          
+        }
+
+        .loader {
+  border: 16px solid #4e5ccf;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 280px;
+  height: 280px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  z-index: 9999999;
+  position: absolute;
+  top: 7%;
+    left: 39%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+      </style>
+
+      <section id="content">
+        <div class="container">
+        
+          <div class="card">
+            <div class="row" style="margin-top: 25px;
+
+                  margin-left: 33px;">
+              <div class="col-sm-9">
+                <a class="btn btn-outline-danger" (click)="goBack()"><b>Back</b></a>
+               
+                &nbsp;
+                <a class="btn btn-outline-warning" id="downloadbtn" (click)="print_area()"><b>PDF</b></a>
+
+               
+              </div>
+              <form [formGroup]="service.reportModel" autocomplete="off" (submit)="generateReport()">
+              
+                <div class="row">
+                  <div class="col-md-4">
+
+                    <div class="form-group">
+                      <label for="ReportType">Report Type</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <select class="form-control" formControlName="ReportType">
+                            <option value="">Select</option>
+                            <option value="BREB Collection Details Report">BREB Collection Details Report</option>
+                            <!-- <option value="BREB Collection Summary Report"> BREB Collection Summary Report</option> -->
+                           
+                          </select>
+
+                         
+                        </div>
+
+                       
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="FromDate">Date</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="FromDate"
+                            ngbDatepicker #FromDate="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="FromDate.toggle()"
+                              type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <label class="text-danger" *ngIf="service.searchFormModel.get('FromDate').touched
+                        && service.searchFormModel.get('FromDate').errors?.dateVaidator">Invalid date formate.</label>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="CompanyShortCode">POLLI BIDDUT SOMITY</label>
+                
+                      <select class="form-control" formControlName="CompanyShortCode" >
+                        <option value="">Select</option>
+      
+                        <option *ngFor="let CompanySetup of CompanySetups; let i = index" [value]="CompanySetups[i].companyShortCode">
+                          {{CompanySetups[i].companyShortCode}}
+                        </option>
+                      </select>
+      
+                      <label class="text-danger" *ngIf="service.paymentFormModel.get('UtilityTypeId').touched
+                                && service.paymentFormModel.get('UtilityTypeId').errors?.required">This field is
+                        mandatory.</label>
+      
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4">
+                    <!-- <div class="form-group">
+                      <label for="ToDate">To Date</label>
+                      <div class="form-group">
+                        <div class="input-group">
+
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" formControlName="ToDate"
+                            ngbDatepicker #ToDate="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="ToDate.toggle()"
+                              type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div> -->
+                  </div>
+
+                 
+        
+
+                  
+                </div>
+                <div class="form-group mb-0 text-right">
+                  <div>
+                  
+                    <button type="submit" class="btn btn-primary btn-large waves-effect waves-light mr-1">Search <i
+                        class="fa fa-search"></i></button>
+
+                  </div>
+                </div>
+              </form>
+         
+            </div>
+           
+            
+          
+            <div class="">
+              <br /><br />
+              <div id="printArea" >
+
+                <div class="row" style="width: 100%;margin:0px auto 20px;padding:0px;color: #333;">
+                  
+                  <div class="col-md-4 col-sm-4 text-center">
+                    <img class="img-responsive" style="width: 25%;margin-top: 3%;"
+                    src="assets/images/sjibl.jpg" alt="">
+                  </div>
+                  <div class="col-md-4 col-sm-4 text-center">
+
+                    <h6 style="color: #333;margin-bottom: 0px;">
+
+                      Shahjalal Islami Bank Ltd. <br />
+                      Electricity Bill Collection Report of <br />
+                      Bangladesh Rural Electrification Board
+                    </h6>
+                  
+                 
+                    <span style="font-size: 14px;">{{service.reportModel.value.ReportType}}</span><br />
+                    <span style="font-size: 14px;">Collection Date: {{service.SearchFromDate}} 
+                    <span *ngIf="service.SearchToDate">To: {{service.SearchToDate}} </span></span>
+                  </div>
+                
+                  <div class="col-md-4 col-sm-4 text-center">
+                    <img class="img-responsive" style="width: 20%;margin-top: 5%;"
+                    src="assets/images/breb_logo.jpg" alt="">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-8"></div>
+                  <div class="col-md-4">
+                    <div >
+                      <span>Report Generaed Time: {{currentDate}}</span>
+                    </div>
+                  </div>
+                  
+                  
+
+                </div>
+
+                <div class="row" *ngIf="service.reportModel.value.ReportType=='BREB Collection Details Report'">
+   
+                  
+                  <div class="col-md-12">
+
+                    <div style="color: red; font-weight: bold; border: 1px solid red; padding: 10px; background-color: #ffe6e6;">
+                      <span>Total Difference: {{ (totalBrebAmount - totalAmount) | number:'1.2-2' }}</span>
+                    </div>
+
+
+                    <div >
+                      <span>BREB End</span>
+                    </div>
+                    <table class="table table-bordered" style="font-size: x-small;">
+                      <thead>
+                        <tr>
+                          <th>S.N</th>
+                          <th>SMS Account No</th>
+                          <th>Ref No</th>
+                          <th>Payer Transaction ID</th>
+                          <th>Bill Type</th>
+                          <th>Amount</th>
+                          <th>VAT</th>
+                         
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of AllData.breB_Res_Report_Details; let j = index">
+                          <td>{{ j + 1 }}</td>
+                          <td>{{ data.smsAccountNo }}</td>
+                          <td>{{ data.refNo }}</td>
+                          <td>{{ data.payerTransactionId }}</td>
+                          <td>{{ data.billType == 30 ? 'Waiting for Acknowledge' : (data.billType == 50 ? 'Paid Acknowledged' : 'Unknown') }}</td>
+
+                          <td>{{ data.amount | number:'1.2-2' }}</td>
+                          <td>{{ data.vat | number:'1.2-2' }}</td>
+                         
+                        </tr>
+                        <!-- Total Row -->
+                        <tr>
+                          <td colspan="5" class="text-right"><strong>Total:</strong></td>
+                          <td><strong>{{ totalBrebAmount | number:'1.2-2' }}</strong></td>
+                          <td><strong>{{ totalBrebVat | number:'1.2-2' }}</strong></td>
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                  </div>
+
+                 
+                  <div class="col-md-12">
+                    <div >
+                      <span>Bank's End</span>
+                    </div>
+                    <table class="table table-bordered" style="font-size: x-small;">
+                      <thead>
+                        <tr>
+                          <th>S.N</th>
+                          <th>SMS Account No</th>
+                          <th>Ref No</th>
+                          <th>Payer Transaction ID</th>
+                          <th>Bill Type</th>
+                          <th>Amount</th>
+                          <th>VAT</th>
+                        
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of AllData.transactionList; let j = index">
+                          <td>{{ j + 1 }}</td>
+                          <td>{{ data.customerCode }}</td>
+                          <td>{{ data.utilityTrxTransactionId }}</td>
+                          <td>{{ data.id }}</td>
+                          <td>{{ data.utilityTrxMessage }}</td>
+                          <td>{{ data.amount | number:'1.2-2' }}</td>
+                          <td>{{ data.vatAmount | number:'1.2-2' }}</td>
+                 
+                        </tr>
+                        <!-- Total Row -->
+                        <tr>
+                          <td colspan="5" class="text-right"><strong>Total:</strong></td>
+                          <td><strong>{{ totalAmount | number:'1.2-2' }}</strong></td>
+                          <td><strong>{{ totalVat | number:'1.2-2' }}</strong></td>
+                  
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                  </div>
+                  
+                
+                </div>
+
+                 
+                <div class="row" *ngIf="service.reportModel.value.ReportType=='BREB Collection Summary Report'">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10">
+                    <table class="table table-bordered" style="font-size: smaller;">
+                      <thead>
+                        <th>S.N</th>
+                        <th>Collection Date</th>
+                        <th>Vending System</th>
+                        <th>No. of Successful Transactions </th>
+                        <th>Total Collection Amount</th>
+                        <th>Total Revenue Amount </th>
+                        <th>Total Vat Amount</th>
+   
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of AllData; let j = index">
+                          <td>{{j+1 }}</td>
+                          <td>{{data.date }}</td>
+                          <td>{{data.vendingSystem }}</td>
+                          <td>{{data.noOfTransactions }}</td>
+                          <td>{{data.totalCollectionAmount }}</td>
+                          <td>{{data.totalRevenueAmount }}</td>
+                          <td>{{data.totalVATAmount }}</td>
+                        
+                        </tr>
+  
+                        <tr *ngIf="PrepaidDetailsReports_GrandTotal">
+                      
+                          <td colspan="3"> Total </td>
+
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].noOfTransactions }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalCollectionAmount }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalRevenueAmount }}</td>
+                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalVATAmount }}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-1"></div>
+                
+                </div>
+                  
+              
+                 
+                
+
+           
+  
+            
+
+
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </section>

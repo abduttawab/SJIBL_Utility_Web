@@ -12,6 +12,7 @@ import { formatDate } from '@angular/common';
 import { UserService } from '../shared/user.service';
 import * as jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { BREBPaymentService } from '../shared/BREBPayment.service';
 
 @Component({
   selector: 'transactions',
@@ -28,6 +29,7 @@ export class TransactionsComponent implements OnInit {
   SourceByList= [];
   SalesAgentList= [];
   UtilityTypes: any[];
+  CompanyCodes: any[];
   PaymentTypes: any[];
   totalAmount=0;
   viewPrintArea=false;
@@ -36,6 +38,7 @@ export class TransactionsComponent implements OnInit {
     userRoles;
   constructor(
     public service : PaymentService,
+    public brebService : BREBPaymentService,
      private commonService : CommonService,
     private toastr: ToastrService,
     private modalService: NgbModal,
@@ -55,6 +58,7 @@ export class TransactionsComponent implements OnInit {
         this.service.searchFormModel.controls['UtilityTypeId'].setValue("");
         this.service.searchFormModel.controls['PaymentTypeId'].setValue("");
         this.getUtilityType();
+        this.getCompanyCode();
 
         setTimeout(() => {
           /** spinner ends after 1 seconds */
@@ -79,6 +83,52 @@ export class TransactionsComponent implements OnInit {
     })
    
   }
+
+  dispute(transId,disputeType){
+
+
+    let message = "";
+    
+    if (disputeType === '5') {
+        message += "Are you sure you want to run a dispute (Acknowledge) on this transaction?";
+    } else{
+      message += "Are you sure you want to run a dispute (Reset) on this transaction?";
+    }
+
+
+    if(confirm(message)) {
+      this.brebService.Dispute(transId,disputeType).subscribe(
+        (res: any) => {
+          if (res.isSuccessfull) {
+            //this.getData();
+            this.toastr.warning('Data updated!', 'Record successfully updated.');
+          } else {
+            this.toastr.error('Ops! Something went worng!', res.message);
+          }
+        },
+        err => {
+          console.log(err);
+     
+        }
+      );
+    }
+  }
+
+  getCompanyCode(){
+    this.commonService.getCompanyCode().subscribe(
+      (res:any) =>{
+        
+        this.CompanyCodes=res.data;
+        
+        console.log(res.data);
+      },
+      err =>{
+        console.log(err);
+      }
+    );
+  }
+
+
   getUtilityType(){
     this.commonService.getUtilityType().subscribe(
       (res:any) =>{
@@ -110,15 +160,24 @@ export class TransactionsComponent implements OnInit {
     return Number(val);
   }
   onSearch() {
+    this.spinner.show();
     this.service.searchTransactions().subscribe(
       (res: any) => {
 
         
         this.Transactions=res.data;
         this.totalAmountFunc(res.data);
+        setTimeout(() => {
+          /** spinner ends after 1 seconds */
+          this.spinner.hide();
+        }, 600);
       },
       err => {
         console.log(err);
+        setTimeout(() => {
+          /** spinner ends after 1 seconds */
+          this.spinner.hide();
+        }, 600);
    
       }
     );

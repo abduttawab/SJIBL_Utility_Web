@@ -737,6 +737,10 @@ if(this.paymentFormModel.value.ChequeOrSlipDate){
   allowTranxDecline(trxId){
     return this.http.get(this.BaseConrtURI + 'AllowTranxDecline?tranxId=' + trxId);
   }
+  Dispute(cbsId,disputeType){
+    return this.http.get(this.BaseConrtURI + 'Dispute?cbsId=' + cbsId + '&disputeType='+disputeType);
+  }
+
   getDashboardVM(){
 
     return this.http.get(this.BaseConrtURI + 'GetDashBoardData');

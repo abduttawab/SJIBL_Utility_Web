@@ -160,7 +160,7 @@
                   border-spacing: 0; width: 100%;">
           <thead>
             <tr class="text-center">
-              <th>Date (Report)</th>
+              <!-- <th>Date (Report)</th> -->
               <th>A/C No</th>
               <th>Customer Name</th>
               <th>Bill No</th>
@@ -171,14 +171,14 @@
              
               <th>CBS TrxId</th>
       
-              <th>Date</th>
+              <!-- <th>Date</th> -->
               <th>Action</th>
             </tr>
           </thead>
           <tbody class="text-center">
 
             <tr *ngFor="let transaction of Transactions; let i = index">
-              <td>{{transaction.addedDate | date: 'MM/dd/yyyy'}}</td>
+              <!-- <td>{{transaction.addedDate | date: 'MM/dd/yyyy'}}</td> -->
              
               <td>{{transaction.customerCode}}</td>
               <td>{{transaction.customerName}}</td>
@@ -193,7 +193,7 @@
             
               <td>{{transaction.cbsTransactionId}}</td>
       
-              <td>{{transaction.addedDate | date: 'dd/MM/yyyy, h:mm a'}}</td>
+              <!-- <td>{{transaction.addedDate | date: 'dd/MM/yyyy, h:mm a'}}</td> -->
 
               <td>
                 <button type="button" class="btn btn-sm btn-success" (click)="authorize(transaction.id)"
