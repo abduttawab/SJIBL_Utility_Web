@@ -88,13 +88,12 @@ jspdf(filename){
 
   doc.setFontSize(9);
   doc.setFont(undefined, 'bold');
-  doc.text("Shahjalal Islami Bank Ltd.", pageWidth / 2, 10, {align: 'center'});
-  doc.text("Electricity Bill Collection Report of", pageWidth / 2, 14, {align: 'center'});
-  doc.text("Dhaka Power Distribution Company Limited", pageWidth / 2, 18, {align: 'center'});
+  doc.text("Shahjalal Islami Bank PLC", pageWidth / 2, 10, {align: 'center'});
+
   
   doc.setFontSize(8);
   doc.setFont(undefined, 'normal');
-  doc.text(this.service.reportModel.value.ReportType, pageWidth / 2, 22, {align: 'center'});
+  doc.text(this.service.reportModel.value.ReportType, pageWidth / 2, 14, {align: 'center'});
 
   let date = "";
   if(this.service.SearchToDate){
@@ -103,7 +102,7 @@ jspdf(filename){
     date ="Collection Date: "+ this.service.SearchFromDate;
   }  
 
-  doc.text(date, pageWidth / 2, 26, {align: 'center'});
+  doc.text(date, pageWidth / 2, 18, {align: 'center'});
 
   doc.addImage("assets/images/sjibl.jpg", "JPEG", 10, 8, 20, 20);
   doc.addImage("assets/images/Logo_of_DPDC.png", "PNG", 170, 8, 25, 20);
@@ -145,6 +144,14 @@ DDT(doc){
   bodyStyles: {
     fillColor: [255, 255, 255],
     textColor: 0,
+  },
+  columnStyles: {
+    1: { halign: 'center' }, // Quantity
+    2: { halign: 'right' },  // Bill Amount
+    3: { halign: 'right' },  // VAT
+    4: { halign: 'right' },  // Total Amount
+    5: { halign: 'right' },  // Stamp Fee
+    6: { halign: 'right' }   // Net Amount
   }
     
     //, useCss: true
@@ -157,19 +164,34 @@ DSS(doc){
   styles: {
     lineColor: 0,
     lineWidth: 0.5 ,
-    fontSize:6,
+    fontSize:5,
     valign: 'middle',
     halign: 'center'
   },
   headStyles: {
     fillColor: [255, 255, 255],
-    fontSize: 6,
+    fontSize: 5,
     textColor: 0
     
   },
   bodyStyles: {
     fillColor: [255, 255, 255],
     textColor: 0,
+  },
+  columnStyles: {
+    4: { halign: 'right' }, // Bill Amount
+    5: { halign: 'right' }, // VAT
+    6: { halign: 'right' }, // Total Amount
+    7: { halign: 'right' }, // Stamp
+    8: { halign: 'right' }  // Net DPDC Amount
+  },
+  didParseCell: function (data) {
+    // Check if this is a location header row (colspan=10 in HTML)
+    if (data.cell.raw && typeof data.cell.raw === 'object' && 'getAttribute' in data.cell.raw && 
+        (data.cell.raw as HTMLElement).getAttribute('colspan') === '10') {
+      data.cell.styles.halign = 'left';
+      data.cell.styles.fontStyle = 'bold';
+    }
   }
     
     //, useCss: true
@@ -277,8 +299,20 @@ dpdc_detailsreports(){
   this.service.dpdc_detailsreports().subscribe(
     (res: any) => {
     
-      this.AllData = res.data.filter(i => i.type != "GrandTotal");
-      this.PrepaidDetailsReports_GrandTotal = res.data.filter(i => i.type === "GrandTotal");
+      // Separate location headers and data rows
+      const locationHeaders = res.data.filter(i => i.type === "LocationHeader");
+      const dataRows = res.data.filter(i => i.type === "EachDate");
+      const grandTotal = res.data.filter(i => i.type === "GrandTotal");
+      
+      // Merge them in the correct order: location header followed by its data rows
+      this.AllData = [];
+      locationHeaders.forEach(header => {
+        this.AllData.push(header);
+        const locationData = dataRows.filter(row => row.location === header.location);
+        this.AllData.push(...locationData);
+      });
+      
+      this.PrepaidDetailsReports_GrandTotal = grandTotal;
 
       console.log(this.AllData);
       this.spinner.hide();

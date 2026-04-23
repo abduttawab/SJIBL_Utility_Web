@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-apiEndpoint : "http://localhost:47884/api/",
+ //apiEndpoint : "http://localhost:47884/api/",
  fileEndpoint : "http://localhost:47884/",
- getClientIPEndpoint : "http://10.101.104.157/UltimusTrxApi/getClientIP.php"
-   //apiEndpoint : "http://10.101.101.143:5000/api/" http://172.31.198.235
+ getClientIPEndpoint : "http://10.101.104.157/UltimusTrxApi/getClientIP.php",
+  apiEndpoint : "http://10.101.101.143:5000/api/" //http://172.31.198.235
   
 };
 

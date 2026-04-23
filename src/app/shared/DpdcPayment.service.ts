@@ -318,8 +318,18 @@ ToDate = this.searchFormModel.value.ToDate.year+'-'
             +('0'+this.reportModel.value.FromDate.month).slice(-2)+'-'
              + this.reportModel.value.FromDate.year;
     }
-    return this.http.get(this.BaseConrtURI + 'dpdc_detailsreports?reportdate='+this.SearchFromDate
-    +'&branchCode='+this.reportModel.value.BranchCode);
+
+    if(this.reportModel.value.ToDate){
+      this.SearchToDate=('0'+this.reportModel.value.ToDate.day).slice(-2)+'-'
+            +('0'+this.reportModel.value.ToDate.month).slice(-2)+'-'
+             + this.reportModel.value.ToDate.year;
+    } else {
+      // If no ToDate provided, use FromDate as ToDate
+      this.SearchToDate = this.SearchFromDate;
+    }
+
+    return this.http.get(this.BaseConrtURI + 'dpdc_detailsreports?fromDate='+this.SearchFromDate
+    +'&toDate='+this.SearchToDate+'&branchCode='+this.reportModel.value.BranchCode);
  
   }
 

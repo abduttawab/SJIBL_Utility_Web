@@ -19,7 +19,7 @@ RUN node_modules/.bin/ng build --prod
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:latest
+FROM nginx:1.29.8-alpine
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/CoreTestWeb /usr/share/nginx/html

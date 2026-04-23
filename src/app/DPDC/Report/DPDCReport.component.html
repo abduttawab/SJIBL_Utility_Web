@@ -167,8 +167,7 @@
 
                     <h6 style="color: #333;margin-bottom: 0px;">
 
-                      Shahjalal Islami Bank Ltd. <br />
-                      Dhaka Power Distribution Company Limited 
+                      Shahjalal Islami Bank PLC 
                     </h6>
                   
                  
@@ -203,35 +202,33 @@
                      
                       <tbody>
                         <tr>
-                          <td><b>S.N</b></td>
-                          <td><b>Date</b> </td>
+                          <td><b>Code</b></td>
                           <td><b>Quantity</b> </td>
-                          <td><b>NetAmount</b></td>
-                          <td><b>VAT(Tk.)</b> </td>
-                          <td><b>TotalPaid (Tk.)</b></td>
-                      
-
-                     
+                          <td><b>Bill Amount</b></td>
+                          <td><b>VAT</b> </td>
+                          <td><b>Total Amount</b></td>
+                          <td><b>Stamp Fee</b></td>
+                          <td><b>Net Amount</b></td>
                         </tr>
                       
                         <tr *ngFor="let data of AllData; let j = index">
-                          <td>{{data.sl }}</td>
-                          <td>{{data.date }}</td>
-                          <td>{{data.quantity }}</td>
-                          <td>{{data.netAmount }}</td>
-                          <td>{{data.vat }}</td>
-                          <td>{{data.totalPaid }}</td>
-                          
+                          <td>{{data.code}}</td>
+                          <td style="text-align: center;">{{data.quantity}}</td>
+                          <td style="text-align: right;">{{data.billAmount | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{data.vat | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{data.totalAmount | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{data.stamp | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{data.netAmount | number:'1.2-2'}}</td>
                         </tr>
   
-                        <tr *ngIf="PrepaidDetailsReports_GrandTotal">
-                      
-                          <td colspan="2"> Total </td>
-
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].quantity }}</td>
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].netAmount }}</td>
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].vat }}</td>
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalPaid }}</td>
+                        <tr *ngIf="PrepaidDetailsReports_GrandTotal" style="font-weight: bold; background-color: #e8e8e8;">
+                          <td style="text-align: center;">Total</td>
+                          <td style="text-align: center;">{{PrepaidDetailsReports_GrandTotal[0].quantity}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].billAmount | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].vat | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].totalAmount | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].stamp | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].netAmount | number:'1.2-2'}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -244,45 +241,57 @@
 
                  
                 <div class="row" *ngIf="service.reportModel.value.ReportType=='DPDC Postpaid Daily Bill Collection Details Report'">
-                  <div class="col-md-1"></div>
-                  <div class="col-md-10">
+                  <div class="col-md-12">
                     <table class="table table-bordered" id="pdftable_2" style="font-size: smaller;">
                 
                       <tbody>
                         <tr>
-                          <td><b>S.N</b></td>
-                          <td><b>TransactionNo</b> </td>
-                          <td><b>BillNo</b> </td>
-                          <td><b>Date</b> </td>
-                          <td><b>NetAmount</b></td>
-                          <td><b>VAT(Tk.)</b> </td>
-                          <td><b>TotalPaid (Tk.)</b></td>
-                      
-
-                     
+                          <td><b>Sl.</b></td>
+                          <td><b>Transaction Date</b> </td>
+                          <td><b>Bill No</b> </td>
+                          <td><b>Account No</b> </td>
+                          <td><b>Bill Amount</b></td>
+                          <td><b>VAT</b> </td>
+                          <td><b>Total Amount</b></td>
+                          <td><b>Stamp</b></td>
+                          <td><b>Net DPDC Amount</b></td>
+                          <td><b>Bank Trn ID</b></td>
                         </tr>
-                        <tr *ngFor="let data of AllData; let j = index">
-                          <td>{{data.sl }}</td>
-                          <td>{{data.transactionNo }}</td>
-                          <td>{{data.billNo }}</td>
-                          <td>{{data.date }}</td>
-                          <td>{{data.netAmount }}</td>
-                          <td>{{data.vat }}</td>
-                          <td>{{data.totalPaid }}</td>
                         
-                        </tr>
-  
-                        <tr *ngIf="PrepaidDetailsReports_GrandTotal">
-                      
-                          <td colspan="4"> Total </td>
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].netAmount }}</td>
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].vat }}</td>
-                          <td>{{PrepaidDetailsReports_GrandTotal[0].totalPaid }}</td>
+                        <ng-container *ngFor="let data of AllData; let j = index">
+                          <!-- Location Group Header -->
+                          <tr *ngIf="data.type === 'LocationHeader'" style="background-color: #f0f0f0;">
+                            <td colspan="10"><b>Location: {{data.location}}</b></td>
                           </tr>
+                          
+                          <!-- Data Rows -->
+                          <tr *ngIf="data.type === 'EachDate'">
+                            <td>{{data.sl}}</td>
+                            <td>{{data.date}}</td>
+                            <td>{{data.billNo}}</td>
+                            <td>{{data.accountNo}}</td>
+                            <td style="text-align: right;">{{data.billAmount | number:'1.2-2'}}</td>
+                            <td style="text-align: right;">{{data.vat | number:'1.2-2'}}</td>
+                            <td style="text-align: right;">{{data.totalAmount | number:'1.2-2'}}</td>
+                            <td style="text-align: right;">{{data.stamp | number:'1.2-2'}}</td>
+                            <td style="text-align: right;">{{data.netDPDCAmount | number:'1.2-2'}}</td>
+                            <td>{{data.bankTrnId}}</td>
+                          </tr>
+                        </ng-container>
+  
+                        <!-- Grand Total Row -->
+                        <tr *ngIf="PrepaidDetailsReports_GrandTotal" style="font-weight: bold; background-color: #e8e8e8;">
+                          <td colspan="4" style="text-align: center;">Total</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].billAmount | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].vat | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].totalAmount | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].stamp | number:'1.2-2'}}</td>
+                          <td style="text-align: right;">{{PrepaidDetailsReports_GrandTotal[0].netDPDCAmount | number:'1.2-2'}}</td>
+                          <td></td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
-                  <div class="col-md-1"></div>
                 
                 </div>
                   
