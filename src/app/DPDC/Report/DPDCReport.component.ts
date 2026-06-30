@@ -205,6 +205,10 @@ DSS(doc){
     this.userId= localStorage.getItem('UserID');
 
     this.BranchList = await this.getBranchList();
+    this.BranchList.unshift({
+    brancH_CODE: '99999',
+    brancH_NAME: 'Touch Pay'
+    });
 
     this.service.reportModel.controls['BranchCode'].setValue(localStorage.getItem('BranchId'));
     
@@ -279,11 +283,13 @@ DSS(doc){
 
     this.service.dpdc_datewisereports().subscribe(
       (res: any) => {
+
+        console.log('res data: ',res.data);
       
         this.AllData = res.data.filter(i => i.type != "GrandTotal");
         this.PrepaidDetailsReports_GrandTotal = res.data.filter(i => i.type === "GrandTotal");
 
-        console.log(this.AllData);
+        //console.log(this.AllData);
         this.spinner.hide();
       },
       err => {
